@@ -1,0 +1,626 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1885465668292514859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1885465668292514858}
+  - component: {fileID: 1885465668292514856}
+  - component: {fileID: 1885465668292514857}
+  m_Layer: 0
+  m_Name: HighwayBridge_test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1885465668292514858
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885465668292514859}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 112.4, y: -0, z: 429.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1885465668436342667}
+  - {fileID: 5546288598807155909}
+  - {fileID: 5546288598409564601}
+  - {fileID: 5546288597982403002}
+  - {fileID: 5546288597739200570}
+  - {fileID: 5546288598298784993}
+  - {fileID: 5546288597368097991}
+  - {fileID: 2562222982251505286}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1885465668292514856
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885465668292514859}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 57c7298999e8bb244a3f7a17c4f4623f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1885465668292514857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885465668292514859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 031938d63f83604419cdfa12a950ce6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bridge_:
+  - {fileID: 1885465668436342666}
+  - {fileID: 5546288598807155908}
+  - {fileID: 5546288598409564600}
+  - {fileID: 5546288597982403003}
+  - {fileID: 5546288597739200571}
+  - {fileID: 5546288598298784992}
+  - {fileID: 5546288597368097990}
+  car_pos_: {fileID: 5682025877663761269}
+--- !u!1 &5682025877663761269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2562222982251505286}
+  m_Layer: 0
+  m_Name: CarPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2562222982251505286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5682025877663761269}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.12, z: 20.15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1885465668292514858}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1885465667870626682
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 1885465668292514858}
+    m_Modifications:
+    - target: {fileID: 6256314694403516313, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516314, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_Name
+      value: HighwayBridge (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+--- !u!1 &5546288598298784992 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6256314694403516314, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+  m_PrefabInstance: {fileID: 1885465667870626682}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5546288598298784993 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+  m_PrefabInstance: {fileID: 1885465667870626682}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1885465668152737313
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 1885465668292514858}
+    m_Modifications:
+    - target: {fileID: 6256314694403516313, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516314, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_Name
+      value: HighwayBridge (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+--- !u!4 &5546288597982403002 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+  m_PrefabInstance: {fileID: 1885465668152737313}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5546288597982403003 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6256314694403516314, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+  m_PrefabInstance: {fileID: 1885465668152737313}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1885465668396058529
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 1885465668292514858}
+    m_Modifications:
+    - target: {fileID: 6256314694403516313, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516314, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_Name
+      value: HighwayBridge (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+--- !u!4 &5546288597739200570 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+  m_PrefabInstance: {fileID: 1885465668396058529}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5546288597739200571 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6256314694403516314, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+  m_PrefabInstance: {fileID: 1885465668396058529}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1885465668532743004
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 1885465668292514858}
+    m_Modifications:
+    - target: {fileID: 6256314694403516313, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516314, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_Name
+      value: HighwayBridge (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+--- !u!1 &5546288597368097990 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6256314694403516314, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+  m_PrefabInstance: {fileID: 1885465668532743004}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5546288597368097991 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+  m_PrefabInstance: {fileID: 1885465668532743004}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1885465669509149534
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 1885465668292514858}
+    m_Modifications:
+    - target: {fileID: 6256314694403516313, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516314, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_Name
+      value: HighwayBridge (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+--- !u!1 &5546288598807155908 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6256314694403516314, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+  m_PrefabInstance: {fileID: 1885465669509149534}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5546288598807155909 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+  m_PrefabInstance: {fileID: 1885465669509149534}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1885465669604619810
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 1885465668292514858}
+    m_Modifications:
+    - target: {fileID: 6256314694403516313, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516314, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_Name
+      value: HighwayBridge (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+--- !u!1 &5546288598409564600 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6256314694403516314, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+  m_PrefabInstance: {fileID: 1885465669604619810}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5546288598409564601 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+  m_PrefabInstance: {fileID: 1885465669604619810}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5546288597733068816
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 1885465668292514858}
+    m_Modifications:
+    - target: {fileID: 6256314694403516313, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516314, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_Name
+      value: HighwayBridge
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+--- !u!1 &1885465668436342666 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6256314694403516314, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+  m_PrefabInstance: {fileID: 5546288597733068816}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1885465668436342667 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6256314694403516315, guid: e05ae019662dc5241bef66efd34c0a1a, type: 3}
+  m_PrefabInstance: {fileID: 5546288597733068816}
+  m_PrefabAsset: {fileID: 0}

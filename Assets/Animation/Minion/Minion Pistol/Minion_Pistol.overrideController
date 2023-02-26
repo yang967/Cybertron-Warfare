@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Minion_Pistol
+  m_Controller: {fileID: 9100000, guid: 6f70e17af0e99bb46809e1da9e87f5ab, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 5d1b60a8e0f06ab4b813e2dc44ddea6d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1a7e80f954477f04e9f618123358506c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 396944eeef90959409b7024a8f3f9ae8, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2c5c70ed3a0d7ea41abb44732f18dd8d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d63067009337ede4b80635f1400f9e8d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5cb983404bad8d244a33c56e75116ae4, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: caffb0bd15ad3834d8eba1a339575020, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f995582afda1fda47b60ee1253841c95, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 26a0dd07aa0fd704b981a5f3dd084357, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4b6046ded8dcc2440a598f48c9396819, type: 2}
