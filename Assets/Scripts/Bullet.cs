@@ -87,7 +87,10 @@ public class Bullet : MonoBehaviour
             HitEffect_.GetComponent<Explosion>().ExplodeEffect();
 
             if (killed && from != null)
+            {
                 from.GetComponent<PlayerControl>().AddExp(target_.GetComponent<Control>() != null ? target_.GetComponent<Control>().getLevel() : -2, 0);
+                from.GetComponent<PlayerControl>().addCurrency(target_.name.Replace("(Clone)", ""));
+            }
         } else
         {
             HitEffect_.GetComponent<Explosion>().Explode();

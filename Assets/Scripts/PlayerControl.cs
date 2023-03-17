@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerControl : Control
 {
@@ -14,6 +15,7 @@ public class PlayerControl : Control
     List<string> Backpack;
     int backpack_count;
     int currency;
+    [SerializeField] TextMeshProUGUI currency_display;
 
     protected override  void Awake()
     {
@@ -26,6 +28,9 @@ public class PlayerControl : Control
         Backpack = new List<string>(GameManager.BACKPACK_SIZE);
         currency = GameManager.INITIAL_CURRENCY;
         backpack_count = 0;
+        currency = GameManager.INITIAL_CURRENCY;
+        if(currency_display != null)
+            currency_display.text = "Currency: " + currency;
     }
 
     protected override void GeneralUpdate()
@@ -185,5 +190,12 @@ public class PlayerControl : Control
 
         exp -= next_exp;
         next_exp = Mathf.RoundToInt(GameManager.Initial_LevelUp_Exp * Mathf.Pow(GameManager.LevelUpExp_Increment, level - 1));
+    }
+
+    public void addCurrency(string name)
+    {
+        currency += GameManager.instance.getCurrency(name);
+        if(currency_display != null)
+            currency_display.text = "Currency: " + currency;
     }
 }

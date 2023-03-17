@@ -111,11 +111,8 @@ public class Attack : MonoBehaviour
             if (other.gameObject.layer == 6 && target.Equals(other.transform.parent.parent.gameObject))
             {
                 in_range = false;
-                chase();
-            }
-            if(!in_range)
-            {
                 animator_.SetBool("attack", false);
+                chase();
                 return;
             }
         }

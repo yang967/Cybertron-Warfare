@@ -83,7 +83,7 @@ public class MinionAttack : Attack
         base.OnTriggerExit(other);
         if(other.gameObject.layer == 6 && !other.transform.parent.parent.gameObject.Equals(target))
         {
-            queue.RemoveInstruction(new Instruction(1, other.transform.parent.parent.gameObject));
+            chase();
         }
     }
 
@@ -92,5 +92,12 @@ public class MinionAttack : Attack
         if (team_ != -1)
             return;
         team_ = team;
+    }
+
+    public void RemoveTarget(GameObject obj)
+    {
+        targets.Remove(obj);
+        if (target == obj)
+            target = null;
     }
 }

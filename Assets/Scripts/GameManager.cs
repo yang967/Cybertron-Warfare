@@ -43,6 +43,12 @@ public class GameManager : MonoBehaviour
     public const int BACKPACK_SIZE = 7;
     public const int INITIAL_CURRENCY = 100;
 
+    public const int CURRENCY_PER_MINION_MELEE = 20;
+    public const int CURRENCY_PER_MINION_RANGE = 45;
+    public const int CURRENCY_PER_MINION_CANNON = 135;
+    public const int CURRENCY_PER_CANNON = 250;
+    public const int CURRENCY_PER_HERO_LEVEL = 50;
+
     Dictionary<string, int> transformers_dict_;
     List<Transformer> transformers_;
     Dictionary<string, Device> devices_;
@@ -131,5 +137,19 @@ public class GameManager : MonoBehaviour
             return;
 
         Debug.Log("Team " + i + " win!");
+    }
+
+    public int getCurrency(string name, int level = 0)
+    {
+        Debug.Log(name);
+        if (name == "MinionMelee")
+            return CURRENCY_PER_MINION_MELEE;
+        if (name == "MinionPistol")
+            return CURRENCY_PER_MINION_RANGE;
+        if (name == "MinionCannon")
+            return CURRENCY_PER_MINION_CANNON;
+        if (name == "Turret")
+            return CURRENCY_PER_CANNON;
+        return level * CURRENCY_PER_HERO_LEVEL;
     }
 }
