@@ -55,6 +55,7 @@ public class Attack : MonoBehaviour
         target = null;
         if (targets.Count == 0)
             return;
+        in_range = false;
         target = targets.First.Value;
         targets.RemoveFirst();
     }
@@ -62,6 +63,7 @@ public class Attack : MonoBehaviour
     public void setTarget(GameObject target)
     {
         this.target = target;
+        in_range = false;
         chase();
     }
 
