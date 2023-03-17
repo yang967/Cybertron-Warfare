@@ -50,7 +50,7 @@ public class MinionAttack : Attack
                 animator_.SetBool("attack", true);
                 return;
             }
-            if (other.gameObject.Equals(transform.parent.GetChild(0).GetChild(0).gameObject))
+            /*if (other.gameObject.Equals(transform.parent.GetChild(0).GetChild(0).gameObject))
                 return;
             if (other.gameObject.layer != 6 && other.gameObject.layer != 12)
                 return;
@@ -67,7 +67,7 @@ public class MinionAttack : Attack
                     queue.Insert_and_Stash(new Instruction(1, other.transform.parent.parent.gameObject));
                 else
                     queue.Insert_Instruction(new Instruction(1, other.transform.parent.parent.gameObject));
-            }
+            }*/
         }
         catch(System.NullReferenceException)
         {

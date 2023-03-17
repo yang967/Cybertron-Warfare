@@ -92,7 +92,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e1ec1162809720444bbd32d2cb7d8750, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e03627ad4bf07b24a81519d813180293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health_bar_: {fileID: 3279880034838942747}
+  health_bar_: {fileID: 266657062783249679}
   team: 0
   max_HP_: 50000
   defend_: 0
@@ -333,9 +333,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 528878f1411d0d44684cf8c764b16788, type: 3}
---- !u!114 &3279880034838942747 stripped
+--- !u!114 &266657062783249679 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8872378432439915563, guid: 528878f1411d0d44684cf8c764b16788, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6131131378321386815, guid: 528878f1411d0d44684cf8c764b16788, type: 3}
   m_PrefabInstance: {fileID: 6243533548206391344}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

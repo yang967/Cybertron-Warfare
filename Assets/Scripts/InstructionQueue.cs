@@ -29,7 +29,8 @@ public class InstructionQueue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        next_instruction();
+        if(instruction_complete())
+            next_instruction();
         count = queue_.Count;
         
     }
@@ -54,10 +55,13 @@ public class InstructionQueue : MonoBehaviour
         }
     }
 
-    void next_instruction()
+    //0: Go to a certain position
+    //1: Attack an object
+    //2: Chase an object
+    //3: Go to an object
+
+    public void next_instruction()
     {
-        if (!instruction_complete())
-            return;
         if (queue_.Count == 0)
         {
             current = null;
@@ -83,6 +87,9 @@ public class InstructionQueue : MonoBehaviour
             case 2:
                 locked = true;
                 break;
+            case 3:
+                agent_.destination = current.getTargetObject().transform.position;
+                break;
             default:
                 Debug.Log("Instruction Type " + current.getInstructionType() + " NOT EXIST!");
                 break;
@@ -97,6 +104,7 @@ public class InstructionQueue : MonoBehaviour
         switch(current.getInstructionType())
         {
             case 0:
+            case 3:
                 Vector3 destination = agent_.destination;
                 if(Mathf.Abs((transform.position - destination).magnitude) <= agent_.baseOffset + 0.01)
                     return true;
@@ -125,19 +133,8 @@ public class InstructionQueue : MonoBehaviour
                 break;
             case 2:
                 destination = agent_.destination;
-                if (current.getTarget() == null)
-                {
-                    locked = false;
-                    agent_.SetDestination(transform.position);
-                    return true;
-                }
-                if (attack.isInRange())
-                {
-                    locked = false;
-                    agent_.SetDestination(transform.position);
-                    return true;
-                }
-                if (Mathf.Abs((transform.position - destination).magnitude) <= agent_.baseOffset + 0.01f)
+                if (current.getTargetObject() == null || attack.isInRange() || Mathf.Abs((transform.position - destination).magnitude) <= agent_.baseOffset + 0.01f
+                    || (current.getTargetObject().GetComponent<PlayerBase>() != null && current.getTargetObject().GetComponent<PlayerBase>().getHP() <= 0))
                 {
                     locked = false;
                     agent_.SetDestination(transform.position);

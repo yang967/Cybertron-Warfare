@@ -10,6 +10,10 @@ public class PlayerControl : Control
     int level;
     int exp;
     int next_exp;
+    List<string> Devices;
+    List<string> Backpack;
+    int backpack_count;
+    int currency;
 
     protected override  void Awake()
     {
@@ -18,6 +22,10 @@ public class PlayerControl : Control
         level = 1;
         exp = 0;
         next_exp = GameManager.Initial_LevelUp_Exp;
+        Devices = new List<string>(GameManager.DEVICE_NUM);
+        Backpack = new List<string>(GameManager.BACKPACK_SIZE);
+        currency = GameManager.INITIAL_CURRENCY;
+        backpack_count = 0;
     }
 
     protected override void GeneralUpdate()
@@ -65,6 +73,38 @@ public class PlayerControl : Control
         agent_.speed = character.getSpeed();
         agent_.radius = radius_;
         attack.setAnimator(character_obj_);
+    }
+
+    public void AddDevice(Device device)
+    {
+        if(Devices[device.getSlot()] != "")
+        {
+            if (backpack_count < GameManager.BACKPACK_SIZE)
+            {
+                Backpack.Add(device.getName());
+                backpack_count++;
+            }
+            return;
+        }
+
+        character.AddDevice(device);
+        Devices[device.getSlot()] = device.getName();
+    }
+
+    public void RemoveDevice(int slot)
+    {
+        if (Devices[slot] == "")
+            return;
+        character.RemoveDevice(GameManager.instance.getDevice(Devices[slot]));
+        Devices[slot] = "";
+    }
+
+    public void RemoveBackpack(int slot)
+    {
+        if (Backpack[slot] == "")
+            return;
+        Backpack[slot] = "";
+        backpack_count--;
     }
 
     public void AddEffect(Effect added)

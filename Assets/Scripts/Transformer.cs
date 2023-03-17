@@ -25,6 +25,7 @@ public class Transformer
     float ignore_;
     float crit_;
     float crit_damage_;
+    float power_;
 
     public Transformer()
     {
@@ -48,9 +49,10 @@ public class Transformer
         ignore_ = 0;
         crit_ = 0;
         crit_damage_ = 0;
+        power_ = 0;
     }
 
-    public Transformer(string name, float HP, float damage, float vehicle_damage, float crit, float crit_damage, float ignore, float attack_rate, float vehicle_attack_rate, float attack_range, 
+    public Transformer(string name, float HP, float power, float damage, float vehicle_damage, float crit, float crit_damage, float ignore, float attack_rate, float vehicle_attack_rate, float attack_range, 
         float vehicle_attack_range, float view_range, float defend, float speed, float vehicle_speed, bool vehicle_movable, int vehicle_type, Ability[] abilities)
     {
         name_ = name;
@@ -73,9 +75,10 @@ public class Transformer
         shield_ = 0;
         crit_ = crit;
         crit_damage_ = crit_damage;
+        power_ = power;
     }
 
-    public Transformer(string name, float HP, float damage, float crit, float crit_damage, float ignore, float attack_rate, float attack_range,
+    public Transformer(string name, float HP, float power, float damage, float crit, float crit_damage, float ignore, float attack_rate, float attack_range,
        float view_range, float defend, float speed, float vehicle_speed, bool vehicle_movable, int vehicle_type, Ability[] abilities)
     {
         name_ = name;
@@ -98,6 +101,7 @@ public class Transformer
         shield_ = 0;
         crit_ = crit;
         crit_damage_ = crit_damage;
+        power_ = power;
     }
 
     public Transformer(Transformer rhs)
@@ -124,6 +128,7 @@ public class Transformer
         ignore_ = rhs.getIgnore();
         crit_ = rhs.crit_;
         crit_damage_ = rhs.crit_damage_;
+        power_ = rhs.power_;
     }
 
     public void setHP(int dmg, float ignore)
@@ -195,6 +200,11 @@ public class Transformer
     public float getHP()
     {
         return HP_;
+    }
+
+    public float getPower()
+    {
+        return power_;
     }
 
     public float getHPProportion()
@@ -374,5 +384,37 @@ public class Transformer
         HP_ = Max_HP_ * proportion;
 
         damage_ += GameManager.LevelUpBonus[1];
+    }
+
+    public void AddDevice(Device d)
+    {
+        damage_ += d.getDamage();
+        ignore_ += d.getDefendIgnore();
+        defend_ += d.getDefend();
+        crit_ *= d.getCriticalRate();
+        crit_damage_ *= d.getCriticalDamage();
+        attack_rate_ *= d.getAttackRate();
+        speed_ += d.getSpeed();
+        attack_range_ += d.getAttackRange();
+        float HP_proportion = HP_ / Max_HP_;
+        Max_HP_ += d.getHP();
+        HP_ = Max_HP_ * HP_proportion;
+        view_range_ += d.getViewRange();
+    }
+
+    public void RemoveDevice(Device d)
+    {
+        damage_ -= d.getDamage();
+        ignore_ -= d.getDefendIgnore();
+        defend_ -= d.getDefend();
+        crit_ /= d.getCriticalRate();
+        crit_damage_ /= d.getCriticalDamage();
+        attack_rate_ /= d.getAttackRate();
+        speed_ -= d.getSpeed();
+        attack_range_ -= d.getAttackRange();
+        float HP_proportion = HP_ / Max_HP_;
+        Max_HP_ -= d.getHP();
+        HP_ = Max_HP_ * HP_proportion;
+        view_range_ -= d.getViewRange();
     }
 }

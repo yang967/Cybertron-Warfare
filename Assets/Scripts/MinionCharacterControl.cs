@@ -58,4 +58,12 @@ public class MinionCharacterControl : MonoBehaviour
         GetComponent<Collider>().enabled = false;
         Destroy(transform.parent.parent.gameObject, 5);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        InstructionQueue queue = transform.parent.parent.GetComponent<InstructionQueue>();
+        Instruction current = queue.getCurrentInstruction();
+        if (current != null && current.getInstructionType() == 3 && current.getTargetObject().Equals(other.gameObject))
+            queue.next_instruction();
+    }
 }

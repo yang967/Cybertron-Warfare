@@ -20,7 +20,6 @@ public class AreaDamage : MonoBehaviour
     public void Set(int damage, float ignore, int team, float range, bool IncludeConstructure, GameObject from = null)
     {
         damage_ = damage;
-        Debug.Log(damage);
         ignore_ = ignore;
         team_ = team;
         GetComponent<SphereCollider>().radius = range;

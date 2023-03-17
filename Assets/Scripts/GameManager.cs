@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject camera_obj_;
     [SerializeField] TextMeshProUGUI text;
 
+    [SerializeField] GameObject MinionRallyPoint;
     [SerializeField] GameObject[] MinionTarget1;
     [SerializeField] GameObject[] MinionTarget2;
 
@@ -27,9 +28,9 @@ public class GameManager : MonoBehaviour
     public const float Assistant_Kill_Proportion = 0.7f;
 
     public const int Minion_Exp = 100;
-    public const int Hero_Exp_Per_Level = 1000;
+    public const int Hero_Exp_Per_Level = 200;
     public const int Turret_Exp = 1000;
-    public const int HP_Per_Block = 200;
+    public const int HP_Per_Block = 1000;
     
     public static readonly int[] DefendRate = { 200, 800, 1600, 2700, 4100, 6000, 8400, 10700, 14000 };
     public static readonly float[] ResistanceRate = { 0.02f, 0.04f, 0.05f, 0.06f, 0.06f, 0.07f, 0.12f, 0.14f, 0.14f };
@@ -38,8 +39,13 @@ public class GameManager : MonoBehaviour
 
     public static Vector3 PlayerMiddlePosition = new Vector3(10, 0, 16);
 
+    public const int DEVICE_NUM = 7;
+    public const int BACKPACK_SIZE = 7;
+    public const int INITIAL_CURRENCY = 100;
+
     Dictionary<string, int> transformers_dict_;
     List<Transformer> transformers_;
+    Dictionary<string, Device> devices_;
 
     bool player_middle_;
     float Spawn_;
@@ -53,6 +59,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         transformers_dict_ = SaveSystem.DecryptDictionary("TransformerDictionary.moba");
         transformers_ = SaveSystem.LoadCh();
+        devices_ = SaveSystem.LoadDevices();
         PlayerCamera = camera_;
         player_middle_ = false;
         Spawn_ = Time.time + 60;
@@ -88,6 +95,11 @@ public class GameManager : MonoBehaviour
         return transformers_[transformers_dict_[name]];
     }
 
+    public Device getDevice(string name)
+    {
+        return devices_[name];
+    }
+
     public void PlayerMiddle()
     {
         player_middle_ = true;
@@ -104,6 +116,11 @@ public class GameManager : MonoBehaviour
             return MinionTarget1;
         else
             return MinionTarget2;
+    }
+
+    public GameObject getMinionRallyPoint()
+    {
+        return MinionRallyPoint;
     }
 
     public void win(int i)

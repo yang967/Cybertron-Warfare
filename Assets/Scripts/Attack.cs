@@ -93,6 +93,8 @@ public class Attack : MonoBehaviour
 
     protected virtual void chase()
     {
+        if (target == null)
+            return;
         //Debug.Log(transform.parent.name + " chase");
         if (in_range)
         {
@@ -107,11 +109,6 @@ public class Attack : MonoBehaviour
         if (target != null)
         {
             if (other.gameObject.layer == 6 && target.Equals(other.transform.parent.parent.gameObject))
-            {
-                in_range = false;
-                chase();
-            }
-            else if (target.Equals(other.gameObject))
             {
                 in_range = false;
                 chase();

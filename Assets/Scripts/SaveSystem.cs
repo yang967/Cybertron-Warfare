@@ -33,7 +33,7 @@ public static class SaveSystem
         }
     }
 
-    public static void SaveDevices(List<Device> devices)
+    public static void SaveDevices(Dictionary<string, Device> devices)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = "./Assets/Files/Devices.moba";
@@ -42,14 +42,14 @@ public static class SaveSystem
         stream.Close();
     }
 
-    public static List<Device> LoadDevices()
+    public static Dictionary<string, Device> LoadDevices()
     {
         string path = "./Assets/Files/Devices.moba";
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
-            List<Device> result = formatter.Deserialize(stream) as List<Device>;
+            Dictionary<string, Device> result = formatter.Deserialize(stream) as Dictionary<string, Device>;
             stream.Close();
             return result;
         }
