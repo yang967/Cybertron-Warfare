@@ -148,6 +148,9 @@ public class Transformer
             case 2:
                 HP = Mathf.Min(Max_HP_, HP + dmg);
                 break;
+            case 3:
+                shield_ += dmg;
+                break;
             default:
                 break;
         }
@@ -416,5 +419,21 @@ public class Transformer
         Max_HP_ -= d.getHP();
         HP_ = Max_HP_ * HP_proportion;
         view_range_ -= d.getViewRange();
+    }
+
+    public float AddBuff(Ability ability)
+    {
+        float amount;
+        switch(ability.getAbilityType())
+        {
+            case 3:
+                amount = damage_ * ability.getRate();
+                damage_ += damage_ * ability.getRate();
+                return amount;
+            default:
+                Debug.Log("Error! Ability Type " + ability.getAbilityType() + " NOT FOUND or is NOT a Passive ability");
+                break;
+        }
+        return 0;
     }
 }

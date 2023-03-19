@@ -39,7 +39,7 @@ public class Control : MonoBehaviour
         character = new Transformer(GameManager.instance.getTransformer(character_name_));
         agent_.speed = character.getSpeed();
         height_ = agent_.baseOffset;
-        health_bar_.SetValue(character.getMaxHP(), character.getHP() - character.getShield());
+        health_bar_.SetValue(character.getMaxHP() + character.getShield(), character.getHP(), character.getShield());
         radius_ = agent_.radius;
         attack = transform.GetChild(2).GetComponent<Attack>();
     }
@@ -104,7 +104,7 @@ public class Control : MonoBehaviour
     public bool SetHP(int value, float ignore)
     {
         character.setHP(value, ignore);
-        health_bar_.SetValue(character.getMaxHP(), character.getHP() - character.getShield());
+        health_bar_.SetValue(character.getMaxHP() + character.getShield(), character.getHP(), character.getShield());
         if (character.getHP() <= 0)
             return true;
         return false;

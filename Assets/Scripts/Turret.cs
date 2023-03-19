@@ -29,7 +29,7 @@ public class Turret : MonoBehaviour
         targets = new LinkedList<GameObject>();
         animator_ = transform.parent.GetComponent<Animator>();
         HP_ = max_HP_;
-        health_bar_.SetValue(max_HP_, HP_);
+        health_bar_.SetValue(max_HP_, HP_, 0);
         time = 0;
         defend_ = 2000;
     }
@@ -106,7 +106,7 @@ public class Turret : MonoBehaviour
     public bool SetHP(int value, float ignore)
     {
         HP_ -= value / 10 * (1 - getResistanceRate(ignore));
-        health_bar_.SetValue(max_HP_, HP_);
+        health_bar_.SetValue(max_HP_, HP_, 0);
         if (HP_ <= 0)
             return true;
         return false;

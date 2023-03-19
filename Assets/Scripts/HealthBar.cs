@@ -19,12 +19,13 @@ public class HealthBar : MonoBehaviour
         //fill.material.SetVector("_ImageSize", new Vector4(imageRectTransform.rect.size.x, imageRectTransform.rect.size.y, 0, 0));
     }
 
-    public virtual void SetValue(float max, float current)
+    public virtual void SetValue(float max, float current, float shield)
     {
         this.max = max;
         this.current = current;
         //Debug.Log(max / GameManager.HP_Per_Block);
         //fill.material.SetFloat("_Steps", max / GameManager.HP_Per_Block - 1);
         fill.material.SetFloat("_Percentage", current / max);
+        fill.material.SetFloat("_ShieldPercentage", shield / max);
     }
 }

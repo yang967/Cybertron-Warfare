@@ -16,6 +16,8 @@ public class PlayerControl : Control
     int backpack_count;
     int currency;
     [SerializeField] TextMeshProUGUI currency_display;
+    Dictionary<string, float> BuffAmount;
+    HashSet<string> Buffs;
 
     protected override  void Awake()
     {
@@ -31,6 +33,13 @@ public class PlayerControl : Control
         currency = GameManager.INITIAL_CURRENCY;
         if(currency_display != null)
             currency_display.text = "Currency: " + currency;
+        BuffAmount = new Dictionary<string, float>();
+        Buffs = new HashSet<string>();
+        BuffAmount.Add("Damage", 1);
+        BuffAmount.Add("AttackRange", 1);
+        BuffAmount.Add("ViewRange", 1);
+        BuffAmount.Add("AttackRate", 1);
+        BuffAmount.Add("Speed", 1);
     }
 
     protected override void GeneralUpdate()
@@ -197,5 +206,48 @@ public class PlayerControl : Control
         currency += GameManager.instance.getCurrency(name);
         if(currency_display != null)
             currency_display.text = "Currency: " + currency;
+    }
+
+    public void AddBuff(Ability ability)
+    {
+        if (Buffs.Contains(ability.getName()))
+            return;
+        switch(ability.getAbilityType())
+        {
+            case 3:
+                Buffs.Add(ability.getName());
+                BuffAmount["Damage"] += ability.getRate();
+                break;
+            default:
+                Debug.Log("Error! Ability Type " + ability.getAbilityType() + " NOT FOUND or is NOT a Passive Ability");
+                return;
+        }
+
+        RefreshStats();
+    }
+
+    public void RemoveBuff(Ability ability)
+    {
+        if (!BuffAmount.ContainsKey(ability.getName()))
+            return;
+        BuffAmount[ability.getName()] -= ability.getRate();
+        RefreshStats();
+    }
+
+    void RefreshStats()
+    {
+        transform.GetChild(2).GetComponent<SphereCollider>().radius = character.getAttackRange() * BuffAmount["AttackRange"];
+        transform.GetChild(3).GetComponent<SphereCollider>().radius = character.getViewRange() * BuffAmount["ViewRange"];
+        agent_.speed = character.getSpeed() * BuffAmount["Speed"];
+    }
+
+    public Dictionary<string, float> getBuffAmount()
+    {
+        return BuffAmount;
+    }
+    
+    public HashSet<string> getBuffs()
+    {
+        return Buffs;
     }
 }

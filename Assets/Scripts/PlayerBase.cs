@@ -20,7 +20,7 @@ public class PlayerBase : MonoBehaviour
     void Start()
     {
         HP_ = max_HP_;
-        health_bar_.SetValue(max_HP_, HP_);
+        health_bar_.SetValue(max_HP_, HP_, 0);
         spawn_ = false;
         animator_ = GetComponent<Animator>();
     }
@@ -59,7 +59,7 @@ public class PlayerBase : MonoBehaviour
     public void setHP(float damage, float ignore)
     {
         HP_ -= damage / 10 * (1 - Transformer.getResistanceRate(defend_, ignore));
-        health_bar_.SetValue(max_HP_, HP_);
+        health_bar_.SetValue(max_HP_, HP_, 0);
     }
 
     public void Spawn(int number)

@@ -14,7 +14,7 @@ public class HealthBarNonPlayer : HealthBar
         slider.value = 1;
     }
 
-    public override void SetValue(float max, float current)
+    public override void SetValue(float max, float current, float shield)
     {
         slider.value = current / max;
     }

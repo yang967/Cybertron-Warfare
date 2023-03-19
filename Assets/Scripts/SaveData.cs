@@ -46,7 +46,7 @@ public class SaveData : MonoBehaviour
                 new Effect(0, "SlowDown", 4, 0.4f)
             }),
             new Ability("", "Inspire the surrounding teammate. Teammate near Optimus Prime gain shield capacity equals to 66.5% Optimus Prime's max HP, last for 10 seconds", 2, 0.665f, 30, 30, true, 10, 1, 22),
-            new Ability("", "Teammate near Optimus Prime can have extra 12% attack", 3, 0.12f, 30, 30, true, 0, 0, 0), 
+            new Ability("Leader's Inspiration", "Teammate near Optimus Prime can have extra 12% attack", 3, 0.12f, 30, 30, true, 0, 0, 0), 
             new Ability("", "Boost speed by 10%. Deal 350% damage when running into enemy", 0, 3.5f, 0, 0, false, 8, 1, 13)
         }));
         SaveSystem.SaveCh(Transformers);

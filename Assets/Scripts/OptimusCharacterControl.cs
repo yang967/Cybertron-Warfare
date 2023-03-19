@@ -15,6 +15,7 @@ public class OptimusCharacterControl : AbstractSkill
 
     [SerializeField] GameObject Skill_1_Indicator;
     GameObject Skill_2_;
+    GameObject Skill_3_;
 
     PlayerControl control;
     float height_;
@@ -87,7 +88,7 @@ public class OptimusCharacterControl : AbstractSkill
     {
         gun_fire_.Play();
         GameObject bullet = Instantiate(Resources.Load("Bullet") as GameObject, bulletOut.position, bulletOut.parent.rotation);
-        bullet.GetComponent<Bullet>().Set(transform.parent.parent.gameObject, (int)control.getCharacter().getDamage() * 10, control.getCharacter().getIgnore(),
+        bullet.GetComponent<Bullet>().Set(transform.parent.parent.gameObject, (int)(control.getCharacter().getDamage() * control.getBuffAmount()["Damage"]) * 10, control.getCharacter().getIgnore(),
             control.getTeam(), 0, control.getCharacter().getCritical(), control.getCharacter().getCriticalDamage(), attack_.getTarget());
     }
 
@@ -95,7 +96,7 @@ public class OptimusCharacterControl : AbstractSkill
     {
         gun_fire_.Emit(1);
         GameObject bullet = Instantiate(Resources.Load("Bullet") as GameObject, bulletOut.position, bulletOut.parent.rotation);
-        bullet.GetComponent<Bullet>().Set(transform.parent.parent.gameObject, Mathf.RoundToInt(control.getCharacter().getDamage() * control.getAbility()[0].getRate()) * 10, control.getCharacter().getIgnore(), 
+        bullet.GetComponent<Bullet>().Set(transform.parent.parent.gameObject, Mathf.RoundToInt(control.getCharacter().getDamage() * control.getAbility()[0].getRate() * control.getBuffAmount()["Damage"]) * 10, control.getCharacter().getIgnore(), 
             control.getTeam(), 6, control.getCharacter().getCritical(), control.getCharacter().getCriticalDamage(), attack_.getTarget());
     }
 
@@ -166,7 +167,7 @@ public class OptimusCharacterControl : AbstractSkill
             return false;
         agent_.destination = transform.parent.parent.position;
         Skill_2_ = Instantiate(Resources.Load("AreaDamage") as GameObject, transform.position, Quaternion.identity);
-        Skill_2_.GetComponent<AreaDamage>().Set(Mathf.RoundToInt(control.getAbility()[1].getRate() * control.getCharacter().getDamage()) * 10, control.getCharacter().getIgnore(),
+        Skill_2_.GetComponent<AreaDamage>().Set(Mathf.RoundToInt(control.getAbility()[1].getRate() * control.getCharacter().getDamage() * control.getBuffAmount()["Damage"]) * 10, control.getCharacter().getIgnore(),
             control.getTeam(), control.getAbility()[1].getRangeX(), false, transform.parent.parent.gameObject);
         animator_.SetTrigger("skill2");
         return true;
@@ -179,12 +180,16 @@ public class OptimusCharacterControl : AbstractSkill
 
         agent_.destination = transform.parent.parent.position;
         animator_.SetTrigger("skill3");
+        Skill_3_ = Instantiate(Resources.Load("AreaDamage") as GameObject, transform.position, Quaternion.identity);
+        Skill_3_.GetComponent<AreaDamage>().Set(Mathf.RoundToInt(control.getAbility()[2].getRate() * control.getCharacter().getMaxHP() * control.getBuffAmount()["Damage"]) * 10 + 3,
+            control.getCharacter().getIgnore(), control.getTeam() == 1 ? 2 : 1, control.getAbility()[2].getRangeX(), false, transform.parent.parent.gameObject);
         return true;
     }
 
     public void Skill_3_Effect()
     {
         Roar.Play();
+        Skill_3_.GetComponent<AreaDamage>().Damage();
     }
 
     public void skill_cancel()

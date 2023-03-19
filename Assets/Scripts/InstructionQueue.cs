@@ -82,6 +82,8 @@ public class InstructionQueue : MonoBehaviour
                 agent_.destination = current.getTarget();
                 break;
             case 1:
+                if (attack.getTarget() == current.getTargetObject())
+                    return;
                 attack.setTarget(current.getTargetObject());
                 break;
             case 2:

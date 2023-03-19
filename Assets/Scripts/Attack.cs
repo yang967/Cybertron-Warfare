@@ -43,10 +43,10 @@ public class Attack : MonoBehaviour
     {
         if(queue.getCurrentInstruction() != null && queue.getCurrentInstruction().getInstructionType() == 1)
             transform.parent.LookAt(target.transform);
-        if (Time.time - time_ > 1.0f / character_.getAttackRate())
+        if (Time.time > time_ / character_.getAttackRate())
         {
             animator_.SetTrigger("attacking");
-            time_ = Time.time;
+            time_ = Time.time + control_.getCharacter().getAttackRate();
         }
     }
 
@@ -97,7 +97,6 @@ public class Attack : MonoBehaviour
     {
         if (target == null)
             return;
-        //Debug.Log(transform.parent.name + " chase");
         if (in_range)
         {
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);

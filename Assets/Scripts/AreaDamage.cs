@@ -30,7 +30,8 @@ public class AreaDamage : MonoBehaviour
     public void Damage()
     {
         bool killed;
-        foreach(GameObject obj in targets)
+        PlayerControl control = from.GetComponent<PlayerControl>();
+        foreach (GameObject obj in targets)
         {
             killed = false;
             if (obj.layer == 6)
@@ -40,7 +41,10 @@ public class AreaDamage : MonoBehaviour
             else
                 killed = obj.transform.GetChild(3).GetComponent<Turret>().SetHP(damage_, ignore_);
             if (killed)
-                from.GetComponent<PlayerControl>().AddExp(obj.GetComponent<Control>() != null ? obj.GetComponent<Control>().getLevel() : -2, 0);
+            {
+                control.addCurrency(obj.name);
+                control.AddExp(obj.GetComponent<Control>() != null ? obj.GetComponent<Control>().getLevel() : -2, 0);
+            }
         }
 
         Destroy(gameObject);
