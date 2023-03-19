@@ -43,7 +43,7 @@ public class Attack : MonoBehaviour
     {
         if(queue.getCurrentInstruction() != null && queue.getCurrentInstruction().getInstructionType() == 1)
             transform.parent.LookAt(target.transform);
-        if (Time.time > time_ / character_.getAttackRate())
+        if (Time.time > time_)
         {
             animator_.SetTrigger("attacking");
             time_ = Time.time + control_.getCharacter().getAttackRate();

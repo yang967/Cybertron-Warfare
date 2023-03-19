@@ -140,7 +140,9 @@ public class Transformer
         switch(op)
         {
             case 0:
-                HP -= dmg * (1 - getResistanceRate(defend_, ignore));
+                float tmp = dmg - (int)shield_;
+                shield_ = Mathf.Max(0, shield_ - dmg);
+                HP -= tmp * (1 - getResistanceRate(defend_, ignore));
                 break;
             case 1:
                 HP -= dmg;
