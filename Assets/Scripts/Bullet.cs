@@ -58,11 +58,9 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.layer != 12 && other.gameObject.layer != 6 && other.gameObject.layer != 7)
             return;
 
-        if (other.GetComponent<TurretController>() && other.transform.GetChild(3).GetComponent<Turret>().getTeam() == team_)
+        if (other.gameObject.layer == 12 && other.gameObject != target_)
             return;
-        if (other.GetComponent<PlayerBase>() && other.GetComponent<PlayerBase>().getTeam() == team_)
-            return;
-        if (other.gameObject.layer == 6 && other.transform.parent.parent.GetComponent<Control>().getTeam() == team_)
+        if (other.gameObject.layer == 6 && other.transform.parent.parent.gameObject != target_)
             return;
 
         int dmg = damage_ / 10;

@@ -134,8 +134,7 @@ public class InstructionQueue : MonoBehaviour
                 }
                 break;
             case 2:
-                destination = agent_.destination;
-                if (current.getTargetObject() == null || attack.isInRange() || Mathf.Abs((transform.position - destination).magnitude) <= agent_.baseOffset + 0.01f
+                if (current.getTargetObject() == null || attack.isInRange()
                     || (current.getTargetObject().GetComponent<PlayerBase>() != null && current.getTargetObject().GetComponent<PlayerBase>().getHP() <= 0))
                 {
                     locked = false;

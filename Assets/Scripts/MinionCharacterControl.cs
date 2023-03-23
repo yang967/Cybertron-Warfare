@@ -46,7 +46,7 @@ public class MinionCharacterControl : MonoBehaviour
         }
     }
 
-    public void Dead()
+    public virtual void dead()
     {
         GameObject obj = transform.parent.parent.gameObject;
         obj.transform.GetChild(2).gameObject.SetActive(false);

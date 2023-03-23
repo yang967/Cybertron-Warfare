@@ -24,7 +24,7 @@ public class HealthBar : MonoBehaviour
         this.max = max;
         this.current = current;
         //Debug.Log(max / GameManager.HP_Per_Block);
-        //fill.material.SetFloat("_Steps", max / GameManager.HP_Per_Block - 1);
+        fill.material.SetFloat("_Blocks", max / GameManager.HP_Per_Block);
         fill.material.SetFloat("_Percentage", current / max);
         fill.material.SetFloat("_ShieldPercentage", shield / max);
     }

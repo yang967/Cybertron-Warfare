@@ -48,4 +48,8 @@ public abstract class AbstractSkill : MonoBehaviour, Skill
     {
         return vehicle_speed_;
     }
+
+    public virtual void dead() { }
+
+    public virtual void respawn() { }
 }
