@@ -6015,6 +6015,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OptimusPrime (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8620671716369190744, guid: 8d610fafc0eb77a4b918686faba88bd1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8620671716369190746, guid: 8d610fafc0eb77a4b918686faba88bd1, type: 3}
       propertyPath: m_RootOrder
       value: 9
