@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MegatronController
+  m_Controller: {fileID: 9100000, guid: 6f70e17af0e99bb46809e1da9e87f5ab, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: c2303744eb08d774f8320303c86d512d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2ae5711d46303644dbd46c25f03c6330, type: 2}
