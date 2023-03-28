@@ -11,6 +11,7 @@ public class SaveData : MonoBehaviour
         TransformerDictionary.Add("MinionCannon", 1);
         TransformerDictionary.Add("MinionMelee", 2);
         TransformerDictionary.Add("OptimusPrime", 3);
+        TransformerDictionary.Add("Megatron", 4);
         SaveSystem.EncryptDictionary(TransformerDictionary, "TransformerDictionary.moba");
 
         List<Transformer> Transformers = new List<Transformer>();
@@ -48,6 +49,14 @@ public class SaveData : MonoBehaviour
             new Ability("", "Inspire the surrounding teammate. Teammate near Optimus Prime gain shield capacity equals to 66.5% Optimus Prime's max HP, last for 10 seconds", 2, 0.665f, 30, 30, true, 10, 1, 22),
             new Ability("Leader's Inspiration", "Teammate near Optimus Prime can have extra 12% attack", 3, 0.12f, 30, 30, true, 0, 0, 0), 
             new Ability("", "Boost speed by 10%. Deal 350% damage when running into enemy", 0, 3.5f, 0, 0, false, 8, 1, 13)
+        }));
+        Transformers.Add(new Transformer("Megatron", 3000, 4000, 300, 0.25f, 1.3f, 350, 1.7f, 50, 70, 325, 30, 25, true, 2, new Ability[]
+        {
+            new Ability(),
+            new Ability(),
+            new Ability(),
+            new Ability(),
+            new Ability()
         }));
         SaveSystem.SaveCh(Transformers);
 

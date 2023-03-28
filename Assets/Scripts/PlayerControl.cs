@@ -42,6 +42,12 @@ public class PlayerControl : Control
         BuffAmount.Add("Speed", 1);
     }
 
+    protected override void Start()
+    {
+        base.Start();
+        attack.SetAttackRate(character.getAttackRate() * BuffAmount["AttackRate"]);
+    }
+
     protected override void GeneralUpdate()
     {
         if (character.getHP() + character.getShield() <= 0)
@@ -239,6 +245,8 @@ public class PlayerControl : Control
         transform.GetChild(2).GetComponent<SphereCollider>().radius = character.getAttackRange() * BuffAmount["AttackRange"];
         transform.GetChild(3).GetComponent<SphereCollider>().radius = character.getViewRange() * BuffAmount["ViewRange"];
         agent_.speed = character.getSpeed() * BuffAmount["Speed"];
+        if (transform.GetChild(0).GetChild(0).GetType() != typeof(TankController))
+            attack.SetAttackRate(character.getAttackRate() * BuffAmount["AttackRate"]);
     }
 
     public Dictionary<string, float> getBuffAmount()

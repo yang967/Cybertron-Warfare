@@ -9215,8 +9215,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6411971009059835393}
   - component: {fileID: 6877380173178612118}
-  - component: {fileID: 5584721083333927819}
   - component: {fileID: 1411907511364739268}
+  - component: {fileID: 9007566290056672491}
   m_Layer: 0
   m_Name: MegatronModel
   m_TagString: Untagged
@@ -9341,22 +9341,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!54 &5584721083333927819
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6030378199788885179}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!65 &1411907511364739268
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9370,6 +9354,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10.1, y: 18.01, z: -6.47}
   m_Center: {x: 0, y: -1.1, z: -1.17}
+--- !u!114 &9007566290056672491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6030378199788885179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f0f663880b99e4cba4502541d18124, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gun_fire_: {fileID: 0}
+  bulletOut: {fileID: 2730146723250303528}
 --- !u!1 &6050060120386909019
 GameObject:
   m_ObjectHideFlags: 0
@@ -15228,6 +15226,37 @@ SkinnedMeshRenderer:
     m_Center: {x: -3.9249177, y: -1.7065159, z: 0.5359257}
     m_Extent: {x: 0.089569926, y: 0.15320349, z: 0.1410675}
   m_DirtyAABB: 0
+--- !u!1 &8926611799986982610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2730146723250303528}
+  m_Layer: 0
+  m_Name: BulletOut
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2730146723250303528
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8926611799986982610}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.07, y: -0.02, z: -6.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6411971008744891839}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8932688144056042422
 GameObject:
   m_ObjectHideFlags: 0
@@ -15887,7 +15916,10 @@ PrefabInstance:
       value: MegatronCannon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 29b2e007c8c37d747bc8ea4c11970c62, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2730146723250303528}
   m_SourcePrefab: {fileID: 100100000, guid: 29b2e007c8c37d747bc8ea4c11970c62, type: 3}
 --- !u!4 &6411971008744891839 stripped
 Transform:

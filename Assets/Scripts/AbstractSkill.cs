@@ -29,12 +29,12 @@ public abstract class AbstractSkill : MonoBehaviour, Skill
         throw new System.NotImplementedException();
     }
 
-    protected bool isIdleOrRun()
+    public bool isIdleOrRun()
     {
         return isCurrentAnimationState("Idle") || isCurrentAnimationState("Run");
     }
 
-    protected bool isCurrentAnimationState(string name)
+    public bool isCurrentAnimationState(string name)
     {
         return animator_.GetCurrentAnimatorClipInfo(0)[0].clip.name.Equals(name);
     }

@@ -8,16 +8,18 @@ public class Attack : MonoBehaviour
     protected LinkedList<GameObject> targets;
     protected GameObject target;
     protected int team_;
-    protected Control control_;
-    float time_;
+    Control control_;
+    protected float time_;
     protected NavMeshAgent agent_;
     [SerializeField] protected Animator animator_;
     protected Transformer character_;
     protected InstructionQueue queue;
     protected bool in_range;
+    protected AbstractSkill skill;
+    protected float attack_rate_;
 
     // Start is called before the first frame update
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         targets = new LinkedList<GameObject>();
         control_ = transform.parent.GetComponent<Control>();
@@ -25,10 +27,15 @@ public class Attack : MonoBehaviour
         target = null;
         time_ = 0;
         agent_ = transform.parent.GetComponent<NavMeshAgent>();
-        character_ = transform.parent.GetComponent<Control>().getCharacter();
-        GetComponent<SphereCollider>().radius = character_.getAttackRange();
         queue = transform.parent.GetComponent<InstructionQueue>();
         in_range = false;
+        skill = transform.parent.GetChild(0).GetChild(0).GetComponent<AbstractSkill>();
+    }
+
+    protected virtual void Start()
+    {
+        character_ = transform.parent.GetComponent<Control>().getCharacter();
+        GetComponent<SphereCollider>().radius = character_.getAttackRange();
     }
 
     protected virtual void FixedUpdate()
@@ -46,7 +53,7 @@ public class Attack : MonoBehaviour
         if (Time.time > time_)
         {
             animator_.SetTrigger("attacking");
-            time_ = Time.time + control_.getCharacter().getAttackRate();
+            time_ = Time.time + attack_rate_;
         }
     }
 
@@ -155,5 +162,15 @@ public class Attack : MonoBehaviour
     public GameObject getTarget()
     {
         return target;
+    }
+
+    public bool isCurrentAnimationState(string name)
+    {
+        return animator_.GetCurrentAnimatorClipInfo(0)[0].clip.name.Equals(name);
+    }
+
+    public void SetAttackRate(float attack_rate)
+    {
+        attack_rate_ = attack_rate;
     }
 }
