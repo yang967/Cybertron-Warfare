@@ -138,7 +138,8 @@ public class InstructionQueue : MonoBehaviour
                 break;
             case 2:
                 if (current.getTargetObject() == null || attack.isInRange()
-                    || (current.getTargetObject().GetComponent<PlayerBase>() != null && current.getTargetObject().GetComponent<PlayerBase>().getHP() <= 0))
+                    || (current.getTargetObject().GetComponent<PlayerBase>() != null && current.getTargetObject().GetComponent<PlayerBase>().getHP() <= 0)
+                    || (current.getTargetObject().GetComponent<Control>() != null && current.getTargetObject().GetComponent<Control>().getHP() <= 0))
                 {
                     locked = false;
                     agent_.SetDestination(transform.position);
@@ -165,7 +166,8 @@ public class InstructionQueue : MonoBehaviour
 
     public void Insert_and_Stash(Instruction ins)
     {
-        queue_.AddFirst(current);
+        if(current != null)
+            queue_.AddFirst(current);
         current = ins;
         execute();
     }

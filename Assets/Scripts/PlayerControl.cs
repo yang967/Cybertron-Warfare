@@ -18,6 +18,7 @@ public class PlayerControl : Control
     [SerializeField] TextMeshProUGUI currency_display;
     Dictionary<string, float> BuffAmount;
     HashSet<string> Buffs;
+    bool IdleOrRun, Attacking;
 
     protected override void Awake()
     {
@@ -40,6 +41,8 @@ public class PlayerControl : Control
         BuffAmount.Add("ViewRange", 1);
         BuffAmount.Add("AttackRate", 1);
         BuffAmount.Add("Speed", 1);
+        IdleOrRun = false;
+        Attacking = false;
     }
 
     protected override void Start()
@@ -54,6 +57,10 @@ public class PlayerControl : Control
             animator_.SetTrigger("dead");
         if (lock_control)
             return;
+
+        IdleOrRun = ((AbstractSkill)skill_).isIdleOrRun();
+        Attacking = ((AbstractSkill)skill_).isAttacking();
+
         //transform.position = new Vector3(transform.position.x, height_, transform.position.z);
         if (Input.GetKeyUp(KeyCode.Q) && (((AbstractSkill)skill_).isIdleOrRun() || ((AbstractSkill)skill_).isAttacking()))
             skill_.Transform();

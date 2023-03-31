@@ -17,6 +17,7 @@ public class Attack : MonoBehaviour
     protected bool in_range;
     protected AbstractSkill skill;
     protected float attack_rate_;
+    protected int Count;
 
     // Start is called before the first frame update
     protected virtual void Awake()
@@ -30,6 +31,7 @@ public class Attack : MonoBehaviour
         queue = transform.parent.GetComponent<InstructionQueue>();
         in_range = false;
         skill = transform.parent.GetChild(0).GetChild(0).GetComponent<AbstractSkill>();
+        Count = 0;
     }
 
     protected virtual void Start()
@@ -44,6 +46,7 @@ public class Attack : MonoBehaviour
             return;
         if(in_range)
             attack();
+        Count = targets.Count;
     }
 
     protected virtual void attack()
@@ -63,7 +66,8 @@ public class Attack : MonoBehaviour
         if (targets.Count == 0)
             return;
         in_range = false;
-        target = targets.First.Value;
+        //target = targets.First.Value;
+        queue.Insert_and_Stash(new Instruction(1, targets.First.Value));
         targets.RemoveFirst();
     }
 

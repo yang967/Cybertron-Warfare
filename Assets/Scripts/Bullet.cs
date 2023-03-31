@@ -55,7 +55,15 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer != 12 && other.gameObject.layer != 6 && other.gameObject.layer != 7)
+        if(other.gameObject.layer == 7)
+        {
+            hit_ = true;
+            HitEffect_.GetComponent<Explosion>().ExplodeEffect();
+            Destroy(gameObject, 3);
+            return;
+        }
+
+        if (other.gameObject.layer != 12 && other.gameObject.layer != 6)
             return;
 
         if (other.gameObject.layer == 12 && other.gameObject != target_)

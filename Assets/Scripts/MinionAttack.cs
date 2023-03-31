@@ -7,22 +7,28 @@ public class MinionAttack : Attack
 {
     bool started = false;
     Control control_;
+    GameObject[] TargetBuilding;
 
     protected override void Awake()
     {
         base.Awake();
         started = true;
+        TargetBuilding = GameManager.instance.getMinionTarget(team_);
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        if(target == null)
-        {
+        bool isTargetinList = false;
+        if(target == null || isTargetinList) {
             next();
+        } 
+        else {
+            foreach (GameObject t in TargetBuilding)
+                if (target == t)
+                    isTargetinList = true;
         }
-        try
-        {
+        try {
             if (queue.getCurrentInstruction().getInstructionType() == 2)
                 target = queue.getCurrentInstruction().getTargetObject();
         } catch (System.NullReferenceException) { }
@@ -101,5 +107,10 @@ public class MinionAttack : Attack
         targets.Remove(obj);
         if (target == obj)
             target = null;
+    }
+
+    public void AddTarget(GameObject obj)
+    {
+        targets.AddLast(obj);
     }
 }

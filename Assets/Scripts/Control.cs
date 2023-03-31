@@ -53,7 +53,10 @@ public class Control : MonoBehaviour
     protected virtual void GeneralUpdate()
     {
         if (character.getHP() + character.getShield() <= 0)
+        {
+            transform.GetChild(1).gameObject.SetActive(false);
             animator_.SetTrigger("dead");
+        }
     }
 
     protected virtual void RoboModeUpdate()

@@ -41,7 +41,8 @@ public abstract class AbstractSkill : MonoBehaviour, Skill
 
     public bool isCurrentAnimationState(string name)
     {
-        return animator_.GetCurrentAnimatorClipInfo(0)[0].clip.name.Equals(name);
+        return animator_.GetCurrentAnimatorClipInfo(0)[0].clip.name.Equals(name) ||
+            (name == "Idle" ? animator_.GetCurrentAnimatorClipInfo(0)[0].clip.name.Equals("VehicleIdle") : false);
     }
 
     public static float getSpeed()
