@@ -29832,7 +29832,7 @@ MonoBehaviour:
   gun_fire_2_: {fileID: 7273012484157229837}
   team: 0
   health_bar_: {fileID: 3094452380003427111}
-  max_HP_: 3000
+  max_HP_: 20000
 --- !u!54 &1153636742825963863
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -39935,7 +39935,7 @@ MonoBehaviour:
   gun_fire_2_: {fileID: 1261608239478603748}
   team: 0
   health_bar_: {fileID: 4868793588198144185}
-  max_HP_: 3000
+  max_HP_: 20000
 --- !u!54 &8782005148842759181
 Rigidbody:
   m_ObjectHideFlags: 0

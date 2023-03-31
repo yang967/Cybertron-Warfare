@@ -141,7 +141,6 @@ public class GameManager : MonoBehaviour
 
     public int getCurrency(string name, int level = 0)
     {
-        Debug.Log(name);
         if (name == "MinionMelee")
             return CURRENCY_PER_MINION_MELEE;
         if (name == "MinionPistol")

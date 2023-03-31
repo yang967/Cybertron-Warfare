@@ -34,6 +34,11 @@ public abstract class AbstractSkill : MonoBehaviour, Skill
         return isCurrentAnimationState("Idle") || isCurrentAnimationState("Run");
     }
 
+    public bool isAttacking()
+    {
+        return isCurrentAnimationState("Attack") || isCurrentAnimationState("Attacking");
+    }
+
     public bool isCurrentAnimationState(string name)
     {
         return animator_.GetCurrentAnimatorClipInfo(0)[0].clip.name.Equals(name);

@@ -10563,6 +10563,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Megatron
       objectReference: {fileID: 0}
+    - target: {fileID: 3010484912113276811, guid: e625c8ab1288aad45851745dcd8edabb, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3010484912113276823, guid: e625c8ab1288aad45851745dcd8edabb, type: 3}
       propertyPath: m_RootOrder
       value: 11

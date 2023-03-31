@@ -19,7 +19,7 @@ public class PlayerControl : Control
     Dictionary<string, float> BuffAmount;
     HashSet<string> Buffs;
 
-    protected override  void Awake()
+    protected override void Awake()
     {
         base.Awake();
         effects_ = new Dictionary<string, List<Effect>>();
@@ -31,7 +31,7 @@ public class PlayerControl : Control
         currency = GameManager.INITIAL_CURRENCY;
         backpack_count = 0;
         currency = GameManager.INITIAL_CURRENCY;
-        if(currency_display != null)
+        if (currency_display != null)
             currency_display.text = "Currency: " + currency;
         BuffAmount = new Dictionary<string, float>();
         Buffs = new HashSet<string>();
@@ -55,13 +55,13 @@ public class PlayerControl : Control
         if (lock_control)
             return;
         //transform.position = new Vector3(transform.position.x, height_, transform.position.z);
-        if (Input.GetKeyUp(KeyCode.Q))
+        if (Input.GetKeyUp(KeyCode.Q) && (((AbstractSkill)skill_).isIdleOrRun() || ((AbstractSkill)skill_).isAttacking()))
             skill_.Transform();
-        else if (Input.GetKeyUp(KeyCode.W))
+        else if (Input.GetKeyUp(KeyCode.W) && (((AbstractSkill)skill_).isIdleOrRun() || ((AbstractSkill)skill_).isAttacking()))
             skill_.Skill_1_init();
-        else if (Input.GetKeyUp(KeyCode.E))
+        else if (Input.GetKeyUp(KeyCode.E) && (((AbstractSkill)skill_).isIdleOrRun() || ((AbstractSkill)skill_).isAttacking()))
             skill_.Skill_2_init();
-        else if (Input.GetKeyUp(KeyCode.R))
+        else if (Input.GetKeyUp(KeyCode.R) && (((AbstractSkill)skill_).isIdleOrRun() || ((AbstractSkill)skill_).isAttacking()))
             skill_.Skill_3_init();
     }
 

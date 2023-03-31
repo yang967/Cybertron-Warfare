@@ -133,7 +133,7 @@ public class OptimusCharacterControl : PlayerCharacterControl
 
     public override bool Transform()
     {
-        if (!isIdleOrRun())
+        if (!isIdleOrRun() && !isAttacking())
             return false;
         animator_.SetTrigger("vehicle");
         agent_.radius = 7.45f;

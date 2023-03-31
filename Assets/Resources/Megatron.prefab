@@ -585,6 +585,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MegatronModel
       objectReference: {fileID: 0}
+    - target: {fileID: 6030378199788885179, guid: ff503999b2187fa48a043b35ad99066a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6411971009059835393, guid: ff503999b2187fa48a043b35ad99066a, type: 3}
       propertyPath: m_RootOrder
       value: -1

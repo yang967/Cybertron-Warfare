@@ -79,6 +79,8 @@ public class Control : MonoBehaviour
     {
         Vector3 curMove = transform.position - prevPosition_;
         float velocity = curMove.magnitude / Time.deltaTime;
+        //if(transform.name == "Megatron")
+          //  Debug.Log(transform.position.x + " " + transform.position.y + " " + transform.position.z + " - " + prevPosition_.x + " " + prevPosition_.y + " " + prevPosition_.z);
         prevPosition_ = transform.position;
         return velocity;
     }

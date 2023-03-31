@@ -40,7 +40,7 @@ public class TankController : AbstractSkill
         if (gun_fire_ != null)
             gun_fire_.Play();
         GameObject bullet = Instantiate(Resources.Load("EnergyCannonBullet") as GameObject, bulletOut.position, bulletOut.parent.rotation);
-        bullet.GetComponent<Bullet>().Set(transform.parent.parent.gameObject, (int)(control.getCharacter().getDamage() * control.getBuffAmount()["Damage"] * 3.5f) * 10, control.getCharacter().getIgnore(),
+        bullet.GetComponent<Bullet>().Set(transform.parent.parent.gameObject, (int)(control.getCharacter().getDamage() * control.getBuffAmount()["Damage"] * 2.5f) * 10, control.getCharacter().getIgnore(),
             control.getTeam(), 0, control.getCharacter().getCritical(), control.getCharacter().getCriticalDamage(), attack_.getTarget());
     }
 

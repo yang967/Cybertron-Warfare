@@ -10,6 +10,7 @@ public class MinionControl : Control
     {
         base.Awake();
         queue = GetComponent<InstructionQueue>();
+        attack.SetAttackRate(character.getAttackRate());
         team = -1;
     }
 
