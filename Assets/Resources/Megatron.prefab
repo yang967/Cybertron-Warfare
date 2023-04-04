@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 3010484912113276808}
   - component: {fileID: 3010484912113276809}
   - component: {fileID: 3010484912113276810}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Megatron
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,10 +492,6 @@ PrefabInstance:
     - target: {fileID: 1270532182598584833, guid: ff503999b2187fa48a043b35ad99066a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1411907511364739268, guid: ff503999b2187fa48a043b35ad99066a, type: 3}
-      propertyPath: m_Size.z
-      value: 6.47
       objectReference: {fileID: 0}
     - target: {fileID: 2148821323992260571, guid: ff503999b2187fa48a043b35ad99066a, type: 3}
       propertyPath: m_LocalRotation.w

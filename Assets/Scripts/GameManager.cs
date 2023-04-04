@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject MinionRallyPoint;
     [SerializeField] GameObject[] MinionTarget1;
     [SerializeField] GameObject[] MinionTarget2;
+    [SerializeField] GameObject SpawnPoint1;
+    [SerializeField] GameObject SpawnPoint2;
 
     GameObject Base1, Base2;
 
@@ -55,9 +57,10 @@ public class GameManager : MonoBehaviour
 
     bool player_middle_;
     float Spawn_;
-    [SerializeField] float SpawnGap = 60;
+    [SerializeField] float SpawnGap = 80;
     int spawn_time_;
     int spawn_num;
+    float time;
 
     // Start is called before the first frame update
     private void Awake()
@@ -74,6 +77,7 @@ public class GameManager : MonoBehaviour
         spawn_num = 3;
         spawn_time_ = 0;
         Spawn_ = Time.time;
+        time = Time.time;
     }
 
     // Update is called once per frame
@@ -124,6 +128,11 @@ public class GameManager : MonoBehaviour
             return MinionTarget2;
     }
 
+    public GameObject getSpawnPoint(int i)
+    {
+        return i == 1 ? SpawnPoint1 : SpawnPoint2;
+    }
+
     public GameObject getMinionRallyPoint()
     {
         return MinionRallyPoint;
@@ -150,5 +159,11 @@ public class GameManager : MonoBehaviour
         if (name == "Turret")
             return CURRENCY_PER_CANNON;
         return level * CURRENCY_PER_HERO_LEVEL;
+    }
+
+    public int getRespawnTime()
+    {
+        int game_time = (int)(Time.time - time);
+        return game_time / 180 + 10;
     }
 }

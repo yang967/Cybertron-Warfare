@@ -10,11 +10,13 @@ public class AreaDamage : MonoBehaviour
     float ignore_;
     int team_;
     GameObject from;
+    int trigger;
 
     private void Awake()
     {
         targets = new List<GameObject>();
         include_constructure_ = false;
+        trigger = -1;
     }
 
     public void Set(int damage, float ignore, int team, float range, bool IncludeConstructure, GameObject from = null)
@@ -25,6 +27,11 @@ public class AreaDamage : MonoBehaviour
         GetComponent<SphereCollider>().radius = range;
         include_constructure_ = IncludeConstructure;
         this.from = from;
+    }
+
+    public void SetTrigger(int trigger)
+    {
+        this.trigger = trigger;
     }
 
     public void Damage()
@@ -46,6 +53,9 @@ public class AreaDamage : MonoBehaviour
                 control.AddExp(obj.GetComponent<Control>() != null ? obj.GetComponent<Control>().getLevel() : -2, 0);
             }
         }
+
+        if (trigger != -1 && from != null)
+            from.transform.GetChild(0).GetChild(0).GetComponent<PlayerCharacterControl>().AttackTrigger(trigger, targets);
 
         Destroy(gameObject);
     }

@@ -239,6 +239,12 @@ public class PlayerControl : Control
         RefreshStats();
     }
 
+    public void AddBuff(string name, float rate)
+    {
+        BuffAmount[name] *= rate;
+        RefreshStats();
+    }
+
     public void RemoveBuff(Ability ability)
     {
         if (!BuffAmount.ContainsKey(ability.getName()))
@@ -264,5 +270,12 @@ public class PlayerControl : Control
     public HashSet<string> getBuffs()
     {
         return Buffs;
+    }
+
+    public void Respawn()
+    {
+        GameObject respawn = GameManager.instance.getSpawnPoint(team);
+        transform.position = respawn.transform.position;
+        transform.rotation = respawn.transform.rotation;
     }
 }

@@ -15,11 +15,13 @@ public class Bullet : MonoBehaviour
     float crit_;
     float crit_damage_;
     bool target_set_;
+    int trigger;
 
     void Awake()
     {
         hit_ = false;
         target_set_ = false;
+        trigger = -1;
     }
 
     public void Set(GameObject from, int damage, float ignore, int team, float range, float crit, float crit_damage, GameObject target)
@@ -42,6 +44,11 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    public void SetTrigger(int trigger)
+    {
+        this.trigger = trigger;
+    }
+
     private void FixedUpdate()
     {
         if (target_ == null && target_set_)
@@ -55,7 +62,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == 7)
+        if(other.gameObject.layer == 7 && target_set_)
         {
             hit_ = true;
             HitEffect_.GetComponent<Explosion>().ExplodeEffect();
@@ -63,7 +70,7 @@ public class Bullet : MonoBehaviour
             return;
         }
 
-        if (other.gameObject.layer != 12 && other.gameObject.layer != 6)
+        if (other.gameObject.layer != 12 && other.gameObject.layer != 6 && other.gameObject.layer != 7)
             return;
 
         if (other.gameObject.layer == 12 && other.gameObject != target_)
@@ -97,9 +104,17 @@ public class Bullet : MonoBehaviour
                 from.GetComponent<PlayerControl>().AddExp(target_.GetComponent<Control>() != null ? target_.GetComponent<Control>().getLevel() : -2, 0);
                 from.GetComponent<PlayerControl>().addCurrency(target_.name.Replace("(Clone)", ""));
             }
+
+
+            if (trigger != -1 && from != null)
+                from.transform.GetChild(0).GetChild(0).GetComponent<PlayerCharacterControl>().AttackTrigger(trigger, target_);
         } else
         {
-            HitEffect_.GetComponent<Explosion>().Explode();
+            List<GameObject> targets = HitEffect_.GetComponent<Explosion>().Explode();
+            if (trigger != -1 && from != null)
+            {
+                from.transform.GetChild(0).GetChild(0).GetComponent<PlayerCharacterControl>().AttackTrigger(trigger, targets);
+            }
         }
         Destroy(gameObject, 3);
     }

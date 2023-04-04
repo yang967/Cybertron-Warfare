@@ -5,8 +5,59 @@ using UnityEngine.AI;
 
 public class PlayerCharacterControl : AbstractSkill
 {
+    protected List<TriggerComponent> triggers;
+    protected Attack attack_;
+
+    protected virtual void Awake()
+    {
+        triggers = new List<TriggerComponent>();
+        attack_ = transform.parent.parent.GetChild(2).GetComponent<Attack>();
+    }
+
+    protected virtual void attack()
+    {
+        foreach (TriggerComponent trigger in triggers)
+            trigger.AttackTrigger(transform.parent.parent.gameObject, attack_.getTarget());
+    }
+
+    public override bool Skill_1_init()
+    {
+        foreach(TriggerComponent trigger in triggers)
+        {
+            GameObject self = transform.parent.parent.gameObject;
+            trigger.SkillTrigger(self);
+            trigger.Skill1Trigger(self);
+        }
+        return true;
+    }
+
+    public override bool Skill_2_init()
+    {
+        foreach (TriggerComponent trigger in triggers)
+        {
+            GameObject self = transform.parent.parent.gameObject;
+            trigger.SkillTrigger(self);
+            trigger.Skill2Trigger(self);
+        }
+        return true;
+    }
+
+    public override bool Skill_3_init()
+    {
+        foreach (TriggerComponent trigger in triggers)
+        {
+            GameObject self = transform.parent.parent.gameObject;
+            trigger.SkillTrigger(self);
+            trigger.Skill3Trigger(self);
+        }
+        return true;
+    }
+
     public override void dead()
     {
+        foreach (TriggerComponent trigger in triggers)
+            trigger.DeathTrigger(transform.parent.parent.gameObject);
+
         GameObject obj = transform.parent.parent.gameObject;
         obj.transform.GetChild(2).gameObject.SetActive(false);
         obj.transform.GetChild(1).gameObject.SetActive(false);
@@ -16,10 +67,12 @@ public class PlayerCharacterControl : AbstractSkill
         obj.GetComponent<InstructionQueue>().enabled = false;
         GetComponent<Collider>().enabled = false;
         gameObject.layer = 2;
+        StartCoroutine(respawn());
     }
 
-    public override void respawn()
+    protected override IEnumerator respawn()
     {
+        yield return new WaitForSeconds(GameManager.instance.getRespawnTime());
         GameObject obj = transform.parent.parent.gameObject;
         obj.transform.GetChild(2).gameObject.SetActive(true);
         obj.transform.GetChild(1).gameObject.SetActive(true);
@@ -28,5 +81,27 @@ public class PlayerCharacterControl : AbstractSkill
         obj.GetComponent<InstructionQueue>().enabled = true;
         GetComponent<Collider>().enabled = true;
         gameObject.layer = 6;
+        transform.parent.parent.GetComponent<PlayerControl>().Respawn();
     }
+
+    public virtual void AddTrigger(TriggerComponent component)
+    {
+        triggers.Add(component);
+        component.EquipTrigger(transform.parent.parent.gameObject);
+    }
+
+    public virtual void SetTriggers(List<TriggerComponent> components)
+    {
+        triggers = components;
+    }
+
+    public virtual void RemoveTrigger(TriggerComponent component)
+    {
+        triggers.Remove(component);
+        component.UnequipTrigger(transform.parent.parent.gameObject);
+    }
+
+    public virtual void AttackTrigger(int trigger, GameObject obj = null){  }
+
+    public virtual void AttackTrigger(int trigger, List<GameObject> objs = null) { }
 }

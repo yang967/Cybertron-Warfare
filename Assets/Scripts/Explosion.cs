@@ -30,10 +30,10 @@ public class Explosion : MonoBehaviour
         set_ = true;
     }
 
-    public void Explode()
+    public List<GameObject> Explode()
     {
         if (!set_)
-            return;
+            return null;
         foreach (GameObject obj in targets)
         {
             if (obj.GetComponent<Control>() != null)
@@ -43,6 +43,8 @@ public class Explosion : MonoBehaviour
         }
 
         ExplodeEffect();
+
+        return targets;
     }
 
     public void ExplodeEffect()

@@ -57,5 +57,8 @@ public abstract class AbstractSkill : MonoBehaviour, Skill
 
     public virtual void dead() { }
 
-    public virtual void respawn() { }
+    protected virtual IEnumerator respawn() 
+    {
+        throw new System.NotImplementedException();
+    }
 }

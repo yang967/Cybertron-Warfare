@@ -65,5 +65,7 @@ public class MinionCharacterControl : MonoBehaviour
         Instruction current = queue.getCurrentInstruction();
         if (current != null && current.getInstructionType() == 3 && current.getTargetObject().Equals(other.gameObject))
             queue.next_instruction();
+        else if (other.gameObject == GameManager.instance.getMinionRallyPoint())
+            queue.RemoveInstruction(new Instruction(3, other.gameObject));
     }
 }

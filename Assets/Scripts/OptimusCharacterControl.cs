@@ -11,7 +11,6 @@ public class OptimusCharacterControl : PlayerCharacterControl
     [SerializeField] TrailRenderer skill_2_axe;
     [SerializeField] ParticleSystem Roar;
     
-    Attack attack_;
 
     [SerializeField] GameObject Skill_1_Indicator;
     GameObject Skill_2_;
@@ -98,6 +97,7 @@ public class OptimusCharacterControl : PlayerCharacterControl
         GameObject bullet = Instantiate(Resources.Load("Bullet") as GameObject, bulletOut.position, bulletOut.parent.rotation);
         bullet.GetComponent<Bullet>().Set(transform.parent.parent.gameObject, Mathf.RoundToInt(control.getCharacter().getDamage() * control.getAbility()[0].getRate() * control.getBuffAmount()["Damage"]) * 10, control.getCharacter().getIgnore(), 
             control.getTeam(), 6, control.getCharacter().getCritical(), control.getCharacter().getCriticalDamage(), attack_.getTarget());
+        bullet.GetComponent<Bullet>().SetTrigger(1);
     }
 
     public void attack()
@@ -149,6 +149,7 @@ public class OptimusCharacterControl : PlayerCharacterControl
             skill_indicator_ = null;
             return false;
         }
+        base.Skill_1_init();
         skill_indicator_ = Instantiate(Skill_1_Indicator, transform.parent.parent.position, Quaternion.identity);
         skill_indicator_.transform.GetChild(0).localScale = new Vector3(abilities_[0].getRangeY() / 9.0f, 1, abilities_[0].getRangeX() / 9.0f);
         skill_indicator_.transform.GetChild(0).position += skill_indicator_.transform.forward * (abilities_[0].getRangeX() / 2.0f);
@@ -165,10 +166,12 @@ public class OptimusCharacterControl : PlayerCharacterControl
     {
         if (skill_indicator_ != null)
             return false;
+        base.Skill_2_init();
         agent_.destination = transform.parent.parent.position;
         Skill_2_ = Instantiate(Resources.Load("AreaDamage") as GameObject, transform.position, Quaternion.identity);
         Skill_2_.GetComponent<AreaDamage>().Set(Mathf.RoundToInt(control.getAbility()[1].getRate() * control.getCharacter().getDamage() * control.getBuffAmount()["Damage"]) * 10, control.getCharacter().getIgnore(),
             control.getTeam(), control.getAbility()[1].getRangeX(), false, transform.parent.parent.gameObject);
+        Skill_2_.GetComponent<AreaDamage>().SetTrigger(2);
         animator_.SetTrigger("skill2");
         return true;
     }
@@ -178,6 +181,7 @@ public class OptimusCharacterControl : PlayerCharacterControl
         if (skill_indicator_ != null)
             return false;
 
+        base.Skill_3_init();
         agent_.destination = transform.parent.parent.position;
         animator_.SetTrigger("skill3");
         Skill_3_ = Instantiate(Resources.Load("AreaDamage") as GameObject, transform.position, Quaternion.identity);
@@ -197,6 +201,32 @@ public class OptimusCharacterControl : PlayerCharacterControl
         skill = -1;
         Destroy(skill_indicator_);
         skill_indicator_ = null;
+    }
+
+    public override void AttackTrigger(int trigger, List<GameObject> objs = null)
+    {
+        if (objs == null)
+            return;
+        if(trigger == 1)
+        {
+            foreach(GameObject obj in objs)
+            {
+                if (obj.GetComponent<PlayerControl>() == null)
+                    continue;
+                obj.transform.GetChild(0).GetChild(0).gameObject.AddComponent<BuffTrigger>();
+                obj.transform.GetChild(0).GetChild(0).gameObject.GetComponent<BuffTrigger>().Set("Damage", 3, 0.93f);
+            }
+        }
+        if(trigger == 2)
+        {
+            foreach (GameObject obj in objs)
+            {
+                if (obj.GetComponent<PlayerControl>() == null)
+                    continue;
+                obj.transform.GetChild(0).GetChild(0).gameObject.AddComponent<BuffTrigger>();
+                obj.transform.GetChild(0).GetChild(0).gameObject.GetComponent<BuffTrigger>().Set("Speed", 2, 0.75f);
+            }
+        }
     }
 
     /*public override void dead()

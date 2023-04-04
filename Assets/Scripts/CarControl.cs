@@ -8,12 +8,15 @@ public class CarControl : AbstractSkill
     bool on_high_way_;
     GameObject highway_;
     float height;
+    [SerializeField] GameObject[] Nitros;
 
     private void Awake()
     {
         animator_ = GetComponent<Animator>();
         on_high_way_ = false;
         height = transform.parent.parent.GetComponent<NavMeshAgent>().baseOffset;
+        foreach (GameObject obj in Nitros)
+            obj.SetActive(false);
     }
 
     private void Update()
@@ -31,6 +34,8 @@ public class CarControl : AbstractSkill
 
     public void HighWay(GameObject highway)
     {
+        foreach (GameObject obj in Nitros)
+            obj.SetActive(true);
         on_high_way_ = true;
         highway_ = highway;
         transform.parent.parent.GetComponent<NavMeshAgent>().enabled = false;
@@ -40,6 +45,8 @@ public class CarControl : AbstractSkill
     {
         on_high_way_ = false;
         highway_ = null;
+        foreach (GameObject obj in Nitros)
+            obj.SetActive(false);
     }
 
     public override bool Skill_1_init()

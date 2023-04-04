@@ -8,7 +8,6 @@ public class MegatronCharacterControl : PlayerCharacterControl
     [SerializeField] ParticleSystem gun_fire_;
     [SerializeField] Transform bulletOut;
 
-    Attack attack_;
     PlayerControl control;
     NavMeshAgent agent_;
 
