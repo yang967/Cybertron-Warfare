@@ -43,7 +43,7 @@ public class PlayerBase : MonoBehaviour
             }
             if(Time.time > spawn_time_)
             {
-                GameObject minion = Instantiate(Resources.Load(GameManager.Minions[spawn_indx_]) as GameObject, out_.transform.position, Quaternion.identity);
+                GameObject minion = Instantiate(Resources.Load(team == 0 ? GameManager.Minions[spawn_indx_] + "Autobot" : GameManager.Minions[spawn_indx_]) as GameObject, out_.transform.position, Quaternion.identity);
                 minion.GetComponent<MinionControl>().SetTeam(team);
                 spawn_indx_++;
                 spawn_time_ = Time.time + 1;
