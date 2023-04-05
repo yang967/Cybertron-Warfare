@@ -24,9 +24,11 @@ public class OptimusCharacterControl : PlayerCharacterControl
     int skill;
     NavMeshAgent agent_;
     Quaternion rotation;
+    List<GameObject> skill_3_objs;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         speed_ = 30;
         vehicle_speed_ = 50;
         animator_ = GetComponent<Animator>();
@@ -78,6 +80,12 @@ public class OptimusCharacterControl : PlayerCharacterControl
         }
     }
 
+    public override void attack()
+    {
+        base.attack();
+        GunFire();
+    }
+
     public void transform_to_vehicle()
     {
         transform.parent.parent.GetComponent<PlayerControl>().transform_to_vehicle();
@@ -85,6 +93,7 @@ public class OptimusCharacterControl : PlayerCharacterControl
 
     public void GunFire()
     {
+        base.attack();
         gun_fire_.Play();
         GameObject bullet = Instantiate(Resources.Load("Bullet") as GameObject, bulletOut.position, bulletOut.parent.rotation);
         bullet.GetComponent<Bullet>().Set(transform.parent.parent.gameObject, (int)(control.getCharacter().getDamage() * control.getBuffAmount()["Damage"]) * 10, control.getCharacter().getIgnore(),
@@ -98,11 +107,6 @@ public class OptimusCharacterControl : PlayerCharacterControl
         bullet.GetComponent<Bullet>().Set(transform.parent.parent.gameObject, Mathf.RoundToInt(control.getCharacter().getDamage() * control.getAbility()[0].getRate() * control.getBuffAmount()["Damage"]) * 10, control.getCharacter().getIgnore(), 
             control.getTeam(), 6, control.getCharacter().getCritical(), control.getCharacter().getCriticalDamage(), attack_.getTarget());
         bullet.GetComponent<Bullet>().SetTrigger(1);
-    }
-
-    public void attack()
-    {
-        GunFire();
     }
 
     public void skill_1_start()
@@ -149,7 +153,9 @@ public class OptimusCharacterControl : PlayerCharacterControl
             skill_indicator_ = null;
             return false;
         }
-        base.Skill_1_init();
+        if (!base.Skill_1_init())
+            return false;
+
         skill_indicator_ = Instantiate(Skill_1_Indicator, transform.parent.parent.position, Quaternion.identity);
         skill_indicator_.transform.GetChild(0).localScale = new Vector3(abilities_[0].getRangeY() / 9.0f, 1, abilities_[0].getRangeX() / 9.0f);
         skill_indicator_.transform.GetChild(0).position += skill_indicator_.transform.forward * (abilities_[0].getRangeX() / 2.0f);
@@ -159,6 +165,7 @@ public class OptimusCharacterControl : PlayerCharacterControl
 
     public void skill1_trigger()
     {
+        skill1.UseSkill();
         animator_.SetTrigger("skill1");
     }
 
@@ -166,7 +173,11 @@ public class OptimusCharacterControl : PlayerCharacterControl
     {
         if (skill_indicator_ != null)
             return false;
-        base.Skill_2_init();
+
+        if (!base.Skill_2_init())
+            return false;
+
+        skill2.UseSkill();
         agent_.destination = transform.parent.parent.position;
         Skill_2_ = Instantiate(Resources.Load("AreaDamage") as GameObject, transform.position, Quaternion.identity);
         Skill_2_.GetComponent<AreaDamage>().Set(Mathf.RoundToInt(control.getAbility()[1].getRate() * control.getCharacter().getDamage() * control.getBuffAmount()["Damage"]) * 10, control.getCharacter().getIgnore(),
@@ -181,7 +192,10 @@ public class OptimusCharacterControl : PlayerCharacterControl
         if (skill_indicator_ != null)
             return false;
 
-        base.Skill_3_init();
+        if (!base.Skill_3_init())
+            return false;
+
+        skill3.UseSkill();
         agent_.destination = transform.parent.parent.position;
         animator_.SetTrigger("skill3");
         Skill_3_ = Instantiate(Resources.Load("AreaDamage") as GameObject, transform.position, Quaternion.identity);
@@ -193,7 +207,24 @@ public class OptimusCharacterControl : PlayerCharacterControl
     public void Skill_3_Effect()
     {
         Roar.Play();
-        Skill_3_.GetComponent<AreaDamage>().Damage();
+        skill_3_objs = Skill_3_.GetComponent<AreaDamage>().GetTargets();
+        foreach (GameObject obj in skill_3_objs)
+            obj.GetComponent<PlayerControl>().AddShield(control.getAbility()[2].getName());
+        skill_3_objs = Skill_3_.GetComponent<AreaDamage>().Damage();
+
+
+        StartCoroutine(remove_shield());
+    }
+
+    IEnumerator remove_shield()
+    {
+        yield return new WaitForSeconds(control.getAbility()[2].getDuration());
+
+        if (skill_3_objs == null)
+            yield return null;
+        foreach (GameObject obj in skill_3_objs)
+            obj.GetComponent<PlayerControl>().RemoveShield(control.getAbility()[2].getName());
+        skill_3_objs = null;
     }
 
     public void skill_cancel()

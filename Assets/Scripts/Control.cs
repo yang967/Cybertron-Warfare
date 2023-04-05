@@ -22,6 +22,7 @@ public class Control : MonoBehaviour
     protected Transformer character;
     protected float height_;
     protected Attack attack;
+    protected float Normal_Speed;
 
     protected virtual void Awake()
     {
@@ -37,6 +38,7 @@ public class Control : MonoBehaviour
         character_name_ = character_obj_.name.Replace("Model", "");
         skill_ = character_obj_.GetComponent<Skill>();
         character = new Transformer(GameManager.instance.getTransformer(character_name_));
+        Normal_Speed = character.getSpeed();
         agent_.speed = character.getSpeed();
         height_ = agent_.baseOffset;
         health_bar_.SetValue(character.getMaxHP() + character.getShield(), character.getHP(), character.getShield());
@@ -67,7 +69,7 @@ public class Control : MonoBehaviour
             agent_.destination = transform.position;
 
         if (velocity > 5)
-            animator_.speed = Mathf.Min(velocity / agent_.speed, 1);
+            animator_.speed = Mathf.Min(velocity / Normal_Speed);
         else
             animator_.speed = 1;
         if (velocity > 5)
@@ -90,7 +92,6 @@ public class Control : MonoBehaviour
 
     public void setDestination(Vector3 dest)
     {
-        Debug.Log("Set");
         dest_ = dest;
         agent_.destination = dest;
         prevPosition_ = transform.position;

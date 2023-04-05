@@ -34,7 +34,7 @@ public class AreaDamage : MonoBehaviour
         this.trigger = trigger;
     }
 
-    public void Damage()
+    public List<GameObject> Damage()
     {
         bool killed;
         PlayerControl control = from.GetComponent<PlayerControl>();
@@ -58,6 +58,8 @@ public class AreaDamage : MonoBehaviour
             from.transform.GetChild(0).GetChild(0).GetComponent<PlayerCharacterControl>().AttackTrigger(trigger, targets);
 
         Destroy(gameObject);
+
+        return targets;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -86,5 +88,10 @@ public class AreaDamage : MonoBehaviour
         else if (other.gameObject.layer == 6)
             if (targets.Contains(other.transform.parent.parent.gameObject))
                 targets.Remove(other.transform.parent.parent.gameObject);
+    }
+
+    public List<GameObject> GetTargets()
+    {
+        return targets;
     }
 }

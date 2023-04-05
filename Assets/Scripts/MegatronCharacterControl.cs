@@ -12,7 +12,7 @@ public class MegatronCharacterControl : PlayerCharacterControl
     NavMeshAgent agent_;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         animator_ = GetComponent<Animator>();
         control = transform.parent.parent.GetComponent<PlayerControl>();

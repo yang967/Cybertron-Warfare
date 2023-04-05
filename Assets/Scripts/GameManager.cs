@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Camera camera_;
     [SerializeField] GameObject camera_obj_;
-    [SerializeField] TextMeshProUGUI text;
 
     [SerializeField] GameObject MinionRallyPoint;
     [SerializeField] GameObject[] MinionTarget1;
@@ -83,7 +82,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = (Spawn_ - Time.time) + "";
         if(Time.time > Spawn_)
         {
             Base1.GetComponent<PlayerBase>().Spawn(spawn_num);
@@ -98,6 +96,16 @@ public class GameManager : MonoBehaviour
             camera_obj_.transform.position = Vector3.MoveTowards(camera_obj_.transform.position, new Vector3(Player.transform.position.x + PlayerMiddlePosition.x, 90,
                 Player.transform.position.z + PlayerMiddlePosition.z), 300 * Time.deltaTime);
         }
+    }
+
+    public float GetSpawn()
+    {
+        return Spawn_;
+    }
+
+    public float getSpawnGap()
+    {
+        return SpawnGap;
     }
 
     public Transformer getTransformer(string name)

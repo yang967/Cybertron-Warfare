@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class MinionAttack : Attack
 {
     bool started = false;
-    Control control_;
+    //Control control_;
     GameObject[] TargetBuilding;
 
     protected override void Awake()

@@ -8,13 +8,34 @@ public class PlayerCharacterControl : AbstractSkill
     protected List<TriggerComponent> triggers;
     protected Attack attack_;
 
+
+
+    [SerializeField] protected SkillComponent skill1;
+    [SerializeField] protected SkillComponent skill2;
+    [SerializeField] protected SkillComponent skill3;
+
+
     protected virtual void Awake()
     {
         triggers = new List<TriggerComponent>();
         attack_ = transform.parent.parent.GetChild(2).GetComponent<Attack>();
+
+
+        
     }
 
-    protected virtual void attack()
+    protected virtual void Start()
+    {
+        Transformer character = transform.parent.parent.GetComponent<Control>().getCharacter();
+        if (skill1 != null)
+            skill1.Set("OptimusPrimeSkill1", character.getAbilities()[0].getChargeNum(), character.getAbilities()[0].getCD());
+        if (skill2 != null)
+            skill2.Set("OptimusPrimeSkill2", character.getAbilities()[1].getChargeNum(), character.getAbilities()[1].getCD());
+        if (skill3 != null)
+            skill3.Set("OptimusPrimeSkill3", character.getAbilities()[2].getChargeNum(), character.getAbilities()[2].getCD());
+    }
+
+    public virtual void attack()
     {
         foreach (TriggerComponent trigger in triggers)
             trigger.AttackTrigger(transform.parent.parent.gameObject, attack_.getTarget());
@@ -22,6 +43,9 @@ public class PlayerCharacterControl : AbstractSkill
 
     public override bool Skill_1_init()
     {
+        if (skill1.getCharge() <= 0)
+            return false;
+
         foreach(TriggerComponent trigger in triggers)
         {
             GameObject self = transform.parent.parent.gameObject;
@@ -33,6 +57,9 @@ public class PlayerCharacterControl : AbstractSkill
 
     public override bool Skill_2_init()
     {
+        if (skill2.getCharge() <= 0)
+            return false;
+
         foreach (TriggerComponent trigger in triggers)
         {
             GameObject self = transform.parent.parent.gameObject;
@@ -44,6 +71,9 @@ public class PlayerCharacterControl : AbstractSkill
 
     public override bool Skill_3_init()
     {
+        if (skill3.getCharge() <= 0)
+            return false;
+
         foreach (TriggerComponent trigger in triggers)
         {
             GameObject self = transform.parent.parent.gameObject;

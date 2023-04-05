@@ -7,6 +7,8 @@ using TMPro;
 
 public class PlayerControl : Control
 {
+    [SerializeField] DetailPanel detail;
+
     Dictionary<string, List<Effect>> effects_;
     int level;
     int exp;
@@ -15,10 +17,9 @@ public class PlayerControl : Control
     List<string> Backpack;
     int backpack_count;
     int currency;
-    [SerializeField] TextMeshProUGUI currency_display;
     Dictionary<string, float> BuffAmount;
     HashSet<string> Buffs;
-    bool IdleOrRun, Attacking;
+    Dictionary<string, float> shield;
 
     protected override void Awake()
     {
@@ -32,8 +33,11 @@ public class PlayerControl : Control
         currency = GameManager.INITIAL_CURRENCY;
         backpack_count = 0;
         currency = GameManager.INITIAL_CURRENCY;
-        if (currency_display != null)
-            currency_display.text = "Currency: " + currency;
+        if (detail != null)
+        {
+            detail.SetLevel(level);
+            detail.SetCurrency(currency);
+        }
         BuffAmount = new Dictionary<string, float>();
         Buffs = new HashSet<string>();
         BuffAmount.Add("Damage", 1);
@@ -41,8 +45,7 @@ public class PlayerControl : Control
         BuffAmount.Add("ViewRange", 1);
         BuffAmount.Add("AttackRate", 1);
         BuffAmount.Add("Speed", 1);
-        IdleOrRun = false;
-        Attacking = false;
+        shield = new Dictionary<string, float>();
     }
 
     protected override void Start()
@@ -58,8 +61,6 @@ public class PlayerControl : Control
         if (lock_control)
             return;
 
-        IdleOrRun = ((AbstractSkill)skill_).isIdleOrRun();
-        Attacking = ((AbstractSkill)skill_).isAttacking();
 
         //transform.position = new Vector3(transform.position.x, height_, transform.position.z);
         if (Input.GetKeyUp(KeyCode.Q) && (((AbstractSkill)skill_).isIdleOrRun() || ((AbstractSkill)skill_).isAttacking()))
@@ -194,6 +195,8 @@ public class PlayerControl : Control
         else
             exp_incre = Mathf.RoundToInt(target_level_ * GameManager.Hero_Exp_Per_Level * (kill_type == 0 ? 1 : GameManager.Assistant_Kill_Proportion));
         exp += exp_incre;
+        if(detail != null)
+            detail.SetExpBar((float)exp / next_exp);
         if (exp >= next_exp)
             LevelUp();
     }
@@ -208,17 +211,20 @@ public class PlayerControl : Control
         if (level >= GameManager.MaxLevel)
             return;
         level++;
+        detail.SetLevel(level);
         character.LevelUp();
 
         exp -= next_exp;
         next_exp = Mathf.RoundToInt(GameManager.Initial_LevelUp_Exp * Mathf.Pow(GameManager.LevelUpExp_Increment, level - 1));
+        if (detail != null)
+            detail.SetExpBar((float)exp / next_exp);
     }
 
     public void addCurrency(string name)
     {
         currency += GameManager.instance.getCurrency(name);
-        if(currency_display != null)
-            currency_display.text = "Currency: " + currency;
+        if (detail != null)
+            detail.SetCurrency(currency);
     }
 
     public void AddBuff(Ability ability)
@@ -277,5 +283,22 @@ public class PlayerControl : Control
         GameObject respawn = GameManager.instance.getSpawnPoint(team);
         transform.position = respawn.transform.position;
         transform.rotation = respawn.transform.rotation;
+    }
+
+    public void RemoveShield(string name)
+    {
+        if (character.getShield() <= shield[name])
+            return;
+        character.setHP((int)shield[name] * 10 + 4, 0);
+        Debug.Log(character.getShield());
+        shield.Remove(name);
+        health_bar_.SetValue(character.getMaxHP() + character.getShield(), character.getHP(), character.getShield());
+    }
+
+    public void AddShield(string name)
+    {
+        if (shield.ContainsKey(name))
+            return;
+        shield.Add(name, character.getShield());
     }
 }
