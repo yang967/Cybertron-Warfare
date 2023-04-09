@@ -18,6 +18,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject[] MinionTarget2;
     [SerializeField] GameObject SpawnPoint1;
     [SerializeField] GameObject SpawnPoint2;
+    [SerializeField] StoreButton Store;
+    [SerializeField] StoreButton Fuse;
+    [SerializeField] GameObject fm;
+    [SerializeField] StoreButton bag;
+    [SerializeField] GameObject BackPack;
+    [SerializeField] GameObject canvas;
 
     GameObject Base1, Base2;
 
@@ -37,6 +43,7 @@ public class GameManager : MonoBehaviour
     public static readonly float[] ResistanceRate = { 0.02f, 0.04f, 0.05f, 0.06f, 0.06f, 0.07f, 0.12f, 0.14f, 0.14f };
 
     public static readonly string[] Minions = { "MinionMelee", "MinionMelee", "MinionPistol", "MinionPistol", "MinionTank", "MinionTank" };
+    public static readonly string[] DevicePos = { "CPU", "Software", "Power-Related Device", "Head", "Body", "Hand", "Foot" };
 
     public static Vector3 PlayerMiddlePosition = new Vector3(10, 0, 16);
 
@@ -53,6 +60,22 @@ public class GameManager : MonoBehaviour
     Dictionary<string, int> transformers_dict_;
     List<Transformer> transformers_;
     Dictionary<string, Device> devices_;
+
+    public Dictionary<string, Device> Devices {
+        get { return devices_; }
+    }
+
+    public GameObject FuseMenu {
+        get { return fm; }
+    }
+
+    public GameObject Canvas {
+        get { return canvas; }
+    }
+
+    public GameObject Bag {
+        get { return BackPack; }
+    }
 
     bool player_middle_;
     float Spawn_;
@@ -173,5 +196,45 @@ public class GameManager : MonoBehaviour
     {
         int game_time = (int)(Time.time - time);
         return game_time / 180 + 10;
+    }
+
+    public void getBag()
+    {
+        if (Store != null && Store.isActive)
+            Store.Click();
+        if (Fuse != null && Fuse.isActive)
+            Fuse.Click();
+        if (bag != null && !bag.isActive)
+            bag.Click();
+    }
+
+    public void getStore()
+    {
+        if (Store != null && !Store.isActive)
+            Store.Click();
+        if (Fuse != null && Fuse.isActive)
+            Fuse.Click();
+        if (bag != null && bag.isActive)
+            bag.Click();
+    }
+
+    public void getFuse()
+    {
+        if (Store != null && Store.isActive)
+            Store.Click();
+        if (Fuse != null && !Fuse.isActive)
+            Fuse.Click();
+        if (bag != null && bag.isActive)
+            bag.Click();
+    }
+
+    public void ResetSFB()
+    {
+        if (Store != null && Store.isActive)
+            Store.Click();
+        if (Fuse != null && Fuse.isActive)
+            Fuse.OnClick();
+        if (bag != null && bag.isActive)
+            bag.Click();
     }
 }

@@ -35,6 +35,14 @@ public class SkillComponent : MonoBehaviour
         charge = max_charge;
     }
 
+    public void SetCD(float CD)
+    {
+        float proportion = CD / this.CD;
+        float left = time - Time.time;
+        time = time - left + left * proportion;
+        this.CD = CD;
+    }
+
     // Update is called once per frame
     void Update()
     {

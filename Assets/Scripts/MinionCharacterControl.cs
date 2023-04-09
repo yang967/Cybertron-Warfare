@@ -27,6 +27,8 @@ public class MinionCharacterControl : MonoBehaviour
 
     public void GunFire()
     {
+        if (attack_.getTarget() == null)
+            return;
         if(gun_fire_ != null)
             gun_fire_.Play();
         if(bullet_ != null)

@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: DeviceNameTable Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: DeviceNameTable
+  m_TableCollectionNameGuidString: 8db9e1bc4eefbe744910aa8c3bb2a16b
+  m_Entries:
+  - m_Id: 132845486080
+    m_Key: Usable CPU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 227921969152
+    m_Key: Scrapped Armor Pieces
+    m_Metadata:
+      m_Items: []
+  - m_Id: 405424914432
+    m_Key: Half-Drained Spark Energy Core
+    m_Metadata:
+      m_Items: []
+  - m_Id: 469933309952
+    m_Key: Penetration Module
+    m_Metadata:
+      m_Items: []
+  - m_Id: 548463263744
+    m_Key: Electromagnetic Coil
+    m_Metadata:
+      m_Items: []
+  - m_Id: 664121196544
+    m_Key: Half-Drained Power Core
+    m_Metadata:
+      m_Items: []
+  - m_Id: 757251522560
+    m_Key: Weapon Overloader
+    m_Metadata:
+      m_Items: []
+  - m_Id: 843960369152
+    m_Key: Analyzing model
+    m_Metadata:
+      m_Items: []
+  - m_Id: 915695550464
+    m_Key: Smart Overloader
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1008616161280
+    m_Key: Weakpoint Analyzer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045823832064
+    m_Key: Combined Power Core
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1163822186496
+    m_Key: Power Core Imbedded Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1213168173056
+    m_Key: Spark Energy Core Imbedded Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1269950660608
+    m_Key: Combined Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1338301038592
+    m_Key: Overload Core
+    m_Metadata:
+      m_Items: []
+  - m_Id: 271407668498432
+    m_Key: Entry-level Algorithm Patch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 271470637584384
+    m_Key: Dirty Scope
+    m_Metadata:
+      m_Items: []
+  - m_Id: 271894069350400
+    m_Key: Weapon Impact Module
+    m_Metadata:
+      m_Items: []
+  - m_Id: 272013602820096
+    m_Key: Weapon Charge Module
+    m_Metadata:
+      m_Items: []
+  - m_Id: 272089691688960
+    m_Key: Greedy Algorithm
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 3113115618438021304
+  references:
+    version: 2
+    RefIds:
+    - rid: 3113115618438021304
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1680926930765

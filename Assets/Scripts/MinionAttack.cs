@@ -20,13 +20,11 @@ public class MinionAttack : Attack
     {
         base.FixedUpdate();
         bool isTargetinList = false;
-        if(target == null || isTargetinList) {
+        foreach (GameObject t in TargetBuilding)
+            if (target == t)
+                isTargetinList = true;
+        if (target == null || isTargetinList) {
             next();
-        } 
-        else {
-            foreach (GameObject t in TargetBuilding)
-                if (target == t)
-                    isTargetinList = true;
         }
         try {
             if (queue.getCurrentInstruction().getInstructionType() == 2)

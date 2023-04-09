@@ -134,4 +134,14 @@ public class PlayerCharacterControl : AbstractSkill
     public virtual void AttackTrigger(int trigger, GameObject obj = null){  }
 
     public virtual void AttackTrigger(int trigger, List<GameObject> objs = null) { }
+
+    public void RefreshStats()
+    {
+        PlayerControl control = transform.parent.parent.GetComponent<PlayerControl>();
+
+        Ability[] a = control.getCharacter().getAbilities();
+        skill1.SetCD(a[0].getCD() * (1 / control.getBuffAmount()["CDRate"]));
+        skill2.SetCD(a[1].getCD() * (1 / control.getBuffAmount()["CDRate"]));
+        skill3.SetCD(a[2].getCD() * (1 / control.getBuffAmount()["CDRate"]));
+    }
 }

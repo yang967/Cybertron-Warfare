@@ -37,6 +37,7 @@ public class MinionView : CharacterView
         if (other.gameObject.layer == 6 && other.transform.parent.parent.GetComponent<Control>().getTeam() != control_.getTeam())
         {
             queue_.RemoveInstruction(new Instruction(1, other.transform.parent.parent.gameObject));
+            queue_.RemoveInstruction(new Instruction(2, other.transform.parent.parent.gameObject));
             attack_.RemoveTarget(other.transform.parent.parent.gameObject);
         }
     }

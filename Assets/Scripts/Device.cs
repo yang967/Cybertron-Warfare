@@ -6,6 +6,7 @@ using UnityEngine;
 public class Device
 {
     string name_;
+    int level_;
     float damage_;
     float ignore_;
     float defend_;
@@ -20,6 +21,7 @@ public class Device
     int slot_;
     float power_;
     float CoolDownRate_;
+    float SkillDamage_;
     List<string> component_;
 
     //Slots:
@@ -37,9 +39,9 @@ public class Device
         damage_ = 0;
         ignore_ = 0;
         defend_ = 0;
-        crit_ = 0;
-        crit_damage_ = 0;
-        attack_rate_ = 0;
+        crit_ = 1;
+        crit_damage_ = 1;
+        attack_rate_ = 1;
         attack_range_ = 0;
         component_ = new List<string>();
         HP_ = 0;
@@ -47,13 +49,16 @@ public class Device
         speed_ = 0;
         slot_ = -1;
         power_ = 0;
-        CoolDownRate_ = 0;
+        CoolDownRate_ = 1;
+        level_ = 0;
+        SkillDamage_ = 1;
     }
 
-    public Device(string name, int slot, float damage, float ignore, float defend, float HP, float power, float crit, float crit_damage, float attack_rate, float attack_range, float view_range, float CDRate, float speed, int price)
+    public Device(string name, int slot, int level, float damage, float ignore, float defend, float HP, float power, float crit, float crit_damage, float attack_rate, float attack_range, float view_range, float CDRate, float speed, float SkillDamage, int price)
     {
         name_ = name;
         damage_ = damage;
+        level_ = level;
         ignore_ = ignore;
         defend_ = defend;
         crit_ = crit;
@@ -68,11 +73,13 @@ public class Device
         speed_ = speed;
         power_ = power;
         CoolDownRate_ = CDRate;
+        SkillDamage_ = SkillDamage;
     }
 
-    public Device(string name, int slot, float damage, float ignore, float defend, float HP, float power, float crit, float crit_damage, float attack_rate, float attack_range, float view_range, float CDRate, float speed, int price, List<string> component)
+    public Device(string name, int slot, int level, float damage, float ignore, float defend, float HP, float power, float crit, float crit_damage, float attack_rate, float attack_range, float view_range, float CDRate, float speed, float SkillDamage, int price, List<string> component)
     {
         name_ = name;
+        level_ = level;
         damage_ = damage;
         ignore_ = ignore;
         defend_ = defend;
@@ -88,12 +95,14 @@ public class Device
         speed_ = speed;
         power_ = power;
         CoolDownRate_ = CDRate;
+        SkillDamage_ = SkillDamage;
     }
 
-    public Device(string name, int slot, float defend, int price)
+    public Device(string name, int slot, int level, float defend, int price)
     {
         name_ = name;
         slot_ = slot;
+        level_ = level;
         damage_ = 0;
         ignore_ = 0;
         crit_ = 1;
@@ -108,12 +117,14 @@ public class Device
         attack_range_ = 0;
         CoolDownRate_ = 1;
         power_ = 0;
+        SkillDamage_ = 1;
     }
 
     public Device(Device rhs)
     {
         name_ = rhs.name_;
         slot_ = rhs.slot_;
+        level_ = rhs.level_;
         damage_ = rhs.damage_;
         ignore_ = rhs.ignore_;
         defend_ = rhs.defend_;
@@ -128,6 +139,7 @@ public class Device
         view_range_ = rhs.view_range_;
         power_ = rhs.power_;
         CoolDownRate_ = rhs.CoolDownRate_;
+        SkillDamage_ = rhs.SkillDamage_;
     }
 
     public string getName()
@@ -208,5 +220,68 @@ public class Device
     public float getCoolDownRate()
     {
         return CoolDownRate_;
+    }
+
+    public int getLevel()
+    {
+        return level_;
+    }
+
+    public float getSkillDamage()
+    {
+        return SkillDamage_;
+    }
+
+    public static List<List<string>> getDifference(Device rhs)
+    {
+        Device d = new Device();
+        List<List<string>> result = new List<List<string>>();
+
+        result.Add(new List<string> { "price", rhs.price_.ToString() });
+
+        if (rhs.damage_ != d.damage_)
+        {
+            result.Add(new List<string> { "damage", (rhs.damage_ - d.damage_ > 0 ? "" : "+") + (rhs.damage_ - d.damage_).ToString() });
+        }
+
+        if (rhs.ignore_ != d.ignore_)
+            result.Add(new List<string> { "ignore", (rhs.ignore_ - d.ignore_ > 0 ? "" : "+") + (rhs.ignore_ - d.ignore_).ToString() });
+
+        if (rhs.defend_ != d.defend_)
+            result.Add(new List<string> { "defend", (rhs.defend_ - d.defend_ > 0 ? "" : "+") + (rhs.defend_ - d.defend_).ToString() });
+
+        if (rhs.crit_ != d.crit_)
+            result.Add(new List<string> { "crit", (rhs.crit_ - d.crit_ > 0 ? "" : "+") + ((rhs.crit_ - d.crit_) * 100).ToString() + "%" });
+
+        if (rhs.crit_damage_ != d.crit_damage_)
+            result.Add(new List<string> { "crit damage", (rhs.crit_damage_ - d.crit_damage_ > 0 ? "" : "+") + ((rhs.crit_damage_ - d.crit_damage_) * 100).ToString() + "%" });
+
+        if (rhs.attack_rate_ != d.attack_rate_)
+            result.Add(new List<string> { "attack rate", (rhs.attack_rate_ - d.attack_rate_ > 0 ? "" : "+") + ((rhs.attack_rate_ - d.attack_rate_) * 100).ToString() + "%" });
+
+        if (rhs.attack_range_ != d.attack_range_)
+            result.Add(new List<string> { "attack range", (rhs.attack_range_ - d.attack_range_ > 0 ? "" : "+") + (rhs.attack_range_ - d.attack_range_).ToString() });
+
+        if (rhs.view_range_ != d.view_range_)
+            result.Add(new List<string> { "view range", (rhs.view_range_ - d.view_range_ > 0 ? "" : "+") + (rhs.view_range_ - d.view_range_).ToString() });
+
+        if (rhs.speed_ != d.speed_)
+            result.Add(new List<string> { "speed", (rhs.speed_ - d.speed_ > 0 ? "" : "+") + (rhs.speed_ - d.speed_).ToString() });
+
+        if (rhs.HP_ != d.HP_)
+            result.Add(new List<string> { "HP", (rhs.HP_ - d.HP_ > 0 ? "" : "+") + (rhs.HP_ - d.HP_).ToString() });
+
+        if (rhs.power_ != d.power_)
+            result.Add(new List<string> { "power", (rhs.power_ - d.power_ > 0 ? "" : "+") + (rhs.power_ - d.power_).ToString() });
+
+        if (rhs.CoolDownRate_ != d.CoolDownRate_)
+            result.Add(new List<string> { "cool down rate", (rhs.CoolDownRate_ - d.CoolDownRate_ > 0 ? "" : "+") + ((rhs.CoolDownRate_ - d.CoolDownRate_) * 100).ToString() + "%" });
+
+        if (rhs.SkillDamage_ != d.SkillDamage_)
+            result.Add(new List<string> { "skill damage", (rhs.SkillDamage_ - d.SkillDamage_ > 0 ? "" : "+") + ((rhs.SkillDamage_ - d.SkillDamage_) * 100).ToString() + "%" });
+
+        result.Add(rhs.component_);
+
+        return result;
     }
 }

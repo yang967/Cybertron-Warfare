@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: DeviceNameTable_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 8db9e1bc4eefbe744910aa8c3bb2a16b, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 132845486080
+    m_Localized: Usable CPU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 227921969152
+    m_Localized: Scrapped Armor Pieces
+    m_Metadata:
+      m_Items: []
+  - m_Id: 405424914432
+    m_Localized: Half-Drained Spark Energy Core
+    m_Metadata:
+      m_Items: []
+  - m_Id: 469933309952
+    m_Localized: Penetration Module
+    m_Metadata:
+      m_Items: []
+  - m_Id: 548463263744
+    m_Localized: Electromagnetic Coil
+    m_Metadata:
+      m_Items: []
+  - m_Id: 664121196544
+    m_Localized: Half-Drained Power Core
+    m_Metadata:
+      m_Items: []
+  - m_Id: 757251522560
+    m_Localized: Weapon Overloader
+    m_Metadata:
+      m_Items: []
+  - m_Id: 843960369152
+    m_Localized: Analyzing model
+    m_Metadata:
+      m_Items: []
+  - m_Id: 915695550464
+    m_Localized: Smart Overloader
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1008616161280
+    m_Localized: Weakpoint Analyzer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045823832064
+    m_Localized: Combined Power Core
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1163822186496
+    m_Localized: Power Core Imbedded Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1213168173056
+    m_Localized: Spark Energy Core Imbedded Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1269950660608
+    m_Localized: Combined Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1338301038592
+    m_Localized: Overload Core
+    m_Metadata:
+      m_Items: []
+  - m_Id: 271407668498432
+    m_Localized: Entry-level Algorithm Patch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 271470637584384
+    m_Localized: Dirty Scope
+    m_Metadata:
+      m_Items: []
+  - m_Id: 271894069350400
+    m_Localized: Weapon Impact Module
+    m_Metadata:
+      m_Items: []
+  - m_Id: 272013602820096
+    m_Localized: Weapon Charge Module
+    m_Metadata:
+      m_Items: []
+  - m_Id: 272089691688960
+    m_Localized: Greedy Algorithm
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

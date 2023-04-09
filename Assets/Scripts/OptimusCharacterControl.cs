@@ -180,7 +180,7 @@ public class OptimusCharacterControl : PlayerCharacterControl
         skill2.UseSkill();
         agent_.destination = transform.parent.parent.position;
         Skill_2_ = Instantiate(Resources.Load("AreaDamage") as GameObject, transform.position, Quaternion.identity);
-        Skill_2_.GetComponent<AreaDamage>().Set(Mathf.RoundToInt(control.getAbility()[1].getRate() * control.getCharacter().getDamage() * control.getBuffAmount()["Damage"]) * 10, control.getCharacter().getIgnore(),
+        Skill_2_.GetComponent<AreaDamage>().Set(Mathf.RoundToInt(control.getAbility()[1].getRate() * control.getCharacter().getDamage() * control.getBuffAmount()["Damage"] * control.getBuffAmount()["SkillDamage"]) * 10, control.getCharacter().getIgnore(),
             control.getTeam(), control.getAbility()[1].getRangeX(), false, transform.parent.parent.gameObject);
         Skill_2_.GetComponent<AreaDamage>().SetTrigger(2);
         animator_.SetTrigger("skill2");
@@ -199,7 +199,7 @@ public class OptimusCharacterControl : PlayerCharacterControl
         agent_.destination = transform.parent.parent.position;
         animator_.SetTrigger("skill3");
         Skill_3_ = Instantiate(Resources.Load("AreaDamage") as GameObject, transform.position, Quaternion.identity);
-        Skill_3_.GetComponent<AreaDamage>().Set(Mathf.RoundToInt(control.getAbility()[2].getRate() * control.getCharacter().getMaxHP() * control.getBuffAmount()["Damage"]) * 10 + 3,
+        Skill_3_.GetComponent<AreaDamage>().Set(Mathf.RoundToInt(control.getAbility()[2].getRate() * control.getCharacter().getMaxHP() * control.getBuffAmount()["SkillDamage"] * control.getBuffAmount()["SkillDamage"]) * 10 + 3,
             control.getCharacter().getIgnore(), control.getTeam() == 1 ? 2 : 1, control.getAbility()[2].getRangeX(), false, transform.parent.parent.gameObject);
         return true;
     }
@@ -209,7 +209,8 @@ public class OptimusCharacterControl : PlayerCharacterControl
         Roar.Play();
         skill_3_objs = Skill_3_.GetComponent<AreaDamage>().GetTargets();
         foreach (GameObject obj in skill_3_objs)
-            obj.GetComponent<PlayerControl>().AddShield(control.getAbility()[2].getName());
+            if(obj.TryGetComponent<PlayerControl>(out PlayerControl c))
+                c.AddShield(control.getAbility()[2].getName());
         skill_3_objs = Skill_3_.GetComponent<AreaDamage>().Damage();
 
 
@@ -223,7 +224,8 @@ public class OptimusCharacterControl : PlayerCharacterControl
         if (skill_3_objs == null)
             yield return null;
         foreach (GameObject obj in skill_3_objs)
-            obj.GetComponent<PlayerControl>().RemoveShield(control.getAbility()[2].getName());
+            if(obj.TryGetComponent<PlayerControl>(out PlayerControl c))
+                c.RemoveShield(control.getAbility()[2].getName());
         skill_3_objs = null;
     }
 
