@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SpaceBridgeBase
-  m_Shader: {fileID: -6465566751694194690, guid: 24134b123a059b04ea9b9f6715ecd662, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 8725c66896722eb4ea4cf30bc3b9d1ce, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -54,9 +54,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _Alpha: 1
+    - _Metallic: 0.35
+    - _Normal_Power: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Smoothness: 0
+    - _UVXMultiply: 0
+    - _UVYMultiply: 0
     m_Colors:
     - _MainColor: {r: 0.21769121, g: 0.21462265, b: 0.5, a: 0}
   m_BuildTextureStacks: []
