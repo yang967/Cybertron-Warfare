@@ -77,6 +77,13 @@ public class GameManager : MonoBehaviour
         get { return BackPack; }
     }
 
+    public bool MenuChildComponent;
+
+    public bool SwapMode;
+
+    public int ToSwap1 = -1;
+    public int ToSwap2 = -1;
+
     bool player_middle_;
     float Spawn_;
     [SerializeField] float SpawnGap = 80;
@@ -100,6 +107,9 @@ public class GameManager : MonoBehaviour
         spawn_time_ = 0;
         Spawn_ = Time.time;
         time = Time.time;
+
+        MenuChildComponent = false;
+        SwapMode = false;
     }
 
     // Update is called once per frame
@@ -200,6 +210,8 @@ public class GameManager : MonoBehaviour
 
     public void getBag()
     {
+        if (MenuChildComponent)
+            return;
         if (Store != null && Store.isActive)
             Store.Click();
         if (Fuse != null && Fuse.isActive)
@@ -210,6 +222,8 @@ public class GameManager : MonoBehaviour
 
     public void getStore()
     {
+        if (MenuChildComponent)
+            return;
         if (Store != null && !Store.isActive)
             Store.Click();
         if (Fuse != null && Fuse.isActive)
@@ -220,6 +234,8 @@ public class GameManager : MonoBehaviour
 
     public void getFuse()
     {
+        if (MenuChildComponent)
+            return;
         if (Store != null && Store.isActive)
             Store.Click();
         if (Fuse != null && !Fuse.isActive)
@@ -230,6 +246,8 @@ public class GameManager : MonoBehaviour
 
     public void ResetSFB()
     {
+        if (MenuChildComponent)
+            return;
         if (Store != null && Store.isActive)
             Store.Click();
         if (Fuse != null && Fuse.isActive)

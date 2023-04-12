@@ -100,9 +100,11 @@ public class PlayerControl : Control
 
     public void transform_to_robo()
     {
+        List<TriggerComponent> triggers = character_obj_.GetComponent<PlayerCharacterControl>().GetTriggerComponents();
         Destroy(character_obj_);
         vehicle_ = false;
         character_obj_ = Instantiate(Resources.Load(character_name_ + "Model") as GameObject, transform.GetChild(0));
+        character_obj_.GetComponent<PlayerCharacterControl>().SetTriggers(triggers);
         animator_ = character_obj_.GetComponent<Animator>();
         skill_ = character_obj_.GetComponent<Skill>();
         agent_.speed = character.getSpeed();
@@ -139,7 +141,12 @@ public class PlayerControl : Control
         if (Devices[slot] == "")
             return;
         character.RemoveDevice(GameManager.instance.getDevice(Devices[slot]));
+        Device d = GameManager.instance.getDevice(Devices[slot]);
+        BuffAmount["SkillDamage"] /= 1 / d.getSkillDamage();
+        BuffAmount["CDRate"] = 1 / d.getCoolDownRate();
         Devices[slot] = "";
+        Debug.Log(Devices[slot]);
+        RefreshStats();
     }
 
     public void RemoveBackpack(int slot)
@@ -298,6 +305,8 @@ public class PlayerControl : Control
         GameObject respawn = GameManager.instance.getSpawnPoint(team);
         transform.position = respawn.transform.position;
         transform.rotation = respawn.transform.rotation;
+        character.Respawn();
+        health_bar_.SetValue(character.getMaxHP() + character.getShield(), character.getHP(), character.getShield());
     }
 
     public void RemoveShield(string name)
@@ -305,7 +314,6 @@ public class PlayerControl : Control
         if (character.getShield() <= shield[name])
             return;
         character.setHP((int)shield[name] * 10 + 4, 0);
-        Debug.Log(character.getShield());
         shield.Remove(name);
         health_bar_.SetValue(character.getMaxHP() + character.getShield(), character.getHP(), character.getShield());
     }
@@ -407,5 +415,93 @@ public class PlayerControl : Control
 
         if (isPlayer)
             GameManager.instance.Bag.GetComponent<BackPackMenu>().Refresh();
+    }
+
+    public void SwapDevice(int ToSwap1, int ToSwap2)
+    {
+        if (ToSwap1 == -1 || ToSwap2 == -1)
+            return;
+
+        int type1 = ToSwap1 / 10, indx1 = ToSwap1 % 10;
+        int type2 = ToSwap2 / 10, indx2 = ToSwap2 % 10;
+
+        string d;
+        if (type1 == 0)
+        {
+            Equip2Bag(indx1, indx2);
+        }
+        else if (type2 == 0)
+            Equip2Bag(indx2, indx1);
+        else
+        {
+            string d1 = Backpack[indx1];
+            Backpack[indx1] = Backpack[indx2];
+            Backpack[indx2] = d1;
+        }
+    }
+
+    public void SellDevice(int indx)
+    {
+        int type = indx / 10;
+        int i = indx % 10;
+
+        if (type == 0)
+        {
+            Device d = GameManager.instance.getDevice(Devices[i]);
+            RemoveDevice(i);
+            currency += d.getPrice();
+        }
+        else
+        {
+            Device d = GameManager.instance.getDevice(Backpack[i]);
+            currency += d.getPrice();
+        }
+
+        if (detail != null)
+            detail.SetCurrency(currency);
+
+        GameManager.instance.Bag.GetComponent<BackPackMenu>().Refresh();
+    }
+
+    void Equip2Bag(int indx1, int indx2)
+    {
+        string d1 = Devices[indx1], d2 = Backpack[indx2];
+        RemoveDevice(indx1);
+        if(d2 != "")
+            AddDevice(d2);
+        Backpack[indx2] = d1;
+    }
+
+    public int GetNextAvailableBackPack()
+    {
+        int result = -1;
+        for (int i = 0; i < Backpack.Count; i++)
+            if(Backpack[i] == "")
+            {
+                result = i;
+                break;
+            }
+
+        return result;
+    }
+
+    public void EquipDevice(int indx)
+    {
+        Device d = GameManager.instance.getDevice(Backpack[indx]);
+        Equip2Bag(d.getSlot(), indx);
+        GameManager.instance.Bag.GetComponent<BackPackMenu>().Refresh();
+    }
+
+    public void UnequipDevice(int indx)
+    {
+        int slot = GetNextAvailableBackPack();
+        if (slot == -1)
+        {
+            Debug.Log("Backpack full");
+            return;
+        }
+
+        Equip2Bag(indx, slot);
+        GameManager.instance.Bag.GetComponent<BackPackMenu>().Refresh();
     }
 }

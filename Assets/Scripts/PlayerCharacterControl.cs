@@ -112,6 +112,8 @@ public class PlayerCharacterControl : AbstractSkill
         GetComponent<Collider>().enabled = true;
         gameObject.layer = 6;
         transform.parent.parent.GetComponent<PlayerControl>().Respawn();
+        transform.parent.parent.GetComponent<PlayerControl>().transform_to_robo();
+        Debug.Log("respawn");
     }
 
     public virtual void AddTrigger(TriggerComponent component)
@@ -123,6 +125,11 @@ public class PlayerCharacterControl : AbstractSkill
     public virtual void SetTriggers(List<TriggerComponent> components)
     {
         triggers = components;
+        foreach(TriggerComponent trigger in triggers)
+        {
+            gameObject.AddComponent<TriggerComponent>();
+            gameObject.GetComponent<TriggerComponent>().SetStats(trigger);
+        }
     }
 
     public virtual void RemoveTrigger(TriggerComponent component)
@@ -143,5 +150,10 @@ public class PlayerCharacterControl : AbstractSkill
         skill1.SetCD(a[0].getCD() * (1 / control.getBuffAmount()["CDRate"]));
         skill2.SetCD(a[1].getCD() * (1 / control.getBuffAmount()["CDRate"]));
         skill3.SetCD(a[2].getCD() * (1 / control.getBuffAmount()["CDRate"]));
+    }
+
+    public List<TriggerComponent> GetTriggerComponents()
+    {
+        return triggers;
     }
 }

@@ -444,4 +444,10 @@ public class Transformer
         }
         return 0;
     }
+
+    public void Respawn()
+    {
+        HP_ = Max_HP_;
+        shield_ = 0;
+    }
 }

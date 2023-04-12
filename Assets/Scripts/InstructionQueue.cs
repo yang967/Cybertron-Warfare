@@ -12,8 +12,6 @@ public class InstructionQueue : MonoBehaviour
     bool locked;
     float time;
     int count;
-    bool initialized = false;
-    bool isNull;
 
     // Start is called before the first frame update
     void Awake()
@@ -24,8 +22,6 @@ public class InstructionQueue : MonoBehaviour
         attack = transform.GetChild(2).GetComponent<Attack>();
         locked = false;
         time = 0;
-        initialized = true;
-        isNull = queue_ == null;
     }
 
     // Update is called once per frame
@@ -34,7 +30,6 @@ public class InstructionQueue : MonoBehaviour
         if(instruction_complete())
             next_instruction();
         count = queue_.Count;
-        isNull = queue_ == null;
 
     }
 

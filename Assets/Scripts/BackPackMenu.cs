@@ -24,6 +24,15 @@ public class BackPackMenu : MonoBehaviour
     public void Refresh()
     {
 
+        for (int i = 0; i < 7; i++) {
+            if (transform.GetChild(i + 1).childCount > 0)
+                Destroy(transform.GetChild(i + 1).GetChild(0).gameObject);
+        }
+
+        for(int i = 0; i < 7; i++)
+            if (bag.transform.GetChild(i).childCount > 0)
+                Destroy(bag.transform.GetChild(i).GetChild(0).gameObject);
+
         List<string> devices = GameManager.instance.Player.GetComponent<PlayerControl>().getDevice();
         List<string> backpack = GameManager.instance.Player.GetComponent<PlayerControl>().getBackPack();
 
@@ -31,19 +40,19 @@ public class BackPackMenu : MonoBehaviour
         {
             if (devices[i] == "")
             {
-                if (transform.GetChild(i).GetComponent<RawImage>() != null)
+                if (transform.GetChild(i + 1).GetComponent<RawImage>() != null)
                     continue;
-                transform.GetChild(i).gameObject.AddComponent<RawImage>();
-                transform.GetChild(i).GetComponent<RawImage>().color = color;
+                transform.GetChild(i + 1).gameObject.AddComponent<RawImage>();
+                transform.GetChild(i + 1).GetComponent<RawImage>().color = color;
                 continue;
             }
 
-            if (transform.GetChild(i).TryGetComponent<RawImage>(out RawImage image))
+            if (transform.GetChild(i + 1).TryGetComponent<RawImage>(out RawImage image))
                 Destroy(image);
 
-            GameObject d = Instantiate(device, transform.GetChild(i));
+            GameObject d = Instantiate(device, transform.GetChild(i + 1));
             d.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-            d.GetComponent<DeviceInBackPackButtonMain>().Setup(name);
+            d.GetComponent<DeviceInBackPackButtonMain>().Setup(devices[i], i, true);
 
         }
 
@@ -60,7 +69,7 @@ public class BackPackMenu : MonoBehaviour
 
             GameObject d = Instantiate(device, bag.transform.GetChild(i));
             d.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-            d.GetComponent<DeviceInBackPackButtonMain>().Setup(name);
+            d.GetComponent<DeviceInBackPackButtonMain>().Setup(name, i, false);
         }
     }
 }

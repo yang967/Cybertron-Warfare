@@ -7,6 +7,7 @@ public class BuffTrigger : TriggerComponent
     float time;
     float rate;
     string name_;
+    float start_time;
 
     public void Set(string name, float time, float rate)
     {
@@ -22,6 +23,7 @@ public class BuffTrigger : TriggerComponent
             return;
         PlayerControl control = obj.GetComponent<PlayerControl>();
         control.AddBuff(name_, rate);
+        start_time = Time.time;
         StartCoroutine(Stop());
     }
 
@@ -49,9 +51,11 @@ public class BuffTrigger : TriggerComponent
     {
         if (trigger.GetType() != typeof(BuffTrigger))
             return;
+        Debug.Log("transfer");
         BuffTrigger t = (BuffTrigger)trigger;
-        time = t.time;
         rate = t.rate;
         name_ = t.name_;
+        time = Time.time - start_time;
+        StartCoroutine(Stop());
     }
 }

@@ -66,7 +66,6 @@ public class SkillComponent : MonoBehaviour
         if (charge <= 0)
             return false;
 
-        Debug.Log("use");
         time = Time.time + CD;
         TimerPanel.SetActive(true);
         charge--;

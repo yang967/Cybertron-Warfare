@@ -30,8 +30,6 @@ public class DeviceMenu : MonoBehaviour
         str.TableReference = "StatsTable";
         for(int i = 0; i < stats.Count - 1; i++)
         {
-            if (stats[i][0] == "damage")
-                Debug.Log(stats[i][1]);
             str.TableEntryReference = stats[i][0];
             stat += str.GetLocalizedString() + ": " + stats[i][1] + "<br>";
         }
@@ -54,7 +52,7 @@ public class DeviceMenu : MonoBehaviour
             text.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = com;
         }
 
-        Texture tex = Resources.Load(name + "Image") as Texture;
+        Texture tex = Resources.Load("Images/" + name) as Texture;
         if (tex != null)
             GetComponent<RawImage>().texture = tex;
         text.SetActive(false);
