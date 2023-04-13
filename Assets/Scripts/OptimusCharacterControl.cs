@@ -26,6 +26,8 @@ public class OptimusCharacterControl : PlayerCharacterControl
     Quaternion rotation;
     List<GameObject> skill_3_objs;
 
+    bool in_wall;
+
     protected override void Start()
     {
         base.Start();
@@ -69,7 +71,7 @@ public class OptimusCharacterControl : PlayerCharacterControl
                 skill_indicator_ = null;
             }
         }
-        else if(skill_1)
+        else if(skill_1 && !in_wall)
         {
             transform.parent.parent.eulerAngles = new Vector3(transform.parent.parent.eulerAngles.x, rotation.eulerAngles.y, transform.parent.parent.eulerAngles.z);
             float speed = skill_1_range * (Time.deltaTime / 60.0f * 95);
@@ -260,6 +262,28 @@ public class OptimusCharacterControl : PlayerCharacterControl
                 obj.transform.GetChild(0).GetChild(0).gameObject.GetComponent<BuffTrigger>().Set("Speed", 2, 0.75f);
             }
         }
+    }
+
+    public void Inwall()
+    {
+        in_wall = true;
+    }
+
+    public void OutOfWall()
+    {
+        in_wall = false;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == 13)
+            in_wall = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 13)
+            in_wall = false;
     }
 
     /*public override void dead()

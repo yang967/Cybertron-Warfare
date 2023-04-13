@@ -66,5 +66,5 @@ Material:
     - _UVXMultiply: 0
     - _UVYMultiply: 0
     m_Colors:
-    - _MainColor: {r: 0.5236007, g: 0.5228729, b: 0.8867924, a: 0}
+    - _MainColor: {r: 1, g: 0.6627451, b: 0, a: 0}
   m_BuildTextureStacks: []

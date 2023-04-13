@@ -8,6 +8,7 @@ public class Target : MonoBehaviour
 {
     Camera camera_;
     Vector3 target_;
+    [SerializeField] LayerMask include;
 
     private void Awake()
     {
@@ -29,7 +30,7 @@ public class Target : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject())
             return false;
 
-        if(Physics.Raycast(ray, out rayhit))
+        if(Physics.Raycast(ray, out rayhit, Mathf.Infinity, include))
         {
             if (rayhit.collider.gameObject.layer == 6 && rayhit.collider.transform.parent.parent.GetComponent<Control>().getTeam() != GameManager.instance.Player.GetComponent<Control>().getTeam())
             {

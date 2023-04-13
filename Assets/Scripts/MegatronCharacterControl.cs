@@ -7,6 +7,9 @@ public class MegatronCharacterControl : PlayerCharacterControl
 {
     [SerializeField] ParticleSystem gun_fire_;
     [SerializeField] Transform bulletOut;
+    [SerializeField] Transform Melee;
+
+    Animator Melee_Animator;
 
     PlayerControl control;
     NavMeshAgent agent_;
@@ -18,6 +21,7 @@ public class MegatronCharacterControl : PlayerCharacterControl
         control = transform.parent.parent.GetComponent<PlayerControl>();
         attack_ = transform.parent.parent.GetChild(2).GetComponent<Attack>();
         agent_ = transform.parent.parent.GetComponent<NavMeshAgent>();
+        Melee_Animator = Melee.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -31,6 +35,21 @@ public class MegatronCharacterControl : PlayerCharacterControl
     {
         transform.parent.parent.GetComponent<PlayerControl>().transform_to_vehicle();
         agent_.baseOffset = 2;
+    }
+
+    public void Skill_1_Crush()
+    {
+        Melee_Animator.SetTrigger("Crush");
+    }
+
+    public void Skill_1_CrushFinish()
+    {
+        Melee_Animator.SetTrigger("CrushFinish");
+    }
+
+    public void Skill_1_Finish()
+    {
+        Melee_Animator.SetTrigger("Finish");
     }
 
     public void GunFire()

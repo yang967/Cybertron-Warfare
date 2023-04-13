@@ -8,6 +8,7 @@ public class MinionAttack : Attack
     bool started = false;
     //Control control_;
     GameObject[] TargetBuilding;
+    bool isTargetinList = false;
 
     protected override void Awake()
     {
@@ -19,7 +20,7 @@ public class MinionAttack : Attack
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        bool isTargetinList = false;
+        isTargetinList = false;
         foreach (GameObject t in TargetBuilding)
             if (target == t)
                 isTargetinList = true;
