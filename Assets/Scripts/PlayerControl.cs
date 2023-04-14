@@ -100,6 +100,7 @@ public class PlayerControl : Control
 
     public void transform_to_robo()
     {
+        Debug.Log(character_obj_ == null);
         List<TriggerComponent> triggers = character_obj_.GetComponent<PlayerCharacterControl>().GetTriggerComponents();
         Destroy(character_obj_);
         vehicle_ = false;

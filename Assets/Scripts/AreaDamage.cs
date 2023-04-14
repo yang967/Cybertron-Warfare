@@ -19,12 +19,22 @@ public class AreaDamage : MonoBehaviour
         trigger = -1;
     }
 
-    public void Set(int damage, float ignore, int team, float range, bool IncludeConstructure, GameObject from = null)
+    public void Set(int damage, float ignore, int team, float range, bool IncludeConstructure, GameObject from = null, bool isRound = true, float rangeY = 0)
     {
+        if(isRound)
+        {
+            GetComponent<SphereCollider>().radius = range;
+        } else
+        {
+            Destroy(GetComponent<SphereCollider>());
+            gameObject.AddComponent<BoxCollider>();
+            BoxCollider collider = gameObject.GetComponent<BoxCollider>();
+            collider.size = new Vector3(range, 10, rangeY); ;
+            collider.center += new Vector3(0, 0, range / 2 + 15);
+        }
         damage_ = damage;
         ignore_ = ignore;
         team_ = team;
-        GetComponent<SphereCollider>().radius = range;
         include_constructure_ = IncludeConstructure;
         this.from = from;
     }

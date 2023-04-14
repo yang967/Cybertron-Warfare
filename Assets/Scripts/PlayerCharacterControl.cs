@@ -46,13 +46,17 @@ public class PlayerCharacterControl : AbstractSkill
         if (skill1.getCharge() <= 0)
             return false;
 
-        foreach(TriggerComponent trigger in triggers)
+        return true;
+    }
+
+    public virtual void Skill_1_trigger()
+    {
+        foreach (TriggerComponent trigger in triggers)
         {
             GameObject self = transform.parent.parent.gameObject;
             trigger.SkillTrigger(self);
             trigger.Skill1Trigger(self);
         }
-        return true;
     }
 
     public override bool Skill_2_init()
@@ -60,13 +64,17 @@ public class PlayerCharacterControl : AbstractSkill
         if (skill2.getCharge() <= 0)
             return false;
 
+        return true;
+    }
+
+    public virtual void Skill_2_trigger()
+    {
         foreach (TriggerComponent trigger in triggers)
         {
             GameObject self = transform.parent.parent.gameObject;
             trigger.SkillTrigger(self);
             trigger.Skill2Trigger(self);
         }
-        return true;
     }
 
     public override bool Skill_3_init()

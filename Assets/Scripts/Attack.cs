@@ -183,4 +183,9 @@ public class Attack : MonoBehaviour
     {
         attack_rate_ = attack_rate;
     }
+
+    public float getRange()
+    {
+        return GetComponent<SphereCollider>().radius;
+    }
 }

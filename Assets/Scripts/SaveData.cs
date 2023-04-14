@@ -52,8 +52,8 @@ public class SaveData : MonoBehaviour
         }));
         Transformers.Add(new Transformer("Megatron", 3000, 4000, 300, 0.25f, 1.3f, 350, 1.7f, 50, 70, 325, 30, 25, true, 2, new Ability[]
         {
-            new Ability(),
-            new Ability(),
+            new Ability("", "", 0, 1.76f, 15, 15, true, 0, 1, 20),
+            new Ability("", "", 0, 2.86f, 40, 20, false, 0, 1, 30),
             new Ability(),
             new Ability(),
             new Ability()

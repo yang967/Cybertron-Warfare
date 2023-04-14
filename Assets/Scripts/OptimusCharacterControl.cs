@@ -116,6 +116,7 @@ public class OptimusCharacterControl : PlayerCharacterControl
         skill_1 = true;
         transform.parent.parent.GetComponent<NavMeshAgent>().enabled = false;
         height_ = transform.parent.parent.position.y;
+        base.Skill_1_trigger();
     }
 
     public void skill_1_end()

@@ -63,6 +63,9 @@ public class Control : MonoBehaviour
 
     protected virtual void RoboModeUpdate()
     {
+        string state = animator_.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+        if (state != "Run" && state != "Idle")
+            return;
         float velocity = getVelocity();
         dest_ = agent_.destination;
         if ((agent_.destination - transform.position).magnitude < agent_.baseOffset + 0.01f)

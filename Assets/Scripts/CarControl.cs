@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CarControl : AbstractSkill
+public class CarControl : PlayerCharacterControl
 {
     bool on_high_way_;
     GameObject highway_;
     float height;
     [SerializeField] GameObject[] Nitros;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         animator_ = GetComponent<Animator>();
         on_high_way_ = false;
         height = transform.parent.parent.GetComponent<NavMeshAgent>().baseOffset;

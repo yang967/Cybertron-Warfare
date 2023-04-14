@@ -32,8 +32,11 @@ public class ChainWeapon : MonoBehaviour
     List<Vector3> finalPoints = new List<Vector3>();
 
     float currentDis, slidingRequired, requiredDis;
+
+
     private void LateUpdate()
     {
+        Line.transform.eulerAngles = new Vector3(0, 0, 0);
         CheckWalls();
         GetNewPoints();
     }
@@ -124,9 +127,10 @@ public class ChainWeapon : MonoBehaviour
     void UpdateChainRenderer()
     {
         if (finalPoints.Count <= 0) return;
-        weaponModel.position = newPoints[newPoints.Count - 1];
+        //weaponModel.position = newPoints[newPoints.Count - 1];
 
         chainLine.positionCount = finalPoints.Count;
+        //chainLine.positionCount = chainPoints.Length;
         for (int i = 0; i < finalPoints.Count; i++)
         {
             chainLine.SetPosition(i, finalPoints[i] - Line.transform.position);

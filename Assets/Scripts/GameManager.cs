@@ -25,6 +25,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject BackPack;
     [SerializeField] GameObject canvas;
 
+    [SerializeField] LayerMask areaSkillLayer;
+    [SerializeField] LayerMask targetSkillLayer;
+
+    public LayerMask AreaSkillLayer {
+        get { return areaSkillLayer; }
+    }
+
+    public LayerMask TargetSkillLayer {
+        get { return targetSkillLayer; }
+    }
+
     GameObject Base1, Base2;
 
     public static readonly int[] LevelUpBonus = { 1000, 30 };

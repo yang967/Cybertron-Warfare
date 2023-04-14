@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class TankController : AbstractSkill
+public class TankController : PlayerCharacterControl
 {
     [SerializeField] Transform bulletOut;
     [SerializeField] ParticleSystem gun_fire_;
     PlayerControl control;
-    Attack attack_;
     NavMeshAgent agent_;
 
     // Start is called before the first frame update
-    void Awake()
+    protected override void  Awake()
     {
+        base.Awake();
         control = transform.parent.parent.GetComponent<PlayerControl>();
-        attack_ = transform.parent.parent.GetChild(2).GetComponent<Attack>();
         animator_ = GetComponent<Animator>();
         agent_ = transform.parent.parent.GetComponent<NavMeshAgent>();
         attack_.SetAttackRate(2 * control.getBuffAmount()["AttackRate"] * control.getCharacter().getAttackRate());
