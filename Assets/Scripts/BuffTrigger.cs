@@ -14,7 +14,8 @@ public class BuffTrigger : TriggerComponent
         this.time = time;
         this.rate = rate;
         name_ = name;
-        GetComponent<PlayerCharacterControl>().AddTrigger(this);
+        if(gameObject != null)
+            GetComponent<PlayerCharacterControl>().AddTrigger(this);
     }
 
     public override void EquipTrigger(GameObject obj = null)
@@ -30,6 +31,7 @@ public class BuffTrigger : TriggerComponent
     IEnumerator Stop()
     {
         yield return new WaitForSeconds(time);
+        if(gameObject != null)
         GetComponent<PlayerCharacterControl>().RemoveTrigger(this);
     }
 

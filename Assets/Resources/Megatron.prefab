@@ -257,7 +257,8 @@ MonoBehaviour:
   health_bar_: {fileID: 8994044228112627690}
   team: 0
   lock_control: 0
-  currency_display: {fileID: 0}
+  detail: {fileID: 0}
+  isPlayer: 0
 --- !u!1001 &3010484911016958677
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,6 +10,8 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] float max_HP_ = 50000;
     [SerializeField] float defend_;
     [SerializeField] Transform out_;
+    [SerializeField] GameObject StreamObj;
+    Material Stream;
     bool spawn_;
     int spawn_indx_;
     int spawn_num_;
@@ -23,6 +25,9 @@ public class PlayerBase : MonoBehaviour
         health_bar_.SetValue(max_HP_, HP_, 0);
         spawn_ = false;
         animator_ = GetComponent<Animator>();
+        StreamObj.GetComponent<MeshRenderer>().material = Instantiate(StreamObj.GetComponent<MeshRenderer>().material);
+        Stream = StreamObj.GetComponent<MeshRenderer>().material;
+        Stream.SetFloat("_Alpha", 0);
     }
 
     // Update is called once per frame
@@ -30,6 +35,11 @@ public class PlayerBase : MonoBehaviour
     {
         if (HP_ <= 0)
             animator_.SetTrigger("Destroy");
+        if (GameManager.instance.GetSpawn() - Time.time <= 10)
+            Stream.SetFloat("_Alpha", Mathf.Min(Stream.GetFloat("_Alpha") + 1 * Time.deltaTime, 1));
+        else
+            Stream.SetFloat("_Alpha", Mathf.Max(Stream.GetFloat("_Alpha") - 1 * Time.deltaTime, 0));
+
     }
 
     private void FixedUpdate()

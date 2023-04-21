@@ -7032,7 +7032,7 @@ GameObject:
   - component: {fileID: 2557611240762148656}
   - component: {fileID: 8040952205589958242}
   - component: {fileID: 8117627736057346341}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MegatronVehicleForm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7181,6 +7181,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfdb6c545180eaf418a7831e1fa0dc78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skill1: {fileID: 0}
+  skill2: {fileID: 0}
+  skill3: {fileID: 0}
   bulletOut: {fileID: 2538660351701459910}
   gun_fire_: {fileID: 0}
 --- !u!1 &3456803623984930301

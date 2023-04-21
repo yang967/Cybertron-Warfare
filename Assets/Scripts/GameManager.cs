@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] LayerMask areaSkillLayer;
     [SerializeField] LayerMask targetSkillLayer;
+    [SerializeField] TextMeshProUGUI Debug_PointOver;
 
     public LayerMask AreaSkillLayer {
         get { return areaSkillLayer; }
@@ -60,13 +62,16 @@ public class GameManager : MonoBehaviour
 
     public const int DEVICE_NUM = 7;
     public const int BACKPACK_SIZE = 7;
-    public const int INITIAL_CURRENCY = 100;
+    public const int INITIAL_CURRENCY = 1000;
 
     public const int CURRENCY_PER_MINION_MELEE = 20;
     public const int CURRENCY_PER_MINION_RANGE = 45;
     public const int CURRENCY_PER_MINION_CANNON = 135;
     public const int CURRENCY_PER_CANNON = 250;
     public const int CURRENCY_PER_HERO_LEVEL = 50;
+
+    public const float HEAL_DELAY = 0.5f;
+    public const float HEAL_PROPORTION = 0.2f;
 
     Dictionary<string, int> transformers_dict_;
     List<Transformer> transformers_;
@@ -140,6 +145,9 @@ public class GameManager : MonoBehaviour
             camera_obj_.transform.position = Vector3.MoveTowards(camera_obj_.transform.position, new Vector3(Player.transform.position.x + PlayerMiddlePosition.x, 90,
                 Player.transform.position.z + PlayerMiddlePosition.z), 300 * Time.deltaTime);
         }
+
+        /*if(EventSystem.current.IsPointerOverGameObject())
+            Debug_PointOver.text = EventSystem.current.currentSelectedGameObject.name;*/
     }
 
     public float GetSpawn()
@@ -262,7 +270,7 @@ public class GameManager : MonoBehaviour
         if (Store != null && Store.isActive)
             Store.Click();
         if (Fuse != null && Fuse.isActive)
-            Fuse.OnClick();
+            Fuse.Click();
         if (bag != null && bag.isActive)
             bag.Click();
     }

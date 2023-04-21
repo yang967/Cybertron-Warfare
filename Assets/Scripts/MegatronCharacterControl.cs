@@ -12,6 +12,9 @@ public class MegatronCharacterControl : PlayerCharacterControl
     [SerializeField] VisualEffect Charge;
     [SerializeField] GameObject Skill_2_GunFire;
     [SerializeField] GameObject Crush;
+    [SerializeField] VisualEffect Skill_3_Effect;
+
+    [SerializeField] VisualEffect[] flyFlame;
 
     int skill_indicating, skill;
     GameObject skill_indicator;
@@ -22,6 +25,10 @@ public class MegatronCharacterControl : PlayerCharacterControl
     NavMeshAgent agent_;
     Vector3 Skill_1_target;
     float skill_1_distance;
+    GameObject Skill_3_Stream;
+    
+    bool Skill_3_end;
+    GameObject Skill_3_field;
 
     AreaDamage area;
 
@@ -31,6 +38,7 @@ public class MegatronCharacterControl : PlayerCharacterControl
     // Start is called before the first frame update
     protected override void Start()
     {
+        base.Start();
         animator_ = GetComponent<Animator>();
         control = transform.parent.parent.GetComponent<PlayerControl>();
         attack_ = transform.parent.parent.GetChild(2).GetComponent<Attack>();
@@ -93,6 +101,14 @@ public class MegatronCharacterControl : PlayerCharacterControl
             animator_.speed = 1;
             transform.parent.parent.position += transform.parent.parent.forward * skill_1_distance / 1.2f * Time.deltaTime;
         }
+
+        if(Skill_3_Stream != null)
+        {
+            if (Skill_3_end)
+                Skill_3_Stream.GetComponent<MeshRenderer>().material.SetFloat("_Alpha", Mathf.Max(Skill_3_Stream.GetComponent<MeshRenderer>().material.GetFloat("_Alpha") - Time.deltaTime, 0));
+            else
+                Skill_3_Stream.GetComponent<MeshRenderer>().material.SetFloat("_Alpha", Mathf.Min(Skill_3_Stream.GetComponent<MeshRenderer>().material.GetFloat("_Alpha") + Time.deltaTime, 1));
+        }
     }
 
     void SetSkill1Start()
@@ -110,6 +126,10 @@ public class MegatronCharacterControl : PlayerCharacterControl
         transform.parent.parent.eulerAngles = new Vector3(0, rotation.eulerAngles.y, 0);
         animator_.speed = 1;
         skill1.UseSkill();
+        foreach (VisualEffect p in flyFlame)
+            p.Play();
+
+        base.Skill_1_trigger();
     }
 
     void SetSkill2Start()
@@ -129,6 +149,8 @@ public class MegatronCharacterControl : PlayerCharacterControl
             control.getCharacter().getIgnore(), control.getTeam(), s.getRangeY(), false, transform.parent.parent.gameObject, false, s.getRangeX());
         Destroy(skill_indicator);
         skill2.UseSkill();
+
+        base.Skill_2_trigger();
     }
 
 
@@ -201,6 +223,8 @@ public class MegatronCharacterControl : PlayerCharacterControl
         Destroy(Instantiate(Crush, Skill_1_target, Quaternion.identity), 3);
         skill = 0;
         area.Damage();
+        foreach (VisualEffect p in flyFlame)
+            p.Stop();
     }
 
     public void Skill_1_Finish()
@@ -239,6 +263,48 @@ public class MegatronCharacterControl : PlayerCharacterControl
         GameObject bullet = Instantiate(Resources.Load("EnergyCannonBullet") as GameObject, bulletOut.position, bulletOut.parent.rotation);
         bullet.GetComponent<Bullet>().Set(transform.parent.parent.gameObject, (int)(control.getCharacter().getDamage() * control.getBuffAmount()["Damage"]) * 10, control.getCharacter().getIgnore(),
             control.getTeam(), 0, control.getCharacter().getCritical(), control.getCharacter().getCriticalDamage(), attack_.getTarget());
+    }
+
+    public override bool Skill_3_init()
+    {
+        if (!base.Skill_3_init())
+            return false;
+
+        skill3.UseSkill();
+        animator_.SetTrigger("skill3");
+        base.Skill_3_trigger();
+        return true;
+    }
+
+    public void Skill_3_Fire()
+    {
+        Skill_3_Stream = Instantiate(Resources.Load("Stream_Megatron") as GameObject, transform.parent.parent.position - new Vector3(0, transform.parent.parent.position.y - 1.6f, 0), Quaternion.identity);
+        Skill_3_Stream.GetComponent<MeshRenderer>().material = Instantiate(Skill_3_Stream.GetComponent<MeshRenderer>().material);
+        Material material = Skill_3_Stream.GetComponent<MeshRenderer>().material;
+        material.SetFloat("_Alpha", 0);
+
+        Skill_3_end = false;
+
+        agent_.angularSpeed = 0;
+        agent_.isStopped = true;
+
+        Skill_3_Effect.Play();
+
+        Ability s = control.getAbility()[2];
+        Skill_3_field = Instantiate(Resources.Load("DamageField") as GameObject, transform.parent.parent.position - new Vector3(0, transform.parent.parent.position.y, 0), Quaternion.identity);
+        Skill_3_field.GetComponent<DamageField>().Set((int)(control.getCharacter().getDamage() * s.getRate() * control.getBuffAmount()["Damage"] * control.getBuffAmount()["SkillDamage"]),
+            control.getCharacter().getIgnore(), s.getRangeX(), control.getTeam());
+    }
+
+    public void Skill_3_End()
+    {
+        Skill_3_end = true;
+        Destroy(Skill_3_Stream, 3);
+        agent_.angularSpeed = 300;
+        agent_.isStopped = false;
+        Skill_3_Effect.Stop();
+        Destroy(Skill_3_field);
+        Skill_3_Effect = null;
     }
 
     public override bool Transform()

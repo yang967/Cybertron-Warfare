@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TriggerComponent : MonoBehaviour
 {
+    public virtual void UpdateTrigger(GameObject obj = null) { }
 
     public virtual void EquipTrigger(GameObject obj = null) { }
 

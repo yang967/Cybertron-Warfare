@@ -69,7 +69,7 @@ public class BackPackMenu : MonoBehaviour
 
             GameObject d = Instantiate(device, bag.transform.GetChild(i));
             d.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-            d.GetComponent<DeviceInBackPackButtonMain>().Setup(name, i, false);
+            d.GetComponent<DeviceInBackPackButtonMain>().Setup(backpack[i], i, false);
         }
     }
 }

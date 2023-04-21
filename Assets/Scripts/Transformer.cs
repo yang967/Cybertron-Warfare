@@ -291,6 +291,9 @@ public class Transformer
     public static float getResistanceRate(float defend_, float ignore)
     {
         float defend = defend_ - ignore;
+
+        if (defend <= 0)
+            return 0;
         float resistance = 0;
         for(int i = 0; i < 9; i++)
         {
@@ -404,7 +407,7 @@ public class Transformer
         defend_ += d.getDefend();
         crit_ *= d.getCriticalRate();
         crit_damage_ *= d.getCriticalDamage();
-        attack_rate_ *= d.getAttackRate();
+        attack_rate_ *= 1.0f / d.getAttackRate();
         speed_ += d.getSpeed();
         attack_range_ += d.getAttackRange();
         float HP_proportion = HP_ / Max_HP_;
@@ -420,7 +423,7 @@ public class Transformer
         defend_ -= d.getDefend();
         crit_ /= d.getCriticalRate();
         crit_damage_ /= d.getCriticalDamage();
-        attack_rate_ /= d.getAttackRate();
+        attack_rate_ /= 1.0f / d.getAttackRate();
         speed_ -= d.getSpeed();
         attack_range_ -= d.getAttackRange();
         float HP_proportion = HP_ / Max_HP_;

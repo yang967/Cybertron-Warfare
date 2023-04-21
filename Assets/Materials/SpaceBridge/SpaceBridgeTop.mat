@@ -59,12 +59,12 @@ Material:
     m_Ints: []
     m_Floats:
     - _Alpha: 1
-    - _Metallic: 0
+    - _Metallic: 1
     - _Normal_Power: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _UVXMultiply: 0
     - _UVYMultiply: 0
     m_Colors:
-    - _MainColor: {r: 0.5236007, g: 0.5228729, b: 0.8867924, a: 0}
+    - _MainColor: {r: 0.21960784, g: 0.21568628, b: 0.5019608, a: 0}
   m_BuildTextureStacks: []

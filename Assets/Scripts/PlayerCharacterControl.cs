@@ -82,13 +82,18 @@ public class PlayerCharacterControl : AbstractSkill
         if (skill3.getCharge() <= 0)
             return false;
 
+        
+        return true;
+    }
+
+    public virtual void Skill_3_trigger()
+    {
         foreach (TriggerComponent trigger in triggers)
         {
             GameObject self = transform.parent.parent.gameObject;
             trigger.SkillTrigger(self);
             trigger.Skill3Trigger(self);
         }
-        return true;
     }
 
     public override void dead()
@@ -163,5 +168,17 @@ public class PlayerCharacterControl : AbstractSkill
     public List<TriggerComponent> GetTriggerComponents()
     {
         return triggers;
+    }
+
+    public List<SkillComponent> getSkillComponents()
+    {
+        return new List<SkillComponent> { skill1, skill2, skill3 };
+    }
+
+    public void SetSkillComponent(List<SkillComponent> lst)
+    {
+        skill1 = lst[0];
+        skill2 = lst[1];
+        skill3 = lst[2];
     }
 }

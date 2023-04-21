@@ -87,9 +87,13 @@ public class PlayerControl : Control
 
     public void transform_to_vehicle()
     {
+        List<SkillComponent> lst = character_obj_.GetComponent<PlayerCharacterControl>().getSkillComponents();
+        List<TriggerComponent> triggers = character_obj_.GetComponent<PlayerCharacterControl>().GetTriggerComponents();
         Destroy(character_obj_);
         vehicle_ = true;
         character_obj_ = Instantiate(Resources.Load(character_name_ + "VehicleForm") as GameObject, transform.GetChild(0));
+        character_obj_.GetComponent<PlayerCharacterControl>().SetTriggers(triggers);
+        character_obj_.GetComponent<PlayerCharacterControl>().SetSkillComponent(lst);
         animator_ = character_obj_.GetComponent<Animator>();
         skill_ = character_obj_.GetComponent<Skill>();
         agent_.speed = character.getVehicleSpeed();
@@ -100,12 +104,13 @@ public class PlayerControl : Control
 
     public void transform_to_robo()
     {
-        Debug.Log(character_obj_ == null);
+        List<SkillComponent> lst = character_obj_.GetComponent<PlayerCharacterControl>().getSkillComponents();
         List<TriggerComponent> triggers = character_obj_.GetComponent<PlayerCharacterControl>().GetTriggerComponents();
         Destroy(character_obj_);
         vehicle_ = false;
         character_obj_ = Instantiate(Resources.Load(character_name_ + "Model") as GameObject, transform.GetChild(0));
         character_obj_.GetComponent<PlayerCharacterControl>().SetTriggers(triggers);
+        character_obj_.GetComponent<PlayerCharacterControl>().SetSkillComponent(lst);
         animator_ = character_obj_.GetComponent<Animator>();
         skill_ = character_obj_.GetComponent<Skill>();
         agent_.speed = character.getSpeed();
@@ -304,8 +309,10 @@ public class PlayerControl : Control
     public void Respawn()
     {
         GameObject respawn = GameManager.instance.getSpawnPoint(team);
+        Debug.Log(respawn.transform.position);
         transform.position = respawn.transform.position;
         transform.rotation = respawn.transform.rotation;
+        Debug.Log(transform.position);
         character.Respawn();
         health_bar_.SetValue(character.getMaxHP() + character.getShield(), character.getHP(), character.getShield());
     }

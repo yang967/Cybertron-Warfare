@@ -54,7 +54,7 @@ public class SaveData : MonoBehaviour
         {
             new Ability("", "", 0, 1.76f, 15, 15, true, 0, 1, 20),
             new Ability("", "", 0, 2.86f, 40, 20, false, 0, 1, 30),
-            new Ability(),
+            new Ability("", "", 0, 0.75f, 50, 50, false, 5, 1, 40),
             new Ability(),
             new Ability()
         }));

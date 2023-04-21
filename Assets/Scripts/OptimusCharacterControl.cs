@@ -170,6 +170,7 @@ public class OptimusCharacterControl : PlayerCharacterControl
     {
         skill1.UseSkill();
         animator_.SetTrigger("skill1");
+        base.Skill_1_trigger();
     }
 
     public override bool Skill_2_init()
@@ -179,6 +180,8 @@ public class OptimusCharacterControl : PlayerCharacterControl
 
         if (!base.Skill_2_init())
             return false;
+
+        base.Skill_2_trigger();
 
         skill2.UseSkill();
         agent_.destination = transform.parent.parent.position;
@@ -198,6 +201,7 @@ public class OptimusCharacterControl : PlayerCharacterControl
         if (!base.Skill_3_init())
             return false;
 
+        base.Skill_3_trigger();
         skill3.UseSkill();
         agent_.destination = transform.parent.parent.position;
         animator_.SetTrigger("skill3");

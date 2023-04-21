@@ -40,6 +40,9 @@ public class DeviceInBackPackButtonMain : MonoBehaviour
         str.TableReference = "DeviceNameTable";
         str.TableEntryReference = DeviceName;
 
+        if (equipped)
+            transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Unequip";
+
         int combined_indx = (equipped ? 0 : 1) * 10 + indx;
 
         swap.Setup(combined_indx);
@@ -50,6 +53,9 @@ public class DeviceInBackPackButtonMain : MonoBehaviour
 
         foreach (Transform t in transform)
             t.gameObject.SetActive(false);
+
+        for (int i = 0; i < 3; i++)
+            transform.GetChild(i).gameObject.SetActive(false);
     }
 
     public void OnClick()
