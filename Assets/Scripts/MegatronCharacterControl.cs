@@ -96,6 +96,9 @@ public class MegatronCharacterControl : PlayerCharacterControl
             }
         }
 
+        if (skill != 0)
+            animator_.speed = 1;
+
         if(skill == 1 && !in_wall)
         {
             animator_.speed = 1;
@@ -135,6 +138,7 @@ public class MegatronCharacterControl : PlayerCharacterControl
     void SetSkill2Start()
     {
         skill_indicating = 0;
+        skill = 2;
         agent_.angularSpeed = 0;
         agent_.isStopped = true;
         transform.parent.parent.rotation = skill_indicator.transform.rotation;
@@ -273,6 +277,7 @@ public class MegatronCharacterControl : PlayerCharacterControl
         skill3.UseSkill();
         animator_.SetTrigger("skill3");
         base.Skill_3_trigger();
+        skill = 3;
         return true;
     }
 

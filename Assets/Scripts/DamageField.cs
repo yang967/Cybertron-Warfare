@@ -22,6 +22,8 @@ public class DamageField : MonoBehaviour
 
         foreach(GameObject obj in targets)
         {
+            if (obj == null)
+                continue;
             obj.GetComponent<Control>().SetHP(Mathf.RoundToInt(damage * Time.deltaTime) * 10, ignore * 5);
         }
     }

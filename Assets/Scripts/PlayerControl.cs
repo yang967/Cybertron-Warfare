@@ -309,10 +309,8 @@ public class PlayerControl : Control
     public void Respawn()
     {
         GameObject respawn = GameManager.instance.getSpawnPoint(team);
-        Debug.Log(respawn.transform.position);
-        transform.position = respawn.transform.position;
+        transform.position = respawn.transform.position + new Vector3(0, GetComponent<NavMeshAgent>().baseOffset, 0);
         transform.rotation = respawn.transform.rotation;
-        Debug.Log(transform.position);
         character.Respawn();
         health_bar_.SetValue(character.getMaxHP() + character.getShield(), character.getHP(), character.getShield());
     }
