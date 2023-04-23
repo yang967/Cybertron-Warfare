@@ -6,4 +6,4 @@ Unity version: 2022.1.11f1
 
 Blender version: 3.0.5
 
-Photoshop Required
+Git LFS required
