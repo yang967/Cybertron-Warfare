@@ -101,8 +101,9 @@ public class MegatronCharacterControl : PlayerCharacterControl
 
         if(skill == 1 && !in_wall)
         {
+            float travel = skill_1_distance * (Time.deltaTime / 1.33f);
             animator_.speed = 1;
-            transform.parent.parent.position += transform.parent.parent.forward * skill_1_distance / 1.2f * Time.deltaTime;
+            transform.parent.parent.position += transform.parent.parent.forward * travel;
         }
 
         if(Skill_3_Stream != null)
@@ -116,23 +117,29 @@ public class MegatronCharacterControl : PlayerCharacterControl
 
     void SetSkill1Start()
     {
-        skill = 1;
         Skill_1_target = skill_indicator.transform.position;
-        skill_1_distance = Mathf.Max(Mathf.Sqrt(getDistance()) - 15, 0);
+        Debug.Log(Mathf.Sqrt(getDistance()));
+        skill_1_distance = Mathf.Max(Mathf.Sqrt(getDistance()) - 11, 0);
         Destroy(skill_indicator);
         skill_indicator = null;
         skill_indicating = 0;
         animator_.SetTrigger("skill1");
         agent_.angularSpeed = 0;
+        agent_.speed = 0;
         agent_.isStopped = true;
         Quaternion rotation = Quaternion.LookRotation((Skill_1_target - transform.parent.parent.position).normalized);
         transform.parent.parent.eulerAngles = new Vector3(0, rotation.eulerAngles.y, 0);
         animator_.speed = 1;
-        skill1.UseSkill();
+        skill1.GetComponent<SkillComponent>().UseSkill();
         foreach (VisualEffect p in flyFlame)
             p.Play();
 
         base.Skill_1_trigger();
+    }
+
+    public void Skill_1_Start()
+    {
+        skill = 1;
     }
 
     void SetSkill2Start()
@@ -140,6 +147,7 @@ public class MegatronCharacterControl : PlayerCharacterControl
         skill_indicating = 0;
         skill = 2;
         agent_.angularSpeed = 0;
+        agent_.speed = control.getCharacter().getSpeed();
         agent_.isStopped = true;
         transform.parent.parent.rotation = skill_indicator.transform.rotation;
         animator_.speed = 1;
@@ -152,7 +160,7 @@ public class MegatronCharacterControl : PlayerCharacterControl
         area.Set((int)(control.getCharacter().getDamage() * s.getRate() * control.getBuffAmount()["Damage"] * control.getBuffAmount()["SkillDamage"]) * 10,
             control.getCharacter().getIgnore(), control.getTeam(), s.getRangeY(), false, transform.parent.parent.gameObject, false, s.getRangeX());
         Destroy(skill_indicator);
-        skill2.UseSkill();
+        skill2.GetComponent<SkillComponent>().UseSkill();
 
         base.Skill_2_trigger();
     }
@@ -224,7 +232,7 @@ public class MegatronCharacterControl : PlayerCharacterControl
     public void Skill_1_CrushFinish()
     {
         Melee_Animator.SetTrigger("CrushFinish");
-        Destroy(Instantiate(Crush, Skill_1_target, Quaternion.identity), 3);
+        Destroy(Instantiate(Crush, Skill_1_target + new Vector3(0, 5, 0), Quaternion.identity), 3);
         skill = 0;
         area.Damage();
         foreach (VisualEffect p in flyFlame)
@@ -274,7 +282,7 @@ public class MegatronCharacterControl : PlayerCharacterControl
         if (!base.Skill_3_init())
             return false;
 
-        skill3.UseSkill();
+        skill3.GetComponent<SkillComponent>().UseSkill();
         animator_.SetTrigger("skill3");
         base.Skill_3_trigger();
         skill = 3;

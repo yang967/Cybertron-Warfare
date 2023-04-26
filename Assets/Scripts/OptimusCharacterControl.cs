@@ -168,7 +168,7 @@ public class OptimusCharacterControl : PlayerCharacterControl
 
     public void skill1_trigger()
     {
-        skill1.UseSkill();
+        skill1.GetComponent<SkillComponent>().UseSkill();
         animator_.SetTrigger("skill1");
         base.Skill_1_trigger();
     }
@@ -183,7 +183,7 @@ public class OptimusCharacterControl : PlayerCharacterControl
 
         base.Skill_2_trigger();
 
-        skill2.UseSkill();
+        skill2.GetComponent<SkillComponent>().UseSkill();
         agent_.destination = transform.parent.parent.position;
         Skill_2_ = Instantiate(Resources.Load("AreaDamage") as GameObject, transform.position, Quaternion.identity);
         Skill_2_.GetComponent<AreaDamage>().Set(Mathf.RoundToInt(control.getAbility()[1].getRate() * control.getCharacter().getDamage() * control.getBuffAmount()["Damage"] * control.getBuffAmount()["SkillDamage"]) * 10, control.getCharacter().getIgnore(),
@@ -202,7 +202,7 @@ public class OptimusCharacterControl : PlayerCharacterControl
             return false;
 
         base.Skill_3_trigger();
-        skill3.UseSkill();
+        skill3.GetComponent<SkillComponent>().UseSkill();
         agent_.destination = transform.parent.parent.position;
         animator_.SetTrigger("skill3");
         Skill_3_ = Instantiate(Resources.Load("AreaDamage") as GameObject, transform.position, Quaternion.identity);
@@ -217,14 +217,12 @@ public class OptimusCharacterControl : PlayerCharacterControl
         skill_3_objs = Skill_3_.GetComponent<AreaDamage>().GetTargets();
         foreach (GameObject obj in skill_3_objs)
             if(obj.TryGetComponent<PlayerControl>(out PlayerControl c))
-                c.AddShield(control.getAbility()[2].getName());
+                c.AddShield(control.getAbility()[2].getDuration(), control.getAbility()[2].getName());
         skill_3_objs = Skill_3_.GetComponent<AreaDamage>().Damage();
 
-
-        StartCoroutine(remove_shield());
     }
 
-    IEnumerator remove_shield()
+    /*IEnumerator remove_shield()
     {
         yield return new WaitForSeconds(control.getAbility()[2].getDuration());
 
@@ -234,7 +232,7 @@ public class OptimusCharacterControl : PlayerCharacterControl
             if(obj.TryGetComponent<PlayerControl>(out PlayerControl c))
                 c.RemoveShield(control.getAbility()[2].getName());
         skill_3_objs = null;
-    }
+    }*/
 
     public void skill_cancel()
     {

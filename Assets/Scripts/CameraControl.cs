@@ -20,7 +20,7 @@ public class CameraControl : MonoBehaviour
 
     void CameraMove()
     {
-        if (FixMode)
+        if (FixMode || GameManager.instance.isPaused)
             return;
         if (Input.mousePosition.y >= Screen.height - 5)
             Moveforward();

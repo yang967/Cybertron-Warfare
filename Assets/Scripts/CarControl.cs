@@ -10,9 +10,8 @@ public class CarControl : PlayerCharacterControl
     float height;
     [SerializeField] GameObject[] Nitros;
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         animator_ = GetComponent<Animator>();
         on_high_way_ = false;
         height = transform.parent.parent.GetComponent<NavMeshAgent>().baseOffset;

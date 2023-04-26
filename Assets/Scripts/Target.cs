@@ -38,6 +38,8 @@ public class Target : MonoBehaviour
             }
             else if (rayhit.collider.GetComponent<TurretController>() != null && rayhit.collider.transform.GetChild(3).GetComponent<Turret>().getTeam() != GameManager.instance.Player.GetComponent<Control>().getTeam())
                 GameManager.instance.Player.GetComponent<InstructionQueue>().Clear_and_Execute(new Instruction(1, rayhit.collider.transform.gameObject));
+            else if (rayhit.collider.TryGetComponent<PlayerBase>(out PlayerBase b) && b.getTeam() != GameManager.instance.Player.GetComponent<Control>().getTeam())
+                GameManager.instance.Player.GetComponent<InstructionQueue>().Clear_and_Execute(new Instruction(1, rayhit.collider.transform.gameObject));
             else
                 GameManager.instance.Player.GetComponent<InstructionQueue>().Clear_and_Execute(new Instruction(0, rayhit.point));
             return true;

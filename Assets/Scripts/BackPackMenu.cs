@@ -44,6 +44,7 @@ public class BackPackMenu : MonoBehaviour
                     continue;
                 transform.GetChild(i + 1).gameObject.AddComponent<RawImage>();
                 transform.GetChild(i + 1).GetComponent<RawImage>().color = color;
+                transform.GetChild(i + 1).GetComponent<RawImage>().raycastTarget = false;
                 continue;
             }
 

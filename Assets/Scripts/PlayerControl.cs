@@ -87,13 +87,12 @@ public class PlayerControl : Control
 
     public void transform_to_vehicle()
     {
-        List<SkillComponent> lst = character_obj_.GetComponent<PlayerCharacterControl>().getSkillComponents();
         List<TriggerComponent> triggers = character_obj_.GetComponent<PlayerCharacterControl>().GetTriggerComponents();
         Destroy(character_obj_);
         vehicle_ = true;
         character_obj_ = Instantiate(Resources.Load(character_name_ + "VehicleForm") as GameObject, transform.GetChild(0));
         character_obj_.GetComponent<PlayerCharacterControl>().SetTriggers(triggers);
-        character_obj_.GetComponent<PlayerCharacterControl>().SetSkillComponent(lst);
+        character_obj_.GetComponent<PlayerCharacterControl>().setVehicle(1);
         animator_ = character_obj_.GetComponent<Animator>();
         skill_ = character_obj_.GetComponent<Skill>();
         agent_.speed = character.getVehicleSpeed();
@@ -104,13 +103,12 @@ public class PlayerControl : Control
 
     public void transform_to_robo()
     {
-        List<SkillComponent> lst = character_obj_.GetComponent<PlayerCharacterControl>().getSkillComponents();
         List<TriggerComponent> triggers = character_obj_.GetComponent<PlayerCharacterControl>().GetTriggerComponents();
         Destroy(character_obj_);
         vehicle_ = false;
         character_obj_ = Instantiate(Resources.Load(character_name_ + "Model") as GameObject, transform.GetChild(0));
         character_obj_.GetComponent<PlayerCharacterControl>().SetTriggers(triggers);
-        character_obj_.GetComponent<PlayerCharacterControl>().SetSkillComponent(lst);
+        character_obj_.GetComponent<PlayerCharacterControl>().setVehicle(0);
         animator_ = character_obj_.GetComponent<Animator>();
         skill_ = character_obj_.GetComponent<Skill>();
         agent_.speed = character.getSpeed();
@@ -294,6 +292,7 @@ public class PlayerControl : Control
         agent_.speed = character.getSpeed() * BuffAmount["Speed"];
         if (transform.GetChild(0).GetChild(0).GetType() != typeof(TankController))
             attack.SetAttackRate(character.getAttackRate() * BuffAmount["AttackRate"]);
+        health_bar_.SetValue(character.getMaxHP() + character.getShield(), character.getHP(), character.getShield());
     }
 
     public Dictionary<string, float> getBuffAmount()
@@ -315,20 +314,28 @@ public class PlayerControl : Control
         health_bar_.SetValue(character.getMaxHP() + character.getShield(), character.getHP(), character.getShield());
     }
 
-    public void RemoveShield(string name)
+    public void RemoveShield(float time, string name)
     {
+        StartCoroutine(ShieldEnd(time, name));
+    }
+
+    IEnumerator ShieldEnd(float seconds, string name)
+    {
+        yield return new WaitForSeconds(seconds);
+
         if (character.getShield() <= shield[name])
-            return;
+            yield break;
         character.setHP((int)shield[name] * 10 + 4, 0);
         shield.Remove(name);
         health_bar_.SetValue(character.getMaxHP() + character.getShield(), character.getHP(), character.getShield());
     }
 
-    public void AddShield(string name)
+    public void AddShield(float time, string name)
     {
         if (shield.ContainsKey(name))
             return;
         shield.Add(name, character.getShield());
+        RemoveShield(time, name);
     }
 
     public List<string> getDevice()
@@ -363,17 +370,17 @@ public class PlayerControl : Control
                 if (hasDevice[0] == -1 && Devices[i] == components[0])
                     hasDevice[0] = i;
 
-                if (hasDevice[1] == -1 && Devices[i] == components[1])
+                else if (hasDevice[1] == -1 && Devices[i] == components[1])
                     hasDevice[1] = i;
             }
 
             for (int i = 0; i < Backpack.Count; i++)
             {
                 if (hasDevice[0] == -1 && Backpack[i] == components[0])
-                    hasDevice[0] = i;
+                    hasDevice[0] = 10 + i;
 
-                if (hasDevice[1] == -1 && Backpack[i] == components[1])
-                    hasDevice[1] = i;
+                else if (hasDevice[1] == -1 && Backpack[i] == components[1])
+                    hasDevice[1] = 10 + i;
             }
 
             if(hasDevice[0] != -1 && hasDevice[1] != -1)
@@ -392,6 +399,7 @@ public class PlayerControl : Control
                 Debug.Log("Not Enough Component");
                 return;
             }
+
         }
 
         if(Devices[d.getSlot()] == "")
@@ -421,6 +429,9 @@ public class PlayerControl : Control
 
         if (isPlayer)
             GameManager.instance.Bag.GetComponent<BackPackMenu>().Refresh();
+
+
+        RefreshStats(); 
     }
 
     public void SwapDevice(int ToSwap1, int ToSwap2)
@@ -467,6 +478,7 @@ public class PlayerControl : Control
             detail.SetCurrency(currency);
 
         GameManager.instance.Bag.GetComponent<BackPackMenu>().Refresh();
+        RefreshStats();
     }
 
     void Equip2Bag(int indx1, int indx2)
@@ -488,6 +500,7 @@ public class PlayerControl : Control
                 break;
             }
 
+        RefreshStats();
         return result;
     }
 
@@ -496,6 +509,7 @@ public class PlayerControl : Control
         Device d = GameManager.instance.getDevice(Backpack[indx]);
         Equip2Bag(d.getSlot(), indx);
         GameManager.instance.Bag.GetComponent<BackPackMenu>().Refresh();
+        RefreshStats();
     }
 
     public void UnequipDevice(int indx)
@@ -509,5 +523,6 @@ public class PlayerControl : Control
 
         Equip2Bag(indx, slot);
         GameManager.instance.Bag.GetComponent<BackPackMenu>().Refresh();
+        RefreshStats();
     }
 }

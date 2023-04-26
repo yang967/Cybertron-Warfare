@@ -11,9 +11,8 @@ public class TankController : PlayerCharacterControl
     NavMeshAgent agent_;
 
     // Start is called before the first frame update
-    protected override void  Awake()
+    protected void  Awake()
     {
-        base.Awake();
         control = transform.parent.parent.GetComponent<PlayerControl>();
         animator_ = GetComponent<Animator>();
         agent_ = transform.parent.parent.GetComponent<NavMeshAgent>();

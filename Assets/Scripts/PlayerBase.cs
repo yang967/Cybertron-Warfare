@@ -82,9 +82,10 @@ public class PlayerBase : MonoBehaviour
 
     public void Destroy()
     {
+        Destroy(gameObject);
         health_bar_.enabled = false;
         spawn_ = false;
-        GameManager.instance.win(team);
+        GameManager.instance.win(team == 0 ? 1 : 0);
     }
 
     public int getTeam()

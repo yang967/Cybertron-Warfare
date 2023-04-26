@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3047751095454992753}
   - component: {fileID: 6167169778467876440}
   - component: {fileID: 9218356354848824398}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crush
   m_TagString: Untagged
   m_Icon: {fileID: 0}

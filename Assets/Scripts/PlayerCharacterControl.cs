@@ -10,29 +10,37 @@ public class PlayerCharacterControl : AbstractSkill
 
 
 
-    [SerializeField] protected SkillComponent skill1;
-    [SerializeField] protected SkillComponent skill2;
-    [SerializeField] protected SkillComponent skill3;
+    [SerializeField] protected GameObject skill1;
+    [SerializeField] protected GameObject skill2;
+    [SerializeField] protected GameObject skill3;
 
+    int vehicle;
 
-    protected virtual void Awake()
+    protected virtual void Start()
     {
         triggers = new List<TriggerComponent>();
         attack_ = transform.parent.parent.GetChild(2).GetComponent<Attack>();
 
+        GameManager.instance.ControlPanel.transform.GetChild(1).GetChild(vehicle).gameObject.SetActive(true);
+        GameManager.instance.ControlPanel.transform.GetChild(2).GetChild(vehicle).gameObject.SetActive(true);
+        GameManager.instance.ControlPanel.transform.GetChild(3).GetChild(vehicle).gameObject.SetActive(true);
+        skill1 = GameManager.instance.ControlPanel.transform.GetChild(1).GetChild(vehicle).gameObject;
+        skill2 = GameManager.instance.ControlPanel.transform.GetChild(2).GetChild(vehicle).gameObject;
+        skill3 = GameManager.instance.ControlPanel.transform.GetChild(3).GetChild(vehicle).gameObject;
 
-        
-    }
+        int other = vehicle == 0 ? 1 : 0;
+        GameManager.instance.ControlPanel.transform.GetChild(1).GetChild(other).gameObject.SetActive(false);
+        GameManager.instance.ControlPanel.transform.GetChild(2).GetChild(other).gameObject.SetActive(false);
+        GameManager.instance.ControlPanel.transform.GetChild(3).GetChild(other).gameObject.SetActive(false);
 
-    protected virtual void Start()
-    {
+
         Transformer character = transform.parent.parent.GetComponent<Control>().getCharacter();
         if (skill1 != null)
-            skill1.Set("OptimusPrimeSkill1", character.getAbilities()[0].getChargeNum(), character.getAbilities()[0].getCD());
+            skill1.GetComponent<SkillComponent>().Set("", character.getAbilities()[0].getChargeNum(), character.getAbilities()[0].getCD());
         if (skill2 != null)
-            skill2.Set("OptimusPrimeSkill2", character.getAbilities()[1].getChargeNum(), character.getAbilities()[1].getCD());
+            skill2.GetComponent<SkillComponent>().Set("", character.getAbilities()[1].getChargeNum(), character.getAbilities()[1].getCD());
         if (skill3 != null)
-            skill3.Set("OptimusPrimeSkill3", character.getAbilities()[2].getChargeNum(), character.getAbilities()[2].getCD());
+            skill3.GetComponent<SkillComponent>().Set("", character.getAbilities()[2].getChargeNum(), character.getAbilities()[2].getCD());
     }
 
     public virtual void attack()
@@ -43,7 +51,7 @@ public class PlayerCharacterControl : AbstractSkill
 
     public override bool Skill_1_init()
     {
-        if (skill1.getCharge() <= 0)
+        if (skill1.GetComponent<SkillComponent>().getCharge() <= 0)
             return false;
 
         return true;
@@ -61,10 +69,15 @@ public class PlayerCharacterControl : AbstractSkill
 
     public override bool Skill_2_init()
     {
-        if (skill2.getCharge() <= 0)
+        if (skill2.GetComponent<SkillComponent>().getCharge() <= 0)
             return false;
 
         return true;
+    }
+
+    public void setVehicle(int v)
+    {
+        vehicle = v;
     }
 
     public virtual void Skill_2_trigger()
@@ -79,7 +92,7 @@ public class PlayerCharacterControl : AbstractSkill
 
     public override bool Skill_3_init()
     {
-        if (skill3.getCharge() <= 0)
+        if (skill3.GetComponent<SkillComponent>().getCharge() <= 0)
             return false;
 
         
@@ -160,25 +173,13 @@ public class PlayerCharacterControl : AbstractSkill
         PlayerControl control = transform.parent.parent.GetComponent<PlayerControl>();
 
         Ability[] a = control.getCharacter().getAbilities();
-        skill1.SetCD(a[0].getCD() * (1 / control.getBuffAmount()["CDRate"]));
-        skill2.SetCD(a[1].getCD() * (1 / control.getBuffAmount()["CDRate"]));
-        skill3.SetCD(a[2].getCD() * (1 / control.getBuffAmount()["CDRate"]));
+        skill1.GetComponent<SkillComponent>().SetCD(a[0].getCD() * (1 / control.getBuffAmount()["CDRate"]));
+        skill2.GetComponent<SkillComponent>().SetCD(a[1].getCD() * (1 / control.getBuffAmount()["CDRate"]));
+        skill3.GetComponent<SkillComponent>().SetCD(a[2].getCD() * (1 / control.getBuffAmount()["CDRate"]));
     }
 
     public List<TriggerComponent> GetTriggerComponents()
     {
         return triggers;
-    }
-
-    public List<SkillComponent> getSkillComponents()
-    {
-        return new List<SkillComponent> { skill1, skill2, skill3 };
-    }
-
-    public void SetSkillComponent(List<SkillComponent> lst)
-    {
-        skill1 = lst[0];
-        skill2 = lst[1];
-        skill3 = lst[2];
     }
 }

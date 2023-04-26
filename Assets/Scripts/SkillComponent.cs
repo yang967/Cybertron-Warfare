@@ -15,6 +15,12 @@ public class SkillComponent : MonoBehaviour
     int max_charge;
     int charge;
     float time;
+    bool set;
+
+    private void Awake()
+    {
+        set = false;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +30,8 @@ public class SkillComponent : MonoBehaviour
 
     public void Set(string name, int max_charge, float CD)
     {
+        if (set)
+            return;
         TimerPanel.SetActive(false);
         this.max_charge = max_charge;
         if (max_charge == 1)
@@ -33,6 +41,7 @@ public class SkillComponent : MonoBehaviour
         time = 0;
         this.CD = CD;
         charge = max_charge;
+        set = true;
     }
 
     public void SetCD(float CD)

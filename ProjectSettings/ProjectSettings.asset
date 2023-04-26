@@ -649,7 +649,7 @@ PlayerSettings:
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
-    Standalone: 1
+    Standalone: 0
   il2cppCompilerConfiguration: {}
   il2cppCodeGeneration: {}
   managedStrippingLevel: {}
@@ -736,11 +736,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 6ee73c6e-8778-4bca-85ec-33cce967371b
+  cloudProjectId: 8ab93975-0a87-4ff2-91bf-10604902eca2
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: Cybertron Warfare
+  organizationId: yangyh967
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

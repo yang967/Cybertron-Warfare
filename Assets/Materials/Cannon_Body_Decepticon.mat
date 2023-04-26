@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Cannon_Body 1
+  m_Name: Cannon_Body_Decepticon
   m_Shader: {fileID: -6465566751694194690, guid: 0f93848ec9645184997629285d153d37, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0

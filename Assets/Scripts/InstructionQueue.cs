@@ -110,6 +110,10 @@ public class InstructionQueue : MonoBehaviour
                     return true;
                 break;
             case 1:
+                if (attack.getTarget() == null || attack.getTarget() != current.getTargetObject()) {
+                    execute();
+                    return false;
+                }
                 if(current.getTargetObject() == null)
                 {
                     attack.CancelTarget();

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject[] MinionTarget2;
     [SerializeField] GameObject SpawnPoint1;
     [SerializeField] GameObject SpawnPoint2;
+    [SerializeField] GameObject controlPanel;
     [SerializeField] StoreButton Store;
     [SerializeField] StoreButton Fuse;
     [SerializeField] GameObject fm;
@@ -29,6 +30,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] LayerMask areaSkillLayer;
     [SerializeField] LayerMask targetSkillLayer;
     [SerializeField] TextMeshProUGUI Debug_PointOver;
+
+    [SerializeField] GameObject result;
+    [SerializeField] GameObject pause;
 
     public LayerMask AreaSkillLayer {
         get { return areaSkillLayer; }
@@ -55,14 +59,14 @@ public class GameManager : MonoBehaviour
     public static readonly int[] DefendRate = { 200, 800, 1600, 2700, 4100, 6000, 8400, 10700, 14000 };
     public static readonly float[] ResistanceRate = { 0.02f, 0.04f, 0.05f, 0.06f, 0.06f, 0.07f, 0.12f, 0.14f, 0.14f };
 
-    public static readonly string[] Minions = { "MinionMelee", "MinionMelee", "MinionPistol", "MinionPistol", "MinionTank", "MinionTank" };
+    public static readonly string[] Minions = { "MinionMelee", "MinionMelee", "MinionPistol", "MinionPistol", "MinionCannon", "MinionCannon" };
     public static readonly string[] DevicePos = { "CPU", "Software", "Power-Related Device", "Head", "Body", "Hand", "Foot" };
 
     public static Vector3 PlayerMiddlePosition = new Vector3(10, 0, 16);
 
     public const int DEVICE_NUM = 7;
     public const int BACKPACK_SIZE = 7;
-    public const int INITIAL_CURRENCY = 1000;
+    public const int INITIAL_CURRENCY = 100;
 
     public const int CURRENCY_PER_MINION_MELEE = 20;
     public const int CURRENCY_PER_MINION_RANGE = 45;
@@ -76,6 +80,12 @@ public class GameManager : MonoBehaviour
     Dictionary<string, int> transformers_dict_;
     List<Transformer> transformers_;
     Dictionary<string, Device> devices_;
+    bool isPause;
+
+    public bool isPaused {
+        get { return isPause; }
+    }
+    
 
     public Dictionary<string, Device> Devices {
         get { return devices_; }
@@ -91,6 +101,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject Bag {
         get { return BackPack; }
+    }
+
+    public GameObject ControlPanel {
+        get { return controlPanel; }
     }
 
     public bool MenuChildComponent;
@@ -126,11 +140,15 @@ public class GameManager : MonoBehaviour
 
         MenuChildComponent = false;
         SwapMode = false;
+        isPause = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.Escape))
+            if (isPause) Resume(); else Pause();
+
         if(Time.time > Spawn_)
         {
             Base1.GetComponent<PlayerBase>().Spawn(spawn_num);
@@ -200,12 +218,19 @@ public class GameManager : MonoBehaviour
 
     public void win(int i)
     {
-        if (i == 0 && Base1 != null)
-            return;
-        if (i == 1 && Base2 != null)
-            return;
+        Debug.Log("win");
 
         Debug.Log("Team " + i + " win!");
+
+        result.SetActive(true);
+        if (i == Player.GetComponent<Control>().getTeam()) {
+            result.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "You Win!";
+        } else {
+            result.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "You Lose";
+        }
+        isPause = true;
+        pause.SetActive(false);
+        Time.timeScale = 0;
     }
 
     public int getCurrency(string name, int level = 0)
@@ -273,5 +298,19 @@ public class GameManager : MonoBehaviour
             Fuse.Click();
         if (bag != null && bag.isActive)
             bag.Click();
+    }
+
+    public void Pause()
+    {
+        if (isPause)
+            return;
+        pause.SetActive(true);
+        isPause = true;
+    }
+
+    public void Resume()
+    {
+        pause.SetActive(false);
+        isPause = false;
     }
 }
