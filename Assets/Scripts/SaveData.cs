@@ -41,21 +41,21 @@ public class SaveData : MonoBehaviour
         }));
         Transformers.Add(new Transformer("Optimus Prime", 5000, 3000, 200, 0.2f, 1.3f, 200, 1, 50, 70, 400, 30, 50, true, 1, new Ability[]
         {
-            new Ability("", "Optimus Prime jump forward and shoot 3 shots to the front area, each shot deal 79.3% damage", 0, 0.793f, 40, 7, false, 0, 1, 15),
-            new Ability("", "Optimus Prime spin attack with his axe, deal 235% damage", 0, 2.35f, 20, 20, true, 0, 1, 20, new List<Effect>()
+            new Ability("", "Optimus Prime jump forward and shoot 3 shots to the front area, each shot deal 79.3% damage", 0, 0.793f, 40, 7, false, 0, 1, 15, 750),
+            new Ability("", "Optimus Prime spin attack with his axe, deal 235% damage", 0, 2.35f, 20, 20, true, 0, 1, 20, 1000, new List<Effect>()
             {
                 new Effect(0, "SlowDown", 4, 0.4f)
             }),
-            new Ability("Prime Protection", "Inspire the surrounding teammate. Teammate near Optimus Prime gain shield capacity equals to 66.5% Optimus Prime's max HP, last for 10 seconds", 2, 0.65f, 30, 30, true, 10, 1, 60),
-            new Ability("Leader's Inspiration", "Teammate near Optimus Prime can have extra 12% attack", 3, 0.12f, 30, 30, true, 0, 0, 0),
-            new Ability("", "Boost speed by 10%. Deal 350% damage when running into enemy", 0, 3.5f, 0, 0, false, 8, 1, 13)
+            new Ability("Prime Protection", "Inspire the surrounding teammate. Teammate near Optimus Prime gain shield capacity equals to 66.5% Optimus Prime's max HP, last for 10 seconds", 2, 0.65f, 30, 30, true, 10, 1, 60, 2500),
+            new Ability("Leader's Inspiration", "Teammate near Optimus Prime can have extra 12% attack", 3, 0.12f, 30, 30, true, 0, 0, 0, 0),
+            new Ability("", "Boost speed by 10%. Deal 175% damage when running into enemy", 0, 1.75f, 0, 0, false, 8, 1, 13, 1000)
         }));
         Transformers.Add(new Transformer("Megatron", 3000, 4000, 300, 0.25f, 1.3f, 350, 1.7f, 50, 70, 325, 30, 25, true, 2, new Ability[]
         {
-            new Ability("", "", 0, 1.76f, 15, 15, true, 0, 1, 20),
-            new Ability("", "", 0, 2.86f, 40, 20, false, 0, 1, 30),
-            new Ability("", "", 0, 0.75f, 50, 50, false, 5, 1, 40),
-            new Ability(),
+            new Ability("", "", 0, 1.76f, 15, 15, true, 0, 1, 20, 1100),
+            new Ability("", "", 0, 2.86f, 40, 20, false, 0, 1, 30, 1150),
+            new Ability("", "", 0, 0.75f, 50, 50, false, 5, 1, 40, 1900),
+            new Ability("", "", 0, 2, 0, 0, false, 2, 0, 0, 0),
             new Ability()
         }));
         SaveSystem.SaveCh(Transformers);

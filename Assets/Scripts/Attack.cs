@@ -65,11 +65,8 @@ public class Attack : MonoBehaviour
         target = null;
         if (targets.Count == 0)
             return;
-        if(targets.First.Value == null || targets.First.Value.GetComponent<Control>().getHP() <= 0)
-        {
+        while(targets.First.Value == null || targets.First.Value.GetComponent<Control>().getHP() <= 0) {
             targets.RemoveFirst();
-            next();
-            return;
         }
         in_range = false;
         //target = targets.First.Value;

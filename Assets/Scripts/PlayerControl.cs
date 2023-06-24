@@ -9,6 +9,7 @@ public class PlayerControl : Control
 {
     [SerializeField] DetailPanel detail;
     [SerializeField] bool isPlayer = false;
+    [SerializeField] Transform Highlight;
 
     Dictionary<string, List<Effect>> effects_;
     int level;
@@ -21,6 +22,8 @@ public class PlayerControl : Control
     Dictionary<string, float> BuffAmount;
     HashSet<string> Buffs;
     Dictionary<string, float> shield;
+    int HP_REGEN;
+    float ENERGY_REGEN;
 
     protected override void Awake()
     {
@@ -29,6 +32,8 @@ public class PlayerControl : Control
         level = 1;
         exp = 0;
         next_exp = GameManager.Initial_LevelUp_Exp;
+        HP_REGEN = GameManager.HP_REGEN;
+        ENERGY_REGEN = GameManager.ENERGY_REGEN;
         Devices = new List<string>(GameManager.DEVICE_NUM);
         for (int i = 0; i < Devices.Capacity; i++)
             Devices.Add("");
@@ -52,13 +57,27 @@ public class PlayerControl : Control
         BuffAmount.Add("Speed", 1);
         BuffAmount.Add("SkillDamage", 1);
         BuffAmount.Add("CDRate", 1);
+        BuffAmount.Add("Energy", 1);
+        BuffAmount.Add("EnergyRegen", 1);
         shield = new Dictionary<string, float>();
+        if (gameObject != GameManager.instance.Player)
+            Highlight.gameObject.SetActive(false);
     }
 
     protected override void Start()
     {
         base.Start();
         attack.SetAttackRate(character.getAttackRate() * BuffAmount["AttackRate"]);
+
+        StartCoroutine(HPRegen());
+        StartCoroutine(EnergyRegen());
+    }
+
+    private void FixedUpdate()
+    {
+
+        Highlight.position = new Vector3(Highlight.position.x, 1.72f, Highlight.position.z);
+        Highlight.localPosition -= new Vector3(Highlight.localPosition.x, 0, Highlight.localPosition.z);
     }
 
     protected override void GeneralUpdate()
@@ -95,7 +114,7 @@ public class PlayerControl : Control
         character_obj_.GetComponent<PlayerCharacterControl>().setVehicle(1);
         animator_ = character_obj_.GetComponent<Animator>();
         skill_ = character_obj_.GetComponent<Skill>();
-        agent_.speed = character.getVehicleSpeed();
+        agent_.speed = character.getVehicleSpeed() * BuffAmount["Speed"];
         attack.setAnimator(character_obj_);
     }
 
@@ -111,7 +130,7 @@ public class PlayerControl : Control
         character_obj_.GetComponent<PlayerCharacterControl>().setVehicle(0);
         animator_ = character_obj_.GetComponent<Animator>();
         skill_ = character_obj_.GetComponent<Skill>();
-        agent_.speed = character.getSpeed();
+        agent_.speed = character.getSpeed() * BuffAmount["Speed"];
         agent_.radius = radius_;
         attack.setAnimator(character_obj_);
     }
@@ -289,10 +308,14 @@ public class PlayerControl : Control
     {
         transform.GetChild(2).GetComponent<SphereCollider>().radius = character.getAttackRange() * BuffAmount["AttackRange"];
         transform.GetChild(3).GetComponent<SphereCollider>().radius = character.getViewRange() * BuffAmount["ViewRange"];
-        agent_.speed = character.getSpeed() * BuffAmount["Speed"];
+        if (vehicle_)
+            agent_.speed = character.getVehicleSpeed() * BuffAmount["Speed"];
+        else
+            agent_.speed = character.getSpeed() * BuffAmount["Speed"];
         if (transform.GetChild(0).GetChild(0).GetType() != typeof(TankController))
             attack.SetAttackRate(character.getAttackRate() * BuffAmount["AttackRate"]);
         health_bar_.SetValue(character.getMaxHP() + character.getShield(), character.getHP(), character.getShield());
+        health_bar_.SetEnergy(character.getMaxEnergy(), character.getEnergy());
     }
 
     public Dictionary<string, float> getBuffAmount()
@@ -308,10 +331,13 @@ public class PlayerControl : Control
     public void Respawn()
     {
         GameObject respawn = GameManager.instance.getSpawnPoint(team);
-        transform.position = respawn.transform.position + new Vector3(0, GetComponent<NavMeshAgent>().baseOffset, 0);
+        transform.position = respawn.transform.position/* + new Vector3(0, GetComponent<NavMeshAgent>().baseOffset, 0)*/;
+        Debug.Log(transform.position);
+        //Debug.Break();
         transform.rotation = respawn.transform.rotation;
         character.Respawn();
         health_bar_.SetValue(character.getMaxHP() + character.getShield(), character.getHP(), character.getShield());
+        health_bar_.SetEnergy(character.getMaxEnergy(), character.getEnergy());
     }
 
     public void RemoveShield(float time, string name)
@@ -328,6 +354,7 @@ public class PlayerControl : Control
         character.setHP((int)shield[name] * 10 + 4, 0);
         shield.Remove(name);
         health_bar_.SetValue(character.getMaxHP() + character.getShield(), character.getHP(), character.getShield());
+        health_bar_.SetEnergy(character.getMaxEnergy(), character.getEnergy());
     }
 
     public void AddShield(float time, string name)
@@ -434,6 +461,30 @@ public class PlayerControl : Control
         RefreshStats(); 
     }
 
+    IEnumerator HPRegen()
+    {
+        for(; ; ) {
+            yield return new WaitUntil(() => getHP() > 0);
+
+            character.setHP(HP_REGEN * 10 + 2, 0);
+            RefreshStats();
+
+            yield return new WaitForSeconds(GameManager.HP_REGEN_DELAY);
+        }
+    }
+
+    IEnumerator EnergyRegen()
+    {
+        for(; ; ) {
+            yield return new WaitUntil(() => getHP() > 0);
+
+            character.setEnergy(ENERGY_REGEN * BuffAmount["EnergyRegen"] * 10 + 1);
+            RefreshStats();
+
+            yield return new WaitForSeconds(GameManager.ENERGY_REGEN_DELAY);
+        }
+    }
+
     public void SwapDevice(int ToSwap1, int ToSwap2)
     {
         if (ToSwap1 == -1 || ToSwap2 == -1)
@@ -524,5 +575,16 @@ public class PlayerControl : Control
         Equip2Bag(indx, slot);
         GameManager.instance.Bag.GetComponent<BackPackMenu>().Refresh();
         RefreshStats();
+    }
+
+    public void SetEnergy(float energy)
+    {
+        character.setEnergy(energy);
+        RefreshStats();
+    }
+
+    public float GetEnergy()
+    {
+        return character.getEnergy();
     }
 }

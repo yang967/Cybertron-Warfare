@@ -8,6 +8,7 @@ public class HealthBar : MonoBehaviour
     protected float max, current;
     protected  RectTransform imageRectTransform;
     [SerializeField] protected Image fill;
+    [SerializeField] protected Image Energy;
 
     protected virtual void Awake()
     {
@@ -27,5 +28,11 @@ public class HealthBar : MonoBehaviour
         fill.material.SetFloat("_Blocks", max / GameManager.HP_Per_Block);
         fill.material.SetFloat("_Percentage", current / max);
         fill.material.SetFloat("_ShieldPercentage", shield / max);
+    }
+
+    public void SetEnergy(float max, float current)
+    {
+        Energy.material.SetFloat("_Blocks", max / GameManager.ENERGY_PER_BLOCK);
+        Energy.material.SetFloat("_Percentage", current / max);
     }
 }

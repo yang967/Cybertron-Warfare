@@ -56,6 +56,7 @@ public class Control : MonoBehaviour
     {
         if (character.getHP() + character.getShield() <= 0)
         {
+            agent_.isStopped = true;
             transform.GetChild(1).gameObject.SetActive(false);
             animator_.SetTrigger("dead");
         }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerBase : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class PlayerBase : MonoBehaviour
     int spawn_num_;
     float spawn_time_;
     Animator animator_;
+    int DEBUG_COUNTER;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +29,11 @@ public class PlayerBase : MonoBehaviour
         animator_ = GetComponent<Animator>();
         StreamObj.GetComponent<MeshRenderer>().material = Instantiate(StreamObj.GetComponent<MeshRenderer>().material);
         Stream = StreamObj.GetComponent<MeshRenderer>().material;
+
+        if (team != GameManager.instance.Player.GetComponent<Control>().getTeam())
+            transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetComponent<Image>().color = Color.red;
         Stream.SetFloat("_Alpha", 0);
+        DEBUG_COUNTER = 0;
     }
 
     // Update is called once per frame
@@ -54,7 +60,10 @@ public class PlayerBase : MonoBehaviour
             if(Time.time > spawn_time_)
             {
                 GameObject minion = Instantiate(Resources.Load(team == 0 ? GameManager.Minions[spawn_indx_] + "Autobot" : GameManager.Minions[spawn_indx_]) as GameObject, out_.transform.position, Quaternion.identity);
+                minion.name = minion.name.Replace("(Clone)", " " + DEBUG_COUNTER++);
                 minion.GetComponent<MinionControl>().SetTeam(team);
+                if(team != GameManager.instance.Player.GetComponent<Control>().getTeam())
+                    minion.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetComponent<Image>().color = Color.red;
                 spawn_indx_++;
                 spawn_time_ = Time.time + 1;
             }

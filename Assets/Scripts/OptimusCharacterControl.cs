@@ -16,7 +16,6 @@ public class OptimusCharacterControl : PlayerCharacterControl
     GameObject Skill_2_;
     GameObject Skill_3_;
 
-    PlayerControl control;
     float height_;
     bool skill_1 = false;
     GameObject skill_indicator_;
@@ -34,7 +33,6 @@ public class OptimusCharacterControl : PlayerCharacterControl
         speed_ = 30;
         vehicle_speed_ = 50;
         animator_ = GetComponent<Animator>();
-        control = transform.parent.parent.GetComponent<PlayerControl>();
         abilities_ = control.getAbility();
         skill_indicator_ = null;
         skill = -1;
@@ -50,7 +48,7 @@ public class OptimusCharacterControl : PlayerCharacterControl
             Ray ray = camera_.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayhit;
 
-            if (Physics.Raycast(ray, out rayhit))
+            if (Physics.Raycast(ray, out rayhit, Mathf.Infinity, GameManager.instance.SkillLayer))
             {
                 skill_indicator_.transform.eulerAngles = new Vector3(0,
                     (Quaternion.LookRotation((rayhit.point - skill_indicator_.transform.position).normalized, Vector3.up)).eulerAngles.y,
@@ -61,14 +59,8 @@ public class OptimusCharacterControl : PlayerCharacterControl
 
             if(Input.GetMouseButtonUp(0))
             {
-                agent_.isStopped = true;
-                rotation = skill_indicator_.transform.rotation;
-                transform.parent.parent.eulerAngles = new Vector3(transform.parent.parent.position.x, skill_indicator_.transform.eulerAngles.y, transform.parent.parent.position.z);
                 if (skill == 1)
-                    skill1_trigger();
-                skill = -1;
-                Destroy(skill_indicator_);
-                skill_indicator_ = null;
+                    SetSkill1Start(skill_indicator_.transform.position + skill_indicator_.transform.forward * 1);
             }
         }
         else if(skill_1 && !in_wall)
@@ -80,6 +72,23 @@ public class OptimusCharacterControl : PlayerCharacterControl
             transform.parent.parent.position = new Vector3(obj_pos.x, height_, obj_pos.z);
             //transform.parent.parent.GetComponent<NavMeshAgent>().destination = transform.parent.parent.position;
         }
+    }
+
+    public override bool SetSkill1Start(Vector3 position)
+    {
+        if (!base.SetSkill1Start(position))
+            return false;
+
+        agent_.isStopped = true;
+        Vector3 r = (position - transform.position).normalized;
+
+        rotation = Quaternion.LookRotation(r, Vector3.up);
+        transform.parent.parent.eulerAngles = new Vector3(transform.parent.parent.position.x, rotation.eulerAngles.y, transform.parent.parent.position.z);
+        skill1_trigger();
+        skill = -1;
+        Destroy(skill_indicator_);
+        skill_indicator_ = null;
+        return true;
     }
 
     public override void attack()
@@ -143,6 +152,7 @@ public class OptimusCharacterControl : PlayerCharacterControl
         if (!isIdleOrRun() && !isAttacking())
             return false;
         animator_.SetTrigger("vehicle");
+        Destroy(skill_indicator_);
         agent_.radius = 7.45f;
         return true;
     }
@@ -182,6 +192,24 @@ public class OptimusCharacterControl : PlayerCharacterControl
             return false;
 
         base.Skill_2_trigger();
+
+        /*skill2.GetComponent<SkillComponent>().UseSkill();
+        agent_.destination = transform.parent.parent.position;
+        Skill_2_ = Instantiate(Resources.Load("AreaDamage") as GameObject, transform.position, Quaternion.identity);
+        Skill_2_.GetComponent<AreaDamage>().Set(Mathf.RoundToInt(control.getAbility()[1].getRate() * control.getCharacter().getDamage() * control.getBuffAmount()["Damage"] * control.getBuffAmount()["SkillDamage"]) * 10, control.getCharacter().getIgnore(),
+            control.getTeam(), control.getAbility()[1].getRangeX(), false, transform.parent.parent.gameObject);
+        Skill_2_.GetComponent<AreaDamage>().SetTrigger(2);
+        animator_.SetTrigger("skill2");*/
+
+        SetSkill2Start(new Vector3());
+
+        return true;
+    }
+
+    public override bool SetSkill2Start(Vector3 position)
+    {
+        if (!base.SetSkill2Start(position))
+            return false;
 
         skill2.GetComponent<SkillComponent>().UseSkill();
         agent_.destination = transform.parent.parent.position;
@@ -287,6 +315,12 @@ public class OptimusCharacterControl : PlayerCharacterControl
     {
         if (other.gameObject.layer == 13)
             in_wall = false;
+    }
+
+    public override void dead()
+    {
+        base.dead();
+        Destroy(skill_indicator_);
     }
 
     /*public override void dead()

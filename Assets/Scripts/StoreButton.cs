@@ -16,7 +16,7 @@ public class StoreButton : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape) && store)
+        if (Input.GetKeyUp(KeyCode.Tab) && store)
             GameManager.instance.ResetSFB();
     }
 

@@ -16,6 +16,7 @@ public class Ability
     int charge_;
     float CD_;
     List<Effect> effects_;
+    float energy_;
 
     public Ability()
     {
@@ -30,9 +31,10 @@ public class Ability
         charge_ = 0;
         CD_ = 0;
         effects_ = null;
+        energy_ = 0;
     }
 
-    public Ability(string name, string description, int type, float rate, float range_x, float range_y, bool isRoundRange, float time, int charge, int CD)
+    public Ability(string name, string description, int type, float rate, float range_x, float range_y, bool isRoundRange, float time, int charge, int CD, float energy)
     {
         name_ = name;
         description_ = description;
@@ -45,9 +47,10 @@ public class Ability
         charge_ = charge;
         CD_ = CD;
         effects_ = new List<Effect>();
+        energy_ = energy;
     }
 
-    public Ability(string name, string description, int type, float rate, float range_x, float range_y, bool isRoundRange, float time, int charge, int CD, List<Effect> effects)
+    public Ability(string name, string description, int type, float rate, float range_x, float range_y, bool isRoundRange, float time, int charge, int CD, float energy, List<Effect> effects)
     {
         name_ = name;
         description_ = description;
@@ -60,6 +63,7 @@ public class Ability
         charge_ = charge;
         CD_ = CD;
         effects_ = effects;
+        energy_ = energy;
     }
 
     public Ability(Ability rhs)
@@ -75,6 +79,7 @@ public class Ability
         charge_ = rhs.getChargeNum();
         CD_ = rhs.getCD();
         effects_ = rhs.effects_;
+        energy_ = rhs.energy_;
     }
 
     public string getName()
@@ -130,5 +135,10 @@ public class Ability
     public List<Effect> getEffects()
     {
         return effects_;
+    }
+
+    public float getEnergy()
+    {
+        return energy_;
     }
 }

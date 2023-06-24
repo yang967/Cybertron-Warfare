@@ -428,6 +428,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBarNonPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 8176242694520402728, guid: ab5af6114b9ab214b8e832b480fe2e9e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1.699997
+      objectReference: {fileID: 0}
     - target: {fileID: 8513073640778416494, guid: ab5af6114b9ab214b8e832b480fe2e9e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -466,15 +470,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8513073640778416494, guid: ab5af6114b9ab214b8e832b480fe2e9e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4.4911
+      value: 1.5933075
       objectReference: {fileID: 0}
     - target: {fileID: 8513073640778416494, guid: ab5af6114b9ab214b8e832b480fe2e9e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4.4911
+      value: 1.5933075
       objectReference: {fileID: 0}
     - target: {fileID: 8513073640778416494, guid: ab5af6114b9ab214b8e832b480fe2e9e, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4.4911
+      value: 1.5933075
       objectReference: {fileID: 0}
     - target: {fileID: 8513073640778416494, guid: ab5af6114b9ab214b8e832b480fe2e9e, type: 3}
       propertyPath: m_LocalPosition.x

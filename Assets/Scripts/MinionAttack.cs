@@ -14,6 +14,12 @@ public class MinionAttack : Attack
     {
         base.Awake();
         started = true;
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+
         TargetBuilding = GameManager.instance.getMinionTarget(team_);
     }
 
@@ -25,6 +31,8 @@ public class MinionAttack : Attack
             if (target == t)
                 isTargetinList = true;
         if (target == null || isTargetinList) {
+            //if (team_ == 1)
+               // Debug.Log("next");
             next();
         }
         try {
@@ -106,10 +114,24 @@ public class MinionAttack : Attack
         targets.Remove(obj);
         if (target == obj)
             target = null;
+
+        queue.RemoveInstruction(new Instruction(2, obj));
+        queue.RemoveInstruction(new Instruction(1, obj));
     }
 
     public void AddTarget(GameObject obj)
     {
+
+        foreach (GameObject t in TargetBuilding) {
+            if (target == null || target.Equals(t)) {
+                targets.AddFirst(obj);
+                next();
+                return;
+            }
+        }
+            
+
         targets.AddLast(obj);
+              
     }
 }

@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject result;
     [SerializeField] GameObject pause;
+    [SerializeField] LayerMask SkillIncludeLayer;
 
     public LayerMask AreaSkillLayer {
         get { return areaSkillLayer; }
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour
     public const int Hero_Exp_Per_Level = 200;
     public const int Turret_Exp = 1000;
     public const int HP_Per_Block = 1000;
+    public const int ENERGY_PER_BLOCK = 1000;
     
     public static readonly int[] DefendRate = { 200, 800, 1600, 2700, 4100, 6000, 8400, 10700, 14000 };
     public static readonly float[] ResistanceRate = { 0.02f, 0.04f, 0.05f, 0.06f, 0.06f, 0.07f, 0.12f, 0.14f, 0.14f };
@@ -62,7 +64,7 @@ public class GameManager : MonoBehaviour
     public static readonly string[] Minions = { "MinionMelee", "MinionMelee", "MinionPistol", "MinionPistol", "MinionCannon", "MinionCannon" };
     public static readonly string[] DevicePos = { "CPU", "Software", "Power-Related Device", "Head", "Body", "Hand", "Foot" };
 
-    public static Vector3 PlayerMiddlePosition = new Vector3(10, 0, 16);
+    public static Vector3 PlayerMiddlePosition = new Vector3(17.29f, 0, 15.38f);
 
     public const int DEVICE_NUM = 7;
     public const int BACKPACK_SIZE = 7;
@@ -76,6 +78,12 @@ public class GameManager : MonoBehaviour
 
     public const float HEAL_DELAY = 0.5f;
     public const float HEAL_PROPORTION = 0.2f;
+
+    public const int HP_REGEN = 10;
+    public const float HP_REGEN_DELAY = 0.5f;
+
+    public const float ENERGY_REGEN = 10;
+    public const float ENERGY_REGEN_DELAY = 1;
 
     Dictionary<string, int> transformers_dict_;
     List<Transformer> transformers_;
@@ -105,6 +113,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject ControlPanel {
         get { return controlPanel; }
+    }
+
+    public LayerMask SkillLayer {
+        get { return SkillIncludeLayer; }
     }
 
     public bool MenuChildComponent;
@@ -146,8 +158,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
-            if (isPause) Resume(); else Pause();
+        if(!MenuChildComponent && !Store.isActive && !Fuse.isActive && !bag.isActive) {
+            if (Input.GetKeyUp(KeyCode.Escape))
+                if (isPause) Resume(); else Pause();
+        }
 
         if(Time.time > Spawn_)
         {
@@ -190,6 +204,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerMiddle()
     {
+        Debug.Log("middle");
         player_middle_ = true;
     }
 
@@ -208,6 +223,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject getSpawnPoint(int i)
     {
+        GameObject point = i == 1 ? SpawnPoint1 : SpawnPoint2;
+        Debug.Log(point.transform.position);
         return i == 1 ? SpawnPoint1 : SpawnPoint2;
     }
 

@@ -21,7 +21,6 @@ public class MegatronCharacterControl : PlayerCharacterControl
 
     Animator Melee_Animator;
 
-    PlayerControl control;
     NavMeshAgent agent_;
     Vector3 Skill_1_target;
     float skill_1_distance;
@@ -73,7 +72,7 @@ public class MegatronCharacterControl : PlayerCharacterControl
                 }
 
                 if (Input.GetMouseButtonUp(0))
-                    SetSkill1Start();
+                    SetSkill1Start(skill_indicator.transform.position);
             }
         }
         else if(skill_indicating == 2)
@@ -92,7 +91,7 @@ public class MegatronCharacterControl : PlayerCharacterControl
                 skill_indicator.transform.position += skill_indicator.transform.forward * s.getRangeX() / 2;
 
                 if (Input.GetMouseButtonUp(0))
-                    SetSkill2Start();
+                    SetSkill2Start(skill_indicator.transform.position + skill_indicator.transform.forward * 1);
             }
         }
 
@@ -115,9 +114,11 @@ public class MegatronCharacterControl : PlayerCharacterControl
         }
     }
 
-    void SetSkill1Start()
+    public override bool SetSkill1Start(Vector3 position)
     {
-        Skill_1_target = skill_indicator.transform.position;
+        if (!base.SetSkill1Start(position))
+            return false;
+        Skill_1_target = position;
         Debug.Log(Mathf.Sqrt(getDistance()));
         skill_1_distance = Mathf.Max(Mathf.Sqrt(getDistance()) - 11, 0);
         Destroy(skill_indicator);
@@ -135,6 +136,8 @@ public class MegatronCharacterControl : PlayerCharacterControl
             p.Play();
 
         base.Skill_1_trigger();
+
+        return true;
     }
 
     public void Skill_1_Start()
@@ -142,14 +145,18 @@ public class MegatronCharacterControl : PlayerCharacterControl
         skill = 1;
     }
 
-    void SetSkill2Start()
+    public override bool SetSkill2Start(Vector3 position)
     {
+        if (!base.SetSkill2Start(position))
+            return false;
+
         skill_indicating = 0;
         skill = 2;
         agent_.angularSpeed = 0;
         agent_.speed = control.getCharacter().getSpeed();
         agent_.isStopped = true;
-        transform.parent.parent.rotation = skill_indicator.transform.rotation;
+        Vector3 rotation = (position - transform.position).normalized;
+        transform.parent.parent.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
         animator_.speed = 1;
         animator_.SetTrigger("skill2");
 
@@ -163,6 +170,21 @@ public class MegatronCharacterControl : PlayerCharacterControl
         skill2.GetComponent<SkillComponent>().UseSkill();
 
         base.Skill_2_trigger();
+
+        return true;
+    }
+
+    public override bool SetSkill3Start(Vector3 position)
+    {
+        if (!base.SetSkill3Start(position))
+            return false;
+
+        skill3.GetComponent<SkillComponent>().UseSkill();
+        animator_.SetTrigger("skill3");
+        base.Skill_3_trigger();
+        skill = 3;
+
+        return true;
     }
 
 
@@ -282,10 +304,8 @@ public class MegatronCharacterControl : PlayerCharacterControl
         if (!base.Skill_3_init())
             return false;
 
-        skill3.GetComponent<SkillComponent>().UseSkill();
-        animator_.SetTrigger("skill3");
-        base.Skill_3_trigger();
-        skill = 3;
+        SetSkill3Start(new Vector3());
+
         return true;
     }
 
@@ -325,8 +345,15 @@ public class MegatronCharacterControl : PlayerCharacterControl
         if (!isIdleOrRun() && !isAttacking())
             return false;
         animator_.SetTrigger("vehicle");
+        Destroy(skill_indicator);
         agent_.radius = 7.45f;
         return true;
+    }
+
+    public override void dead()
+    {
+        base.dead();
+        Destroy(skill_indicator);
     }
 
     float getDistance()

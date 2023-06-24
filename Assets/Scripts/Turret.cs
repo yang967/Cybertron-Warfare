@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Turret : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(team != GameManager.instance.Player.GetComponent<Control>().getTeam())
+            transform.parent.GetChild(2).GetChild(0).GetChild(1).GetChild(0).GetComponent<Image>().color = Color.red;
         targets = new LinkedList<GameObject>();
         animator_ = transform.parent.GetComponent<Animator>();
         HP_ = max_HP_;
@@ -174,5 +177,10 @@ public class Turret : MonoBehaviour
         gun_fire_2_.GetComponent<ParticleSystem>().Play();
         GameObject bullet = Instantiate(bullet_, gun_fire_2_.position, Quaternion.identity);
         bullet.GetComponent<TrackBullet>().Set((damage_ / 2) * 10 + 1, 0, 0, 0, target);
+    }
+
+    public GameObject getTarget()
+    {
+        return target;
     }
 }

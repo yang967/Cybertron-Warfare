@@ -8,7 +8,8 @@ public class PlayerCharacterControl : AbstractSkill
     protected List<TriggerComponent> triggers;
     protected Attack attack_;
 
-
+    protected PlayerControl control;
+    Ability[] abilities;
 
     [SerializeField] protected GameObject skill1;
     [SerializeField] protected GameObject skill2;
@@ -20,6 +21,9 @@ public class PlayerCharacterControl : AbstractSkill
     {
         triggers = new List<TriggerComponent>();
         attack_ = transform.parent.parent.GetChild(2).GetComponent<Attack>();
+
+        control = transform.parent.parent.GetComponent<PlayerControl>();
+        abilities = control.getAbility();
 
         GameManager.instance.ControlPanel.transform.GetChild(1).GetChild(vehicle).gameObject.SetActive(true);
         GameManager.instance.ControlPanel.transform.GetChild(2).GetChild(vehicle).gameObject.SetActive(true);
@@ -54,6 +58,9 @@ public class PlayerCharacterControl : AbstractSkill
         if (skill1.GetComponent<SkillComponent>().getCharge() <= 0)
             return false;
 
+        if (control.GetEnergy() < abilities[0].getEnergy())
+            return false;
+
         return true;
     }
 
@@ -70,6 +77,9 @@ public class PlayerCharacterControl : AbstractSkill
     public override bool Skill_2_init()
     {
         if (skill2.GetComponent<SkillComponent>().getCharge() <= 0)
+            return false;
+
+        if (control.GetEnergy() < abilities[1].getEnergy())
             return false;
 
         return true;
@@ -95,7 +105,9 @@ public class PlayerCharacterControl : AbstractSkill
         if (skill3.GetComponent<SkillComponent>().getCharge() <= 0)
             return false;
 
-        
+        if (control.GetEnergy() < abilities[2].getEnergy())
+            return false;
+
         return true;
     }
 
@@ -129,6 +141,8 @@ public class PlayerCharacterControl : AbstractSkill
     protected override IEnumerator respawn()
     {
         yield return new WaitForSeconds(GameManager.instance.getRespawnTime());
+        transform.parent.parent.GetComponent<PlayerControl>().Respawn();
+        transform.parent.parent.GetComponent<PlayerControl>().transform_to_robo();
         GameObject obj = transform.parent.parent.gameObject;
         obj.transform.GetChild(2).gameObject.SetActive(true);
         obj.transform.GetChild(1).gameObject.SetActive(true);
@@ -137,9 +151,13 @@ public class PlayerCharacterControl : AbstractSkill
         obj.GetComponent<InstructionQueue>().enabled = true;
         GetComponent<Collider>().enabled = true;
         gameObject.layer = 6;
-        transform.parent.parent.GetComponent<PlayerControl>().Respawn();
-        transform.parent.parent.GetComponent<PlayerControl>().transform_to_robo();
+        //if (transform.parent.parent.gameObject == GameManager.instance.Player)
+        //  GameManager.instance.PlayerMiddle();
+        Vector3 obj_pos = obj.transform.position;
+        Vector3 middle = GameManager.PlayerMiddlePosition;
+        GameManager.PlayerCamera.transform.position = new Vector3(obj_pos.x + middle.x, 90, obj_pos.z + middle.z);
         Debug.Log("respawn");
+        Debug.Log(transform.parent.parent.position);
     }
 
     public virtual void AddTrigger(TriggerComponent component)
@@ -181,5 +199,29 @@ public class PlayerCharacterControl : AbstractSkill
     public List<TriggerComponent> GetTriggerComponents()
     {
         return triggers;
+    }
+
+    public virtual bool SetSkill1Start(Vector3 position)
+    {
+        if (skill1.GetComponent<SkillComponent>().getCharge() <= 0)
+            return false;
+        control.SetEnergy(abilities[0].getEnergy() * 10);
+        return true;
+    }
+
+    public virtual bool SetSkill2Start(Vector3 position)
+    {
+        if (skill2.GetComponent<SkillComponent>().getCharge() <= 0)
+            return false;
+        control.SetEnergy(abilities[1].getEnergy() * 10);
+        return true;
+    }
+
+    public virtual bool SetSkill3Start(Vector3 position)
+    {
+        if (skill3.GetComponent<SkillComponent>().getCharge() <= 0)
+            return false;
+        control.SetEnergy(abilities[2].getEnergy() * 10);
+        return true;
     }
 }

@@ -25,7 +25,8 @@ public class Transformer
     float ignore_;
     float crit_;
     float crit_damage_;
-    float power_;
+    float Max_energy_;
+    float energy_;
 
     public Transformer()
     {
@@ -49,10 +50,11 @@ public class Transformer
         ignore_ = 0;
         crit_ = 0;
         crit_damage_ = 0;
-        power_ = 0;
+        Max_energy_ = 0;
+        energy_ = 0;
     }
 
-    public Transformer(string name, float HP, float power, float damage, float vehicle_damage, float crit, float crit_damage, float ignore, float attack_rate, float vehicle_attack_rate, float attack_range, 
+    public Transformer(string name, float HP, float energy, float damage, float vehicle_damage, float crit, float crit_damage, float ignore, float attack_rate, float vehicle_attack_rate, float attack_range, 
         float vehicle_attack_range, float view_range, float defend, float speed, float vehicle_speed, bool vehicle_movable, int vehicle_type, Ability[] abilities)
     {
         name_ = name;
@@ -75,10 +77,11 @@ public class Transformer
         shield_ = 0;
         crit_ = crit;
         crit_damage_ = crit_damage;
-        power_ = power;
+        Max_energy_ = energy;
+        energy_ = energy;
     }
 
-    public Transformer(string name, float HP, float power, float damage, float crit, float crit_damage, float ignore, float attack_rate, float attack_range,
+    public Transformer(string name, float HP, float energy, float damage, float crit, float crit_damage, float ignore, float attack_rate, float attack_range,
        float view_range, float defend, float speed, float vehicle_speed, bool vehicle_movable, int vehicle_type, Ability[] abilities)
     {
         name_ = name;
@@ -101,7 +104,8 @@ public class Transformer
         shield_ = 0;
         crit_ = crit;
         crit_damage_ = crit_damage;
-        power_ = power;
+        Max_energy_ = energy;
+        energy_ = energy;
     }
 
     public Transformer(Transformer rhs)
@@ -128,7 +132,8 @@ public class Transformer
         ignore_ = rhs.getIgnore();
         crit_ = rhs.crit_;
         crit_damage_ = rhs.crit_damage_;
-        power_ = rhs.power_;
+        energy_ = rhs.energy_;
+        Max_energy_ = rhs.Max_energy_;
     }
 
     public void setHP(int dmg, float ignore)
@@ -203,6 +208,62 @@ public class Transformer
         }
     }
 
+    public void setEnergy(float energy)
+    {
+        float after_decimal = energy - (int)energy;
+        int energy_i = (int)energy;
+        int op = energy_i % 10;
+        energy /= 10;
+
+        switch (op) {
+            case 0:
+                energy_ -= energy + after_decimal;
+                break;
+            case 1:
+                energy_ = Mathf.Min(energy_ + energy + after_decimal, Max_energy_);
+                break;
+            case 3:
+                energy_ = energy + after_decimal;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void setMaxEnergy(float OP)
+    {
+        if (OP - (int)OP > 0) {
+            Max_energy_ *= Mathf.Abs(OP);
+            energy_ *= Mathf.Abs(OP);
+            return;
+        }
+
+        int amount = (int)OP;
+        int op = amount % 10;
+        amount /= 10;
+        float proportion;
+        switch (op) {
+            case 1:
+                proportion = (Max_energy_ + amount) / Max_energy_;
+                Max_energy_ += amount;
+                energy_ *= proportion;
+                break;
+            case 2:
+                if (amount > Max_energy_) {
+                    Max_energy_ = 1;
+                    energy_ = 1;
+                }
+                else {
+                    proportion = (Max_energy_ - amount) / Max_energy_;
+                    Max_energy_ -= amount;
+                    energy_ *= proportion;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
     public string getName()
     {
         return name_;
@@ -213,9 +274,14 @@ public class Transformer
         return HP_;
     }
 
-    public float getPower()
+    public float getEnergy()
     {
-        return power_;
+        return energy_;
+    }
+
+    public float getMaxEnergy()
+    {
+        return Max_energy_;
     }
 
     public float getHPProportion()
@@ -452,5 +518,6 @@ public class Transformer
     {
         HP_ = Max_HP_;
         shield_ = 0;
+        energy_ = Max_energy_;
     }
 }
