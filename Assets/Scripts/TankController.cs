@@ -7,7 +7,6 @@ public class TankController : PlayerCharacterControl
 {
     [SerializeField] Transform bulletOut;
     [SerializeField] ParticleSystem gun_fire_;
-    PlayerControl control;
     NavMeshAgent agent_;
 
     // Start is called before the first frame update
@@ -25,7 +24,7 @@ public class TankController : PlayerCharacterControl
         
     }
 
-    public void transform_to_robo()
+    public override void transform_to_robo()
     {
         transform.parent.parent.GetComponent<PlayerControl>().transform_to_robo();
         agent_.baseOffset = 10;

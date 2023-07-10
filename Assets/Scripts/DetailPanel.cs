@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 public class DetailPanel : MonoBehaviour
 {
@@ -32,7 +34,10 @@ public class DetailPanel : MonoBehaviour
 
     public void SetCurrency(int c)
     {
-        currency.text = "Currency: " + c + "";
+        LocalizedString str = new LocalizedString();
+        str.TableReference = "UI";
+        str.TableEntryReference = "Currency";
+        currency.text = str.GetLocalizedString() + ": " + c;
     }
 
     public void SetLevel(int lvl)

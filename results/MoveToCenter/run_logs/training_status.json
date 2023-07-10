@@ -1,0 +1,65 @@
+{
+    "MoveToCenter": {
+        "checkpoints": [
+            {
+                "steps": 500027,
+                "file_path": "results\\MoveToCenter\\MoveToCenter\\MoveToCenter-500027.onnx",
+                "reward": null,
+                "creation_time": 1687756588.850079,
+                "auxillary_file_paths": [
+                    "results\\MoveToCenter\\MoveToCenter\\MoveToCenter-500027.pt"
+                ]
+            },
+            {
+                "steps": 500027,
+                "file_path": "results\\MoveToCenter\\MoveToCenter\\MoveToCenter-500027.onnx",
+                "reward": null,
+                "creation_time": 1687756613.8943436,
+                "auxillary_file_paths": [
+                    "results\\MoveToCenter\\MoveToCenter\\MoveToCenter-500027.pt"
+                ]
+            },
+            {
+                "steps": 500027,
+                "file_path": "results\\MoveToCenter\\MoveToCenter\\MoveToCenter-500027.onnx",
+                "reward": null,
+                "creation_time": 1687757119.9731758,
+                "auxillary_file_paths": [
+                    "results\\MoveToCenter\\MoveToCenter\\MoveToCenter-500027.pt"
+                ]
+            },
+            {
+                "steps": 500027,
+                "file_path": "results\\MoveToCenter\\MoveToCenter\\MoveToCenter-500027.onnx",
+                "reward": null,
+                "creation_time": 1687757219.2144713,
+                "auxillary_file_paths": [
+                    "results\\MoveToCenter\\MoveToCenter\\MoveToCenter-500027.pt"
+                ]
+            },
+            {
+                "steps": 716941,
+                "file_path": "results\\MoveToCenter\\MoveToCenter\\MoveToCenter-716941.onnx",
+                "reward": 8.345155811309814,
+                "creation_time": 1687759038.3009012,
+                "auxillary_file_paths": [
+                    "results\\MoveToCenter\\MoveToCenter\\MoveToCenter-716941.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 716941,
+            "file_path": "results\\MoveToCenter\\MoveToCenter.onnx",
+            "reward": 8.345155811309814,
+            "creation_time": 1687759038.3009012,
+            "auxillary_file_paths": [
+                "results\\MoveToCenter\\MoveToCenter\\MoveToCenter-716941.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "2.0.1+cpu"
+    }
+}

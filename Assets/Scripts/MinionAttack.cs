@@ -30,7 +30,7 @@ public class MinionAttack : Attack
         foreach (GameObject t in TargetBuilding)
             if (target == t)
                 isTargetinList = true;
-        if (target == null || isTargetinList) {
+        if (target == null || isTargetinList || target.GetComponent<Control>().getHP() <= 0) {
             //if (team_ == 1)
                // Debug.Log("next");
             next();

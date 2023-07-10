@@ -23,6 +23,7 @@ public class Device
     float CoolDownRate_;
     float SkillDamage_;
     List<string> component_;
+    bool hasTrigger;
 
     //Slots:
     //0: CPU
@@ -52,9 +53,10 @@ public class Device
         CoolDownRate_ = 1;
         level_ = 0;
         SkillDamage_ = 1;
+        hasTrigger = false;
     }
 
-    public Device(string name, int slot, int level, float damage, float ignore, float defend, float HP, float power, float crit, float crit_damage, float attack_rate, float attack_range, float view_range, float CDRate, float speed, float SkillDamage, int price)
+    public Device(string name, int slot, int level, float damage, float ignore, float defend, float HP, float power, float crit, float crit_damage, float attack_rate, float attack_range, float view_range, float CDRate, float speed, float SkillDamage, bool hasTrigger, int price)
     {
         name_ = name;
         damage_ = damage;
@@ -74,9 +76,10 @@ public class Device
         power_ = power;
         CoolDownRate_ = CDRate;
         SkillDamage_ = SkillDamage;
+        this.hasTrigger = hasTrigger;
     }
 
-    public Device(string name, int slot, int level, float damage, float ignore, float defend, float HP, float power, float crit, float crit_damage, float attack_rate, float attack_range, float view_range, float CDRate, float speed, float SkillDamage, int price, List<string> component)
+    public Device(string name, int slot, int level, float damage, float ignore, float defend, float HP, float power, float crit, float crit_damage, float attack_rate, float attack_range, float view_range, float CDRate, float speed, float SkillDamage, bool hasTrigger, int price, List<string> component)
     {
         name_ = name;
         level_ = level;
@@ -96,6 +99,7 @@ public class Device
         power_ = power;
         CoolDownRate_ = CDRate;
         SkillDamage_ = SkillDamage;
+        this.hasTrigger = hasTrigger;
     }
 
     public Device(string name, int slot, int level, float defend, int price)
@@ -118,6 +122,7 @@ public class Device
         CoolDownRate_ = 1;
         power_ = 0;
         SkillDamage_ = 1;
+        hasTrigger = false;
     }
 
     public Device(Device rhs)
@@ -140,6 +145,7 @@ public class Device
         power_ = rhs.power_;
         CoolDownRate_ = rhs.CoolDownRate_;
         SkillDamage_ = rhs.SkillDamage_;
+        hasTrigger = rhs.hasTrigger;
     }
 
     public string getName()
@@ -230,6 +236,11 @@ public class Device
     public float getSkillDamage()
     {
         return SkillDamage_;
+    }
+
+    public bool HasTrigger()
+    {
+        return hasTrigger;
     }
 
     public static List<List<string>> getDifference(Device rhs)

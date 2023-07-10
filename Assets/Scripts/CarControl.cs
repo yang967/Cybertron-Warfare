@@ -70,7 +70,7 @@ public class CarControl : PlayerCharacterControl
         return true;
     }
 
-    public void transform_to_robo()
+    public override void transform_to_robo()
     {
         transform.parent.parent.GetComponent<PlayerControl>().transform_to_robo();
     }

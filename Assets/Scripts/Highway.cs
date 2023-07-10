@@ -7,34 +7,19 @@ public class Highway : MonoBehaviour
 {
     [SerializeField] GameObject[] bridge_;
     [SerializeField] GameObject car_pos_;
-    [SerializeField] float angular_speed_ = 0.5f;
-    [SerializeField] float car_speed_ = 120.0f;
     [SerializeField] HighwayEntry entry;
     [SerializeField] Vector3 end;
     [SerializeField] Animator car_pos_animator;
     Animator animator_;
     int index;
-    int car_index_;
-    bool start_car_;
     GameObject processed_car_;
-    Quaternion car_from_;
-    Vector3 init_pos_;
-    Quaternion init_rotation_;
-    float timecount_;
-    Vector3 next_;
     bool extended;
-    float car_height_;
 
     private void Awake()
     {
         index = 0;
-        car_index_ = 0;
-        start_car_ = false;
         processed_car_ = null;
         animator_ = GetComponent<Animator>();
-        init_pos_ = car_pos_.transform.position;
-        init_rotation_ = car_pos_.transform.rotation;
-        timecount_ = 0;
         extended = false;
     }
 
@@ -76,10 +61,8 @@ public class Highway : MonoBehaviour
     {
         processed_car_.GetComponent<NavMeshAgent>().enabled = true;
         processed_car_.transform.GetChild(0).GetChild(0).GetComponent<CarControl>().OutOfHighWay();
-        start_car_ = false;
         processed_car_.transform.eulerAngles = new Vector3(0, processed_car_.transform.eulerAngles.y, 0);
         processed_car_ = null;
-        car_index_ = 0;
         animator_.SetTrigger("reset");
     }
 
@@ -115,10 +98,6 @@ public class Highway : MonoBehaviour
     {
         if (processed_car_ == null)
             return;
-        car_index_ = 0;
-        car_from_ = car_pos_.transform.rotation;
-        next_ = bridge_[0].transform.position + bridge_[0].transform.forward * 20;
-        start_car_ = true;
     }
 
     public void Extended()

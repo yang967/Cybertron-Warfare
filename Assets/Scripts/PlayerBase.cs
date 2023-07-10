@@ -12,6 +12,7 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] float defend_;
     [SerializeField] Transform out_;
     [SerializeField] GameObject StreamObj;
+    [SerializeField] bool SPAWN_MINION = true;
     Material Stream;
     bool spawn_;
     int spawn_indx_;
@@ -19,6 +20,8 @@ public class PlayerBase : MonoBehaviour
     float spawn_time_;
     Animator animator_;
     int DEBUG_COUNTER;
+
+    GameObject icon;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +37,11 @@ public class PlayerBase : MonoBehaviour
             transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetComponent<Image>().color = Color.red;
         Stream.SetFloat("_Alpha", 0);
         DEBUG_COUNTER = 0;
+
+        string path = "MapObjs/" +
+                (team == GameManager.instance.Player.GetComponent<Control>().getTeam() ? "FriendlyBuilding" : "EnemyBuilding");
+        icon = Instantiate(Resources.Load(path) as GameObject, Map.instance.transform);
+        Map.SetPosition(gameObject, icon);
     }
 
     // Update is called once per frame
@@ -50,6 +58,8 @@ public class PlayerBase : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!SPAWN_MINION)
+            return;
         if(spawn_)
         {
             if(spawn_indx_ >= spawn_num_)
@@ -91,6 +101,7 @@ public class PlayerBase : MonoBehaviour
 
     public void Destroy()
     {
+        Destroy(icon);
         Destroy(gameObject);
         health_bar_.enabled = false;
         spawn_ = false;

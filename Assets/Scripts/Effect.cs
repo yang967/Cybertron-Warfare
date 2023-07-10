@@ -53,11 +53,8 @@ public class Effect
         return name_;
     }
 
-    public override bool Equals(object obj)
+    public bool Equals(Effect rhs)
     {
-        Effect rhs = obj as Effect;
-        if (rhs != null)
-            return type_ == rhs.type_ && value_ == rhs.value_ && time_ == rhs.time_ && name_ == rhs.name_;
-        return base.Equals(obj);
+        return type_ == rhs.type_ && value_ == rhs.value_ && time_ == rhs.time_ && name_ == rhs.name_;
     }
 }

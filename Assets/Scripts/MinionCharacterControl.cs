@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,17 +13,30 @@ public class MinionCharacterControl : MonoBehaviour
     Control control;
     Attack attack_;
 
+    GameObject icon;
+
     // Start is called before the first frame update
     void Start()
     {
         control = transform.parent.parent.GetComponent<Control>();
         attack_ = transform.parent.parent.GetChild(2).GetComponent<Attack>();
+
+        string path = "MapObjs/" +
+                (control.getTeam() == GameManager.instance.Player.GetComponent<Control>().getTeam() ? "FriendlyMinion" : "EnemyMinion");
+        icon = Instantiate(Resources.Load(path) as GameObject, Map.instance.transform);
+        Map.SetPosition(transform.parent.parent.gameObject, icon);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void FixedUpdate()
+    {
+        if(icon != null)
+            Map.SetPosition(transform.parent.parent.gameObject, icon);
     }
 
     public void GunFire()
@@ -58,6 +72,7 @@ public class MinionCharacterControl : MonoBehaviour
         obj.GetComponent<InstructionQueue>().clear();
         obj.GetComponent<InstructionQueue>().enabled = false;
         GetComponent<Collider>().enabled = false;
+        Destroy(icon);
         Destroy(transform.parent.parent.gameObject, 5);
     }
 

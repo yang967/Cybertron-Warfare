@@ -1,7 +1,10 @@
+using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
 
 public class PlayerCharacterControl : AbstractSkill
 {
@@ -17,9 +20,23 @@ public class PlayerCharacterControl : AbstractSkill
 
     int vehicle;
 
-    protected virtual void Start()
+    GameObject icon;
+    bool hasIcon = false;
+
+    GameObject RespawnCD;
+    float RespawnTime;
+
+    private void Awake()
     {
         triggers = new List<TriggerComponent>();
+    }
+
+
+    protected virtual void Start()
+    {
+        RespawnTime = 0;
+        RespawnCD = GameManager.instance.RespawnCDObj;
+
         attack_ = transform.parent.parent.GetChild(2).GetComponent<Attack>();
 
         control = transform.parent.parent.GetComponent<PlayerControl>();
@@ -45,6 +62,45 @@ public class PlayerCharacterControl : AbstractSkill
             skill2.GetComponent<SkillComponent>().Set("", character.getAbilities()[1].getChargeNum(), character.getAbilities()[1].getCD());
         if (skill3 != null)
             skill3.GetComponent<SkillComponent>().Set("", character.getAbilities()[2].getChargeNum(), character.getAbilities()[2].getCD());
+
+
+        if(!hasIcon) {
+            string path = "MapObjs/" +
+                (control.getTeam() == GameManager.instance.Player.GetComponent<Control>().getTeam() ? "FriendlyHero" : "EnemyHero");
+            icon = Instantiate(Resources.Load(path) as GameObject, Map.instance.transform);
+            Map.SetPosition(transform.parent.parent.gameObject, icon);
+        }
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        Map.SetPosition(transform.parent.parent.gameObject, icon);
+
+        if(RespawnCD.activeSelf) {
+            float t = RespawnTime - Time.time;
+            RespawnCD.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (t < 9 ? "0" : "") + ((int)t + 1);
+        }
+    }
+
+    public virtual void SetIcon(GameObject icon)
+    {
+        hasIcon = true;
+        this.icon = icon;
+    }
+
+    public virtual void transform_to_vehicle()
+    {
+        
+    }
+
+    public virtual void transform_to_robo()
+    {
+
+    }
+
+    public GameObject getIcon()
+    {
+        return icon;
     }
 
     public virtual void attack()
@@ -126,6 +182,10 @@ public class PlayerCharacterControl : AbstractSkill
         foreach (TriggerComponent trigger in triggers)
             trigger.DeathTrigger(transform.parent.parent.gameObject);
 
+        if(transform.parent.parent.gameObject == GameManager.instance.Player) {
+            RespawnCD.SetActive(true);
+            RespawnTime = Time.time + GameManager.instance.getRespawnTime();
+        }
         GameObject obj = transform.parent.parent.gameObject;
         obj.transform.GetChild(2).gameObject.SetActive(false);
         obj.transform.GetChild(1).gameObject.SetActive(false);
@@ -135,12 +195,15 @@ public class PlayerCharacterControl : AbstractSkill
         obj.GetComponent<InstructionQueue>().enabled = false;
         GetComponent<Collider>().enabled = false;
         gameObject.layer = 2;
+        icon.SetActive(false);
+
         StartCoroutine(respawn());
     }
 
     protected override IEnumerator respawn()
     {
         yield return new WaitForSeconds(GameManager.instance.getRespawnTime());
+        RespawnCD.SetActive(false);
         transform.parent.parent.GetComponent<PlayerControl>().Respawn();
         transform.parent.parent.GetComponent<PlayerControl>().transform_to_robo();
         GameObject obj = transform.parent.parent.gameObject;
@@ -156,28 +219,34 @@ public class PlayerCharacterControl : AbstractSkill
         Vector3 obj_pos = obj.transform.position;
         Vector3 middle = GameManager.PlayerMiddlePosition;
         GameManager.PlayerCamera.transform.position = new Vector3(obj_pos.x + middle.x, 90, obj_pos.z + middle.z);
+        icon.SetActive(true);
+
         Debug.Log("respawn");
         Debug.Log(transform.parent.parent.position);
     }
 
     public virtual void AddTrigger(TriggerComponent component)
     {
+        Debug.Log("add");
         triggers.Add(component);
         component.EquipTrigger(transform.parent.parent.gameObject);
     }
 
     public virtual void SetTriggers(List<TriggerComponent> components)
     {
-        triggers = components;
-        foreach(TriggerComponent trigger in triggers)
+        triggers = new List<TriggerComponent>();
+
+        foreach(TriggerComponent t in components)
         {
-            gameObject.AddComponent<TriggerComponent>();
-            gameObject.GetComponent<TriggerComponent>().SetStats(trigger);
+            TriggerComponent trigger = gameObject.AddComponent(t.GetType()) as TriggerComponent;
+            gameObject.GetComponent<TriggerComponent>().SetStats(t);
+            triggers.Add(trigger);
         }
     }
 
     public virtual void RemoveTrigger(TriggerComponent component)
     {
+        Debug.Log("remove");
         triggers.Remove(component);
         component.UnequipTrigger(transform.parent.parent.gameObject);
     }

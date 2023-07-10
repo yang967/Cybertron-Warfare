@@ -72,11 +72,11 @@ public class Control : MonoBehaviour
         if ((agent_.destination - transform.position).magnitude < agent_.baseOffset + 0.01f)
             agent_.destination = transform.position;
 
-        if (velocity > 5)
+        if (velocity > 1)
             animator_.speed = Mathf.Min(velocity / Normal_Speed);
         else
             animator_.speed = 1;
-        if (velocity > 5)
+        if (velocity > 1)
             animator_.SetBool("run", true);
         else
             animator_.SetBool("run", false);

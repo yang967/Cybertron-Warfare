@@ -33,6 +33,8 @@ public class MegatronCharacterControl : PlayerCharacterControl
 
     bool in_wall;
 
+    float time;
+
 
     // Start is called before the first frame update
     protected override void Start()
@@ -51,6 +53,7 @@ public class MegatronCharacterControl : PlayerCharacterControl
         skill_indicator = null;
         in_wall = false;
         area = null;
+        time = Time.time;
     }
 
     // Update is called once per frame
@@ -188,8 +191,10 @@ public class MegatronCharacterControl : PlayerCharacterControl
     }
 
 
-    public void transform_to_vehicle()
+    public override void transform_to_vehicle()
     {
+        base.transform_to_vehicle();
+
         transform.parent.parent.GetComponent<PlayerControl>().transform_to_vehicle();
         agent_.baseOffset = 2;
     }
@@ -292,10 +297,17 @@ public class MegatronCharacterControl : PlayerCharacterControl
 
     public void GunFire()
     {
+        Ability a = control.getAbility()[3];
+        float rate = Mathf.Min((Time.time - time) / a.getDuration(), 1);
+        float bonus = rate * a.getRate();
+        time = Time.time;
+
+        base.attack();
+
         if (gun_fire_ != null)
             gun_fire_.Play();
         GameObject bullet = Instantiate(Resources.Load("EnergyCannonBullet") as GameObject, bulletOut.position, bulletOut.parent.rotation);
-        bullet.GetComponent<Bullet>().Set(transform.parent.parent.gameObject, (int)(control.getCharacter().getDamage() * control.getBuffAmount()["Damage"]) * 10, control.getCharacter().getIgnore(),
+        bullet.GetComponent<Bullet>().Set(transform.parent.parent.gameObject, (int)(control.getCharacter().getDamage() * control.getBuffAmount()["Damage"] * bonus) * 10, control.getCharacter().getIgnore(),
             control.getTeam(), 0, control.getCharacter().getCritical(), control.getCharacter().getCriticalDamage(), attack_.getTarget());
     }
 

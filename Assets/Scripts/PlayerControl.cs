@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class PlayerControl : Control
 {
@@ -107,10 +108,12 @@ public class PlayerControl : Control
     public void transform_to_vehicle()
     {
         List<TriggerComponent> triggers = character_obj_.GetComponent<PlayerCharacterControl>().GetTriggerComponents();
+        GameObject icon = character_obj_.GetComponent<PlayerCharacterControl>().getIcon();
         Destroy(character_obj_);
         vehicle_ = true;
         character_obj_ = Instantiate(Resources.Load(character_name_ + "VehicleForm") as GameObject, transform.GetChild(0));
         character_obj_.GetComponent<PlayerCharacterControl>().SetTriggers(triggers);
+        character_obj_.GetComponent<PlayerCharacterControl>().SetIcon(icon);
         character_obj_.GetComponent<PlayerCharacterControl>().setVehicle(1);
         animator_ = character_obj_.GetComponent<Animator>();
         skill_ = character_obj_.GetComponent<Skill>();
@@ -123,10 +126,12 @@ public class PlayerControl : Control
     public void transform_to_robo()
     {
         List<TriggerComponent> triggers = character_obj_.GetComponent<PlayerCharacterControl>().GetTriggerComponents();
+        GameObject icon = character_obj_.GetComponent<PlayerCharacterControl>().getIcon();
         Destroy(character_obj_);
         vehicle_ = false;
         character_obj_ = Instantiate(Resources.Load(character_name_ + "Model") as GameObject, transform.GetChild(0));
         character_obj_.GetComponent<PlayerCharacterControl>().SetTriggers(triggers);
+        character_obj_.GetComponent<PlayerCharacterControl>().SetIcon(icon);
         character_obj_.GetComponent<PlayerCharacterControl>().setVehicle(0);
         animator_ = character_obj_.GetComponent<Animator>();
         skill_ = character_obj_.GetComponent<Skill>();
@@ -147,6 +152,11 @@ public class PlayerControl : Control
             return;
         }
 
+        if(device.HasTrigger()) {
+            System.Type type = System.Type.GetType(device.getName() + ",Assembly-CSharp");
+            TriggerComponent t = transform.GetChild(0).GetChild(0).gameObject.AddComponent(type) as TriggerComponent;
+            character_obj_.GetComponent<PlayerCharacterControl>().AddTrigger(t);
+        }
         character.AddDevice(device);
         BuffAmount["CDRate"] *= device.getCoolDownRate();
         BuffAmount["SkillDamage"] *= device.getSkillDamage();
@@ -168,6 +178,10 @@ public class PlayerControl : Control
         BuffAmount["SkillDamage"] /= 1 / d.getSkillDamage();
         BuffAmount["CDRate"] = 1 / d.getCoolDownRate();
         Devices[slot] = "";
+        if(d.HasTrigger()) {
+            character_obj_.GetComponent<PlayerCharacterControl>().RemoveTrigger(character_obj_.GetComponent(d.getName()) as TriggerComponent);
+            Destroy(transform.GetChild(0).GetChild(0).GetComponent(d.getName()));
+        }
         Debug.Log(Devices[slot]);
         RefreshStats();
     }
@@ -493,7 +507,6 @@ public class PlayerControl : Control
         int type1 = ToSwap1 / 10, indx1 = ToSwap1 % 10;
         int type2 = ToSwap2 / 10, indx2 = ToSwap2 % 10;
 
-        string d;
         if (type1 == 0)
         {
             Equip2Bag(indx1, indx2);

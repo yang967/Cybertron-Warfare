@@ -97,8 +97,10 @@ public class OptimusCharacterControl : PlayerCharacterControl
         GunFire();
     }
 
-    public void transform_to_vehicle()
+    public override void transform_to_vehicle()
     {
+        base.transform_to_vehicle();
+
         transform.parent.parent.GetComponent<PlayerControl>().transform_to_vehicle();
     }
 
@@ -221,13 +223,9 @@ public class OptimusCharacterControl : PlayerCharacterControl
         return true;
     }
 
-    public override bool Skill_3_init()
+    public override bool SetSkill3Start(Vector3 position)
     {
-        if (skill_indicator_ != null)
-            return false;
-
-        if (!base.Skill_3_init())
-            return false;
+        if(!base.SetSkill3Start(position)) return false;
 
         base.Skill_3_trigger();
         skill3.GetComponent<SkillComponent>().UseSkill();
@@ -236,6 +234,28 @@ public class OptimusCharacterControl : PlayerCharacterControl
         Skill_3_ = Instantiate(Resources.Load("AreaDamage") as GameObject, transform.position, Quaternion.identity);
         Skill_3_.GetComponent<AreaDamage>().Set(Mathf.RoundToInt(control.getAbility()[2].getRate() * control.getCharacter().getMaxHP() * control.getBuffAmount()["SkillDamage"] * control.getBuffAmount()["SkillDamage"]) * 10 + 3,
             control.getCharacter().getIgnore(), control.getTeam() == 1 ? 2 : 1, control.getAbility()[2].getRangeX(), false, transform.parent.parent.gameObject);
+
+        return true;
+    }
+
+    public override bool Skill_3_init()
+    {
+        if (skill_indicator_ != null)
+            return false;
+
+        if (!base.Skill_3_init())
+            return false;
+
+        /*base.Skill_3_trigger();
+        skill3.GetComponent<SkillComponent>().UseSkill();
+        agent_.destination = transform.parent.parent.position;
+        animator_.SetTrigger("skill3");
+        Skill_3_ = Instantiate(Resources.Load("AreaDamage") as GameObject, transform.position, Quaternion.identity);
+        Skill_3_.GetComponent<AreaDamage>().Set(Mathf.RoundToInt(control.getAbility()[2].getRate() * control.getCharacter().getMaxHP() * control.getBuffAmount()["SkillDamage"] * control.getBuffAmount()["SkillDamage"]) * 10 + 3,
+            control.getCharacter().getIgnore(), control.getTeam() == 1 ? 2 : 1, control.getAbility()[2].getRangeX(), false, transform.parent.parent.gameObject);*/
+
+        SetSkill3Start(new Vector3());
+
         return true;
     }
 

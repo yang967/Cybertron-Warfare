@@ -55,32 +55,33 @@ public class SaveData : MonoBehaviour
             new Ability("", "", 0, 1.76f, 15, 15, true, 0, 1, 20, 1100),
             new Ability("", "", 0, 2.86f, 40, 20, false, 0, 1, 30, 1150),
             new Ability("", "", 0, 0.75f, 50, 50, false, 5, 1, 40, 1900),
-            new Ability("", "", 0, 2, 0, 0, false, 2, 0, 0, 0),
+            new Ability("", "", 0, 2.5f, 0, 0, false, 3f, 0, 0, 0),
             new Ability()
         }));
         SaveSystem.SaveCh(Transformers);
 
         Dictionary<string, Device> Devices = new Dictionary<string, Device>();
-        Devices.Add("Usable CPU", new Device("Usable CPU", 0, 1, 0, 0, 0, 0, 0, 1.1f, 1, 1, 0, 0, 1, 0, 1, 70));
+        Devices.Add("Usable CPU", new Device("Usable CPU", 0, 1, 0, 0, 0, 0, 0, 1.1f, 1, 1, 0, 0, 1, 0, 1, false, 70));
         Devices.Add("Scrapped Armor Pieces", new Device("Scrapped Armor Pieces", 4, 1, 50, 70));
-        Devices.Add("Half-Drained Spark Energy Core", new Device("Half-Drained Spark Energy Core", 2, 1, 0, 0, 0, 500, 0, 1, 1, 1, 0, 0, 1, 0, 1, 70));
-        Devices.Add("Penetration Module", new Device("Penetration Module", 5, 1, 0, 30, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 70));
-        Devices.Add("Electromagnetic Coil", new Device("Electromagnetic Coil", 5, 1, 10, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 70));
-        Devices.Add("Half-Drained Power Core", new Device("Half-Drained Power Core", 2, 1, 0, 0, 0, 0, 300, 1, 1, 1, 0, 0, 1, 0, 1, 90));
-        Devices.Add("Weapon Overloader", new Device("Weapon Overloader", 5, 1, 0, 0, 0, 0, 0, 1, 1, 1.1f, 0, 0, 1, 0, 1, 60));
-        Devices.Add("Entry-level Algorithm Patch", new Device("Entry-level Algorithm Patch", 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1.01f, 0, 1, 120));
-        Devices.Add("Dirty Scope", new Device("Dirty Scope", 3, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 3, 1, 0, 1, 120));
-        Devices.Add("Analyzing model", new Device("Analyzing model", 0, 2, 0, 0, 0, 0, 0, 1.2f, 1.1f, 1.3f, 0, 0, 1, 0, 1, 200, new List<string>() { "Usable CPU", "Usable CPU" }));
-        Devices.Add("Smart Overloader", new Device("Smart Overloader", 5, 2, 0, 0, 0, 0, 0, 1.3f, 1.1f, 1.2f, 0, 0, 1, 0, 1, 240, new List<string> { "Usable CPU", "Weapon Overloader" }));
-        Devices.Add("Weakpoint Analyzer", new Device("Weakpoint Analyzer", 0, 2, 0, 100, 0, 0, 0, 1.5f, 1.6f, 1.5f, 0, 0, 1, 0, 1, 300, new List<string> { "Analyzing model", "Penetration Module" }));
-        Devices.Add("Combined Power Core", new Device("Combined Power Core", 2, 2, 0, 0, 0, 1000, 600, 1, 1, 1, 0, 0, 1, 0, 1, 200, new List<string> { "Half-Drained Spark Energy Core", "Half-Drained Power Core" }));
-        Devices.Add("Power Core Imbedded Armor", new Device("Power Core Imbedded Armor", 4, 2, 0, 0, 170, 0, 500, 1, 1, 1, 0, 0, 1, 0, 1, 250, new List<string> { "Scrapped Armor Pieces", "Half-Drained Power Core" }));
-        Devices.Add("Spark Energy Core Imbedded Armor", new Device("Spark Energy Core Imbedded Armor", 4, 2, 0, 0, 250, 700, 0, 1, 1, 1, 0, 0, 1, 0, 1, 375, new List<string> { "Scrapped Armor Pieces", "Half-Drained Spark Energy Core" }));
-        Devices.Add("Weapon Impact Module", new Device("Weapon Impact Module", 5, 2, 90, 45, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 230, new List<string> { "Penetration Module", "Electromagnetic Coil" }));
-        Devices.Add("Weapon Charge Module", new Device("Weapon Charge Module", 5, 2, 40, 80, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 230, new List<string> { "Penetration Module", "Electromagnetic Coil" }));
-        Devices.Add("Greedy Algorithm", new Device("Greedy Algorithm", 1, 2, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1.05f, 0, 1.1f, 250, new List<string> { "Entry-level Algorithm Patch", "Usable CPU" }));
-        Devices.Add("Combined Armor", new Device("Combined Armor", 4, 3, 0, 0, 750, 1250, 830, 1, 1, 1, 0, 0, 1, 0, 1, 1350, new List<string> { "Power Core Imbedded Armor", "Spark Energy Core Imbedded Armor" }));
-        Devices.Add("Overload Core", new Device("Overload Core", 2, 3, 0, 0, 0, 0, 3000, 1, 1, 1, 0, 0, 1.1f, 0, 1, 2000, new List<string> { "Combined Power Core", "Smart Overloader" }));
+        Devices.Add("Half-Drained Spark Energy Core", new Device("Half-Drained Spark Energy Core", 2, 1, 0, 0, 0, 500, 0, 1, 1, 1, 0, 0, 1, 0, 1, false, 70));
+        Devices.Add("Penetration Module", new Device("Penetration Module", 5, 1, 0, 30, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, false, 70));
+        Devices.Add("Electromagnetic Coil", new Device("Electromagnetic Coil", 5, 1, 10, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, false, 70));
+        Devices.Add("Half-Drained Power Core", new Device("Half-Drained Power Core", 2, 1, 300, 300, 300, 0, 300, 1, 1, 1, 300, 300, 1, 300, 1, false, 90));
+        Devices.Add("Weapon Overloader", new Device("Weapon Overloader", 5, 1, 0, 0, 0, 0, 0, 1, 1, 1.1f, 0, 0, 1, 0, 1, false, 60));
+        Devices.Add("Entry-level Algorithm Patch", new Device("Entry-level Algorithm Patch", 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1.01f, 0, 1, false, 120));
+        Devices.Add("Dirty Scope", new Device("Dirty Scope", 3, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 3, 1, 0, 1, false, 120));
+        Devices.Add("Analyzing model", new Device("Analyzing model", 0, 2, 0, 0, 0, 0, 0, 1.2f, 1.1f, 1.3f, 0, 0, 1, 0, 1, false, 200, new List<string>() { "Usable CPU", "Usable CPU" }));
+        Devices.Add("Smart Overloader", new Device("Smart Overloader", 5, 2, 0, 0, 0, 0, 0, 1.3f, 1.1f, 1.2f, 0, 0, 1, 0, 1, false, 240, new List<string> { "Usable CPU", "Weapon Overloader" }));
+        Devices.Add("Weakpoint Analyzer", new Device("Weakpoint Analyzer", 0, 2, 0, 100, 0, 0, 0, 1.5f, 1.6f, 1.5f, 0, 0, 1, 0, 1, false, 300, new List<string> { "Analyzing model", "Penetration Module" }));
+        Devices.Add("Combined Power Core", new Device("Combined Power Core", 2, 2, 0, 0, 0, 1000, 600, 1, 1, 1, 0, 0, 1, 0, 1, false, 200, new List<string> { "Half-Drained Spark Energy Core", "Half-Drained Power Core" }));
+        Devices.Add("Power Core Imbedded Armor", new Device("Power Core Imbedded Armor", 4, 2, 0, 0, 170, 0, 500, 1, 1, 1, 0, 0, 1, 0, 1, false, 250, new List<string> { "Scrapped Armor Pieces", "Half-Drained Power Core" }));
+        Devices.Add("Spark Energy Core Imbedded Armor", new Device("Spark Energy Core Imbedded Armor", 4, 2, 0, 0, 250, 700, 0, 1, 1, 1, 0, 0, 1, 0, 1, false, 375, new List<string> { "Scrapped Armor Pieces", "Half-Drained Spark Energy Core" }));
+        Devices.Add("Weapon Impact Module", new Device("Weapon Impact Module", 5, 2, 90, 45, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, false, 230, new List<string> { "Penetration Module", "Electromagnetic Coil" }));
+        Devices.Add("Weapon Charge Module", new Device("Weapon Charge Module", 5, 2, 40, 80, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, false, 230, new List<string> { "Penetration Module", "Electromagnetic Coil" }));
+        Devices.Add("Greedy Algorithm", new Device("Greedy Algorithm", 1, 2, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1.05f, 0, 1.1f, false, 250, new List<string> { "Entry-level Algorithm Patch", "Usable CPU" }));
+        Devices.Add("Combined Armor", new Device("Combined Armor", 4, 3, 0, 0, 750, 1250, 830, 1, 1, 1, 0, 0, 1, 0, 1, false, 1350, new List<string> { "Power Core Imbedded Armor", "Spark Energy Core Imbedded Armor" }));
+        Devices.Add("Overload Core", new Device("Overload Core", 2, 3, 0, 0, 0, 0, 3000, 1, 1, 1, 0, 0, 1.1f, 0, 1, false, 2000, new List<string> { "Combined Power Core", "Smart Overloader" }));
+        Devices.Add("OverloadedOverloader", new Device("OverloadedOverloader", 5, 4, 0, 0, 0, 0, 0, 1.65f, 1, 1.5f, 0, 0, 1, 0, 1, true, 0));
         SaveSystem.SaveDevices(Devices);
     }
 }

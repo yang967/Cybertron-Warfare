@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,6 +34,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject pause;
     [SerializeField] LayerMask SkillIncludeLayer;
 
+    [SerializeField] Map map;
+
+    [SerializeField] GameObject RespawnCD;
+
+    public GameObject RespawnCDObj {
+        get { return RespawnCD; }
+    }
+
     public LayerMask AreaSkillLayer {
         get { return areaSkillLayer; }
     }
@@ -64,7 +71,7 @@ public class GameManager : MonoBehaviour
     public static readonly string[] Minions = { "MinionMelee", "MinionMelee", "MinionPistol", "MinionPistol", "MinionCannon", "MinionCannon" };
     public static readonly string[] DevicePos = { "CPU", "Software", "Power-Related Device", "Head", "Body", "Hand", "Foot" };
 
-    public static Vector3 PlayerMiddlePosition = new Vector3(17.29f, 0, 15.38f);
+    public static Vector3 PlayerMiddlePosition = new Vector3(-17.29f, 0, 15.38f);
 
     public const int DEVICE_NUM = 7;
     public const int BACKPACK_SIZE = 7;
@@ -83,7 +90,7 @@ public class GameManager : MonoBehaviour
     public const float HP_REGEN_DELAY = 0.5f;
 
     public const float ENERGY_REGEN = 10;
-    public const float ENERGY_REGEN_DELAY = 1;
+    public const float ENERGY_REGEN_DELAY = 3;
 
     Dictionary<string, int> transformers_dict_;
     List<Transformer> transformers_;
@@ -153,6 +160,14 @@ public class GameManager : MonoBehaviour
         MenuChildComponent = false;
         SwapMode = false;
         isPause = false;
+
+        float degree = 90 - camera_obj_.transform.eulerAngles.x;
+        float x = Mathf.Tan(degree * Mathf.Deg2Rad) * camera_obj_.transform.position.y;
+        Vector3 camera_pos = new Vector3(-x, camera_obj_.transform.position.y - Player.transform.position.y, 0) + Player.transform.position;
+        camera_pos = VectorRotate(camera_pos, Player.transform.position, 45);
+        PlayerMiddlePosition = camera_pos - Player.transform.position;
+        PlayerMiddlePosition.y = 90;
+
     }
 
     // Update is called once per frame
@@ -161,6 +176,11 @@ public class GameManager : MonoBehaviour
         if(!MenuChildComponent && !Store.isActive && !Fuse.isActive && !bag.isActive) {
             if (Input.GetKeyUp(KeyCode.Escape))
                 if (isPause) Resume(); else Pause();
+        }
+
+        if(Input.GetKeyUp(KeyCode.F)) {
+            PlayerCamera.transform.position = new Vector3(Player.transform.position.x + PlayerMiddlePosition.x, 90, Player.transform.position.z + PlayerMiddlePosition.z);
+            player_middle_ = true;
         }
 
         if(Time.time > Spawn_)
@@ -204,7 +224,6 @@ public class GameManager : MonoBehaviour
 
     public void PlayerMiddle()
     {
-        Debug.Log("middle");
         player_middle_ = true;
     }
 
@@ -250,7 +269,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    public int getCurrency(string name, int level = 0)
+    public int getCurrency(string name, int level = 1)
     {
         if (name == "MinionMelee")
             return CURRENCY_PER_MINION_MELEE;
@@ -329,5 +348,14 @@ public class GameManager : MonoBehaviour
     {
         pause.SetActive(false);
         isPause = false;
+    }
+
+    public static Vector3 VectorRotate(Vector3 point, Vector3 center, float angle)
+    {
+        float rad = Mathf.Deg2Rad * angle;
+        float x = (point.x - center.x) * Mathf.Cos(rad) + (point.z - center.z) * Mathf.Sin(rad) + center.x;
+        float y = (point.z - center.z) * Mathf.Cos(rad) - (point.x - center.x) * Mathf.Sin(rad) + center.z;
+
+        return new Vector3(x, point.y, y);
     }
 }

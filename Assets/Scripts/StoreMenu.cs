@@ -12,7 +12,7 @@ public class StoreMenu : MonoBehaviour
     [SerializeField] GameObject DeviceCom;
     [SerializeField] GameObject HBox;
     [SerializeField] float device_PosY = 65;
-    [SerializeField] float device_PosX = 37;
+    //[SerializeField] float device_PosX = 37;
     [SerializeField] float text_PosY = 40;
     [SerializeField] float text_PosX = -13.3f;
     [SerializeField] float start_PosY = 135.05f;

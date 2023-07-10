@@ -39,6 +39,22 @@ MonoBehaviour:
     m_Key: Sell
     m_Metadata:
       m_Items: []
+  - m_Id: 6843102580895744
+    m_Key: Currency
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6852169286217728
+    m_Key: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6852222176391168
+    m_Key: Restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6852290061201408
+    m_Key: Exit
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

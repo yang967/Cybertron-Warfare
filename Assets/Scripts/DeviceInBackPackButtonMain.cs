@@ -19,7 +19,7 @@ public class DeviceInBackPackButtonMain : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Escape) && shown && !GameManager.instance.SwapMode)
+        if(Input.GetKeyUp(KeyCode.Tab) && shown && !GameManager.instance.SwapMode)
         {
             SwitchChildButton();
         }

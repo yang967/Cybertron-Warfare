@@ -10,12 +10,35 @@ public class Target : MonoBehaviour
     Vector3 target_;
     [SerializeField] LayerMask include;
     [SerializeField] GameObject HighLight;
+    [SerializeField] GameObject HighLight_selected;
 
     private void Awake()
     {
         camera_ = GetComponent<Camera>();
         target_ = new Vector3(0, 0, 0);
     }
+
+    /*private void Start()
+    {
+        Vector3 left = camera_.ScreenToWorldPoint(new Vector3(0, 0, camera_.nearClipPlane));
+        Vector3 right = camera_.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, camera_.nearClipPlane));
+
+        Vector3 position = (right - left) / 2.0f + left;
+
+        Vector3 center = (right - left) / 2.0f;
+
+        left = GameManager.VectorRotate(left, center, 225);
+        right = GameManager.VectorRotate(right, center, 225);
+
+        Debug.Log(left);
+        Debug.Log(right);
+
+        GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        cube.transform.position = position - new Vector3(0, position.y, 0);
+        cube.transform.localScale = new Vector3((right.x - left.x) / 2.0f, 100, (right.z - left.z) / 2.0f);
+
+        cube.transform.eulerAngles = new Vector3(0, cube.transform.eulerAngles.y + 45, 0);
+    }*/
 
     // Update is called once per frame
     void Update()
@@ -29,10 +52,12 @@ public class Target : MonoBehaviour
     {
         Instruction i = GameManager.instance.Player.GetComponent<InstructionQueue>().getCurrentInstruction();
         if (i != null && (i.getInstructionType() == 2 || i.getInstructionType() == 1)) {
-            HighLight.transform.position = GameManager.instance.Player.transform.GetChild(2).GetComponent<Attack>().getTarget().transform.position;
-            HighLight.transform.position = new Vector3(HighLight.transform.position.x, 1.72f, HighLight.transform.position.z);
-            return;
+            HighLight_selected.SetActive(true);
+            HighLight_selected.transform.position = GameManager.instance.Player.transform.GetChild(2).GetComponent<Attack>().getTarget().transform.position;
+            HighLight_selected.transform.position = new Vector3(HighLight_selected.transform.position.x, 1.72f, HighLight_selected.transform.position.z);
         }
+        else
+            HighLight_selected.SetActive(false);
 
         Ray ray = camera_.ScreenPointToRay(Input.mousePosition);
         RaycastHit rayhit;
