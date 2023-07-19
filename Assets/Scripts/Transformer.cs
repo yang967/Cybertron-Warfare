@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 [System.Serializable]
 public class Transformer
@@ -27,6 +28,7 @@ public class Transformer
     float crit_damage_;
     float Max_energy_;
     float energy_;
+    int team_;
 
     public Transformer()
     {
@@ -52,10 +54,11 @@ public class Transformer
         crit_damage_ = 0;
         Max_energy_ = 0;
         energy_ = 0;
+        team_ = -1;
     }
 
     public Transformer(string name, float HP, float energy, float damage, float vehicle_damage, float crit, float crit_damage, float ignore, float attack_rate, float vehicle_attack_rate, float attack_range, 
-        float vehicle_attack_range, float view_range, float defend, float speed, float vehicle_speed, bool vehicle_movable, int vehicle_type, Ability[] abilities)
+        float vehicle_attack_range, float view_range, float defend, float speed, float vehicle_speed, bool vehicle_movable, int vehicle_type, int team, Ability[] abilities)
     {
         name_ = name;
         HP_ = HP;
@@ -79,10 +82,11 @@ public class Transformer
         crit_damage_ = crit_damage;
         Max_energy_ = energy;
         energy_ = energy;
+        team_ = team;
     }
 
     public Transformer(string name, float HP, float energy, float damage, float crit, float crit_damage, float ignore, float attack_rate, float attack_range,
-       float view_range, float defend, float speed, float vehicle_speed, bool vehicle_movable, int vehicle_type, Ability[] abilities)
+       float view_range, float defend, float speed, float vehicle_speed, bool vehicle_movable, int vehicle_type, int team, Ability[] abilities)
     {
         name_ = name;
         HP_ = HP;
@@ -106,6 +110,7 @@ public class Transformer
         crit_damage_ = crit_damage;
         Max_energy_ = energy;
         energy_ = energy;
+        team_ = team;
     }
 
     public Transformer(Transformer rhs)
@@ -134,6 +139,7 @@ public class Transformer
         crit_damage_ = rhs.crit_damage_;
         energy_ = rhs.energy_;
         Max_energy_ = rhs.Max_energy_;
+        team_ = rhs.team_;
     }
 
     public void setHP(int dmg, float ignore)
@@ -427,6 +433,11 @@ public class Transformer
         return crit_damage_;
     }
 
+    public int getTeam()
+    {
+        return team_;
+    }
+
     public void SetEffect(Effect added)
     {
         int e_type = added.getEffectType();
@@ -519,5 +530,60 @@ public class Transformer
         HP_ = Max_HP_;
         shield_ = 0;
         energy_ = Max_energy_;
+    }
+
+    public static string getCharacterDetail(string name)
+    {
+        if (GameManager.instance == null && MainMenu.instance == null)
+            return "";
+
+        Transformer t;
+        if (GameManager.instance != null)
+            t = GameManager.instance.getTransformer(name);
+        else
+            t = MainMenu.instance.getTransformer(name);
+
+        string res = "";
+        LocalizedString str = new LocalizedString();
+        str.TableReference = "CharacterName";
+        str.TableEntryReference = name;
+        res += str.GetLocalizedString() + "<br>";
+        
+        str.TableReference = "StatsTable";
+        
+        str.TableEntryReference = "damage";
+        res += str.GetLocalizedString() + ": " + t.getDamage() + "<br>";
+
+        str.TableEntryReference = "HP";
+        res += str.GetLocalizedString() + ": " + t.getMaxHP() + "<br>";
+
+        str.TableEntryReference = "energy";
+        res += str.GetLocalizedString() + ": " + t.getMaxEnergy() + "<br>";
+
+        str.TableEntryReference = "defend";
+        res += str.GetLocalizedString() + ": " + t.getDefend() + "<br>";
+
+        str.TableEntryReference = "attack rate";
+        res += str.GetLocalizedString() + ": " + t.getAttackRate() + "s<br>";
+
+        str.TableEntryReference = "attack range";
+        res += str.GetLocalizedString() + ": " + t.getAttackRange() + "<br>";
+
+        str.TableEntryReference = "ignore";
+        res += str.GetLocalizedString() + ": " + t.getIgnore() + "<br>";
+
+        str.TableEntryReference = "crit";
+        res += str.GetLocalizedString() + ": " + (t.getCritical() * 100) + "%<br>";
+
+        str.TableEntryReference = "crit damage";
+        res += str.GetLocalizedString() + ": X" + t.getCriticalDamage() + "<br>";
+
+        str.TableEntryReference = "view range";
+        res += str.GetLocalizedString() + ": " + t.getViewRange() + "<br>";
+
+        str.TableEntryReference = "speed";
+        res += str.GetLocalizedString() + ": " + t.getSpeed() + "<br>";
+
+        return res;
     }
 }

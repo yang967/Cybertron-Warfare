@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Localization.Settings;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,14 +11,20 @@ public class GameManager : MonoBehaviour
     public static Camera PlayerCamera;
     public const int MaxLevel = 15;
 
+    [Header("Camera")]
     [SerializeField] Camera camera_;
     [SerializeField] GameObject camera_obj_;
 
+    [Header("Minion")]
     [SerializeField] GameObject MinionRallyPoint;
     [SerializeField] GameObject[] MinionTarget1;
     [SerializeField] GameObject[] MinionTarget2;
+
+    [Header("Spawn Point")]
     [SerializeField] GameObject SpawnPoint1;
     [SerializeField] GameObject SpawnPoint2;
+
+    [Header("UI")]
     [SerializeField] GameObject controlPanel;
     [SerializeField] StoreButton Store;
     [SerializeField] StoreButton Fuse;
@@ -25,18 +32,25 @@ public class GameManager : MonoBehaviour
     [SerializeField] StoreButton bag;
     [SerializeField] GameObject BackPack;
     [SerializeField] GameObject canvas;
+    [SerializeField] DetailPanel detailPanel;
 
+    [Header("Layers")]
     [SerializeField] LayerMask areaSkillLayer;
     [SerializeField] LayerMask targetSkillLayer;
     [SerializeField] TextMeshProUGUI Debug_PointOver;
 
+    [Header("Pause")]
     [SerializeField] GameObject result;
     [SerializeField] GameObject pause;
     [SerializeField] LayerMask SkillIncludeLayer;
 
+    [Header("Other")]
     [SerializeField] Map map;
 
     [SerializeField] GameObject RespawnCD;
+
+    [Header("Skills")]
+    [SerializeField] GameObject skill1, skill2, skill3, vehicleskill;
 
     public GameObject RespawnCDObj {
         get { return RespawnCD; }
@@ -49,6 +63,8 @@ public class GameManager : MonoBehaviour
     public LayerMask TargetSkillLayer {
         get { return targetSkillLayer; }
     }
+
+    public DetailPanel DetailPanel { get { return detailPanel; } }
 
     GameObject Base1, Base2;
 
@@ -147,6 +163,10 @@ public class GameManager : MonoBehaviour
         transformers_dict_ = SaveSystem.DecryptDictionary("TransformerDictionary.moba");
         transformers_ = SaveSystem.LoadCh();
         devices_ = SaveSystem.LoadDevices();
+        GameObject obj = Resources.Load(Data.LastUsedCharacter) as GameObject;
+        GameObject SpawnPoint = getSpawnPoint(obj.GetComponent<PlayerControl>().getTeam());
+        Player = Instantiate(obj, SpawnPoint.transform.position, SpawnPoint.transform.rotation);
+        Player.GetComponent<PlayerControl>().IsPlayer();
         PlayerCamera = camera_;
         player_middle_ = false;
         Spawn_ = Time.time + 60;
@@ -163,11 +183,17 @@ public class GameManager : MonoBehaviour
 
         float degree = 90 - camera_obj_.transform.eulerAngles.x;
         float x = Mathf.Tan(degree * Mathf.Deg2Rad) * camera_obj_.transform.position.y;
-        Vector3 camera_pos = new Vector3(-x, camera_obj_.transform.position.y - Player.transform.position.y, 0) + Player.transform.position;
-        camera_pos = VectorRotate(camera_pos, Player.transform.position, 45);
-        PlayerMiddlePosition = camera_pos - Player.transform.position;
+        Vector3 camera_pos = new Vector3(-x, 0, 0);
+        camera_pos = VectorRotate(camera_pos, new Vector3(0, 0, 0), 45);
+        PlayerMiddlePosition = camera_pos;
         PlayerMiddlePosition.y = 90;
 
+        if (Data.team != 0) {
+            camera_obj_.transform.eulerAngles += new Vector3(0, 180, 0);
+            PlayerMiddlePosition = -PlayerMiddlePosition;
+        }
+        camera_obj_.transform.position = new Vector3(Player.transform.position.x + PlayerMiddlePosition.x, camera_obj_.transform.position.y, Player.transform.position.z + PlayerMiddlePosition.z);
+        StartCoroutine(setLocales(Data.Language));
     }
 
     // Update is called once per frame
@@ -200,6 +226,12 @@ public class GameManager : MonoBehaviour
 
         /*if(EventSystem.current.IsPointerOverGameObject())
             Debug_PointOver.text = EventSystem.current.currentSelectedGameObject.name;*/
+    }
+
+    IEnumerator setLocales(int locale_id)
+    {
+        yield return LocalizationSettings.InitializationOperation;
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[locale_id];
     }
 
     public float GetSpawn()
@@ -243,7 +275,6 @@ public class GameManager : MonoBehaviour
     public GameObject getSpawnPoint(int i)
     {
         GameObject point = i == 1 ? SpawnPoint1 : SpawnPoint2;
-        Debug.Log(point.transform.position);
         return i == 1 ? SpawnPoint1 : SpawnPoint2;
     }
 
@@ -357,5 +388,13 @@ public class GameManager : MonoBehaviour
         float y = (point.z - center.z) * Mathf.Cos(rad) - (point.x - center.x) * Mathf.Sin(rad) + center.z;
 
         return new Vector3(x, point.y, y);
+    }
+
+    public GameObject getSkillComponent(int skill)
+    {
+        if (skill == 0) return skill1;
+        if (skill == 1) return skill2;
+        if (skill == 2) return skill3;
+        else return vehicleskill;
     }
 }

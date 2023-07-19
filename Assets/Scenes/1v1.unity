@@ -219,6 +219,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: DetailPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 6500455957733217131, guid: e92d6c2aa92d7a948b5e2d919e3db2cd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: bae2d89dc04f33542b4698af8b9bc067, type: 2}
+    - target: {fileID: 6500455957733217131, guid: e92d6c2aa92d7a948b5e2d919e3db2cd, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -7782881834737860410, guid: bae2d89dc04f33542b4698af8b9bc067, type: 2}
+    - target: {fileID: 6500455957929198290, guid: e92d6c2aa92d7a948b5e2d919e3db2cd, type: 3}
+      propertyPath: m_text
+      value: 'Currency: 0'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6500455957929198290, guid: e92d6c2aa92d7a948b5e2d919e3db2cd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: bae2d89dc04f33542b4698af8b9bc067, type: 2}
+    - target: {fileID: 6500455957929198290, guid: e92d6c2aa92d7a948b5e2d919e3db2cd, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -7782881834737860410, guid: bae2d89dc04f33542b4698af8b9bc067, type: 2}
     - target: {fileID: 6500455958439411882, guid: e92d6c2aa92d7a948b5e2d919e3db2cd, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2634,6 +2654,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2003634969}
   m_SourcePrefab: {fileID: 100100000, guid: d565abf757a097e47ad9cc7015847c62, type: 3}
+--- !u!1 &866006091 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5188762340376028569, guid: cb2f588645e8c1e41be8a7b52b0a2605, type: 3}
+  m_PrefabInstance: {fileID: 2083609137}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &914102510
 GameObject:
   m_ObjectHideFlags: 0
@@ -3063,7 +3088,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.23296289, y: 0.73296297, z: -0.5624222, w: 0.3036032}
-  m_LocalPosition: {x: -91.39, y: 90, z: 740.78}
+  m_LocalPosition: {x: -91.39, y: 90, z: 662}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4777,7 +4802,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8620671716369190744, guid: 8d610fafc0eb77a4b918686faba88bd1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8620671716369190746, guid: 8d610fafc0eb77a4b918686faba88bd1, type: 3}
       propertyPath: m_RootOrder
@@ -6921,6 +6946,7 @@ MonoBehaviour:
   bag: {fileID: 2143268235}
   BackPack: {fileID: 1191311522}
   canvas: {fileID: 1419087006}
+  detailPanel: {fileID: 139754332}
   areaSkillLayer:
     serializedVersion: 2
     m_Bits: 8320
@@ -6935,6 +6961,10 @@ MonoBehaviour:
     m_Bits: 4289
   map: {fileID: 1187468103}
   RespawnCD: {fileID: 1766168107}
+  skill1: {fileID: 1749044548}
+  skill2: {fileID: 621472576}
+  skill3: {fileID: 997094690}
+  vehicleskill: {fileID: 866006091}
   MenuChildComponent: 0
   SwapMode: 0
   ToSwap1: -1

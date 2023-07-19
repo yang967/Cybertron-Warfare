@@ -15,7 +15,7 @@ public class SaveData : MonoBehaviour
         SaveSystem.EncryptDictionary(TransformerDictionary, "TransformerDictionary.moba");
 
         List<Transformer> Transformers = new List<Transformer>();
-        Transformers.Add(new Transformer("Minion Pistol", 2000, 0, 50, 0, 1, 200, 1.4f, 50, 70, 150, 30, 30, true, 0, new Ability[]
+        Transformers.Add(new Transformer("Minion Pistol", 2000, 0, 50, 0, 1, 200, 1.4f, 50, 70, 150, 30, 30, true, 0, -1, new Ability[]
         {
             new Ability(),
             new Ability(),
@@ -23,7 +23,7 @@ public class SaveData : MonoBehaviour
             new Ability(),
             new Ability()
         }));
-        Transformers.Add(new Transformer("Minion Cannon", 2000, 0, 100, 0, 1, 600, 0.3f, 50, 70, 200, 30, 30, true, 0, new Ability[]
+        Transformers.Add(new Transformer("Minion Cannon", 2000, 0, 100, 0, 1, 600, 0.3f, 50, 70, 200, 30, 30, true, 0, -1, new Ability[]
         {
             new Ability(),
             new Ability(),
@@ -31,7 +31,7 @@ public class SaveData : MonoBehaviour
             new Ability(),
             new Ability()
         }));
-        Transformers.Add(new Transformer("Minion Melee", 3000, 0, 15, 0, 1, 100, 1, 8, 70, 600, 30, 30, true, 0, new Ability[]
+        Transformers.Add(new Transformer("Minion Melee", 3000, 0, 15, 0, 1, 100, 1, 8, 70, 600, 30, 30, true, 0, -1, new Ability[]
         {
             new Ability(),
             new Ability(),
@@ -39,22 +39,28 @@ public class SaveData : MonoBehaviour
             new Ability(),
             new Ability()
         }));
-        Transformers.Add(new Transformer("Optimus Prime", 5000, 3000, 200, 0.2f, 1.3f, 200, 1, 50, 70, 400, 30, 50, true, 1, new Ability[]
+        Transformers.Add(new Transformer("OptimusPrime", 5000, 3000, 200, 0.2f, 1.3f, 200, 1, 50, 70, 400, 30, 50, true, 1, 0, new Ability[]
         {
-            new Ability("", "Optimus Prime jump forward and shoot 3 shots to the front area, each shot deal 79.3% damage", 0, 0.793f, 40, 7, false, 0, 1, 15, 750),
+            new Ability("", "Optimus Prime jump forward and shoot 3 shots to the front area, each shot deal 79.3% damage", 0, 0.793f, 40, 7, false, 0, 1, 15, 750, new List<Effect> {
+                new Effect(0, "Damage", 3, 0.93f)
+            }),
             new Ability("", "Optimus Prime spin attack with his axe, deal 235% damage", 0, 2.35f, 20, 20, true, 0, 1, 20, 1000, new List<Effect>()
             {
-                new Effect(0, "SlowDown", 4, 0.4f)
+                new Effect(0, "Speed", 2, 0.75f)
             }),
             new Ability("Prime Protection", "Inspire the surrounding teammate. Teammate near Optimus Prime gain shield capacity equals to 66.5% Optimus Prime's max HP, last for 10 seconds", 2, 0.65f, 30, 30, true, 10, 1, 60, 2500),
             new Ability("Leader's Inspiration", "Teammate near Optimus Prime can have extra 12% attack", 3, 0.12f, 30, 30, true, 0, 0, 0, 0),
             new Ability("", "Boost speed by 10%. Deal 175% damage when running into enemy", 0, 1.75f, 0, 0, false, 8, 1, 13, 1000)
         }));
-        Transformers.Add(new Transformer("Megatron", 3000, 4000, 300, 0.25f, 1.3f, 350, 1.7f, 50, 70, 325, 30, 25, true, 2, new Ability[]
+        Transformers.Add(new Transformer("Megatron", 3000, 4000, 300, 0.25f, 1.3f, 350, 1.7f, 50, 70, 325, 30, 25, true, 2, 1, new Ability[]
         {
-            new Ability("", "", 0, 1.76f, 15, 15, true, 0, 1, 20, 1100),
+            new Ability("", "", 0, 1.76f, 15, 15, true, 0, 1, 20, 1100, new List<Effect>() {
+                new Effect(1, "Disable", 1.75f, 0)
+            }),
             new Ability("", "", 0, 2.86f, 40, 20, false, 0, 1, 30, 1150),
-            new Ability("", "", 0, 0.75f, 50, 50, false, 5, 1, 40, 1900),
+            new Ability("", "", 0, 0.75f, 50, 50, false, 5, 1, 40, 1900, new List<Effect> {
+                new Effect(0, "Speed", 0.5f, 0.6f)
+            }),
             new Ability("", "", 0, 2.5f, 0, 0, false, 3f, 0, 0, 0),
             new Ability()
         }));
@@ -83,5 +89,10 @@ public class SaveData : MonoBehaviour
         Devices.Add("Overload Core", new Device("Overload Core", 2, 3, 0, 0, 0, 0, 3000, 1, 1, 1, 0, 0, 1.1f, 0, 1, false, 2000, new List<string> { "Combined Power Core", "Smart Overloader" }));
         Devices.Add("OverloadedOverloader", new Device("OverloadedOverloader", 5, 4, 0, 0, 0, 0, 0, 1.65f, 1, 1.5f, 0, 0, 1, 0, 1, true, 0));
         SaveSystem.SaveDevices(Devices);
+
+        Dictionary<string, float> Heights = new Dictionary<string, float>();
+        Heights.Add("OptimusPrime", 1.6f);
+        Heights.Add("Megatron", 3.28f);
+        SaveSystem.SaveHeights(Heights);
     }
 }

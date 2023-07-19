@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Localization;
 
 public class OptimusCharacterControl : PlayerCharacterControl
 {
@@ -29,6 +30,9 @@ public class OptimusCharacterControl : PlayerCharacterControl
 
     protected override void Start()
     {
+        if (MainMenu.instance != null) {
+            return;
+        }
         base.Start();
         speed_ = 30;
         vehicle_speed_ = 50;
@@ -42,7 +46,11 @@ public class OptimusCharacterControl : PlayerCharacterControl
 
     private void Update()
     {
-        if(skill_indicator_ != null)
+        if (MainMenu.instance != null) {
+            return;
+        }
+
+        if (skill_indicator_ != null)
         {
             Camera camera_ = GameManager.PlayerCamera;
             Ray ray = camera_.ScreenPointToRay(Input.mousePosition);
@@ -299,8 +307,9 @@ public class OptimusCharacterControl : PlayerCharacterControl
             {
                 if (obj.GetComponent<PlayerControl>() == null)
                     continue;
-                obj.transform.GetChild(0).GetChild(0).gameObject.AddComponent<BuffTrigger>();
-                obj.transform.GetChild(0).GetChild(0).gameObject.GetComponent<BuffTrigger>().Set("Damage", 3, 0.93f);
+                BuffTrigger t = obj.transform.GetChild(0).GetChild(0).gameObject.AddComponent<BuffTrigger>();
+                Effect e = abilities_[0].getEffects()[0];
+                t.Set(e.getName(), e.getTime(), e.getValue());
             }
         }
         if(trigger == 2)
@@ -309,8 +318,9 @@ public class OptimusCharacterControl : PlayerCharacterControl
             {
                 if (obj.GetComponent<PlayerControl>() == null)
                     continue;
-                obj.transform.GetChild(0).GetChild(0).gameObject.AddComponent<BuffTrigger>();
-                obj.transform.GetChild(0).GetChild(0).gameObject.GetComponent<BuffTrigger>().Set("Speed", 2, 0.75f);
+                BuffTrigger t = obj.transform.GetChild(0).GetChild(0).gameObject.AddComponent<BuffTrigger>();
+                Effect e = abilities_[1].getEffects()[0];
+                t.Set(e.getName(), e.getTime(), e.getValue());
             }
         }
     }
@@ -367,4 +377,40 @@ public class OptimusCharacterControl : PlayerCharacterControl
         GetComponent<Collider>().enabled = true;
         gameObject.layer = 6;
     }*/
+
+    public override string getSkillDescription(int indx)
+    {
+        if (indx < 0 || indx > 4)
+            return "";
+
+        LocalizedString str = new LocalizedString();
+        str.TableReference = "CharacterSkill";
+
+        Ability[] a = MainMenu.instance.getTransformer(name.Replace("Model", "").Replace("(Clone)", "")).getAbilities();
+
+        if (indx == 0) {
+            str.TableEntryReference = "OptimusPrime0";
+            return string.Format(str.GetLocalizedString(), a[0].getRate() * 100, (1 - a[0].getEffects()[0].getValue()) * 100, a[0].getEffects()[0].getTime(), a[0].getCD(), a[0].getEnergy());
+        }
+
+        else if (indx == 1) {
+            str.TableEntryReference = "OptimusPrime1";
+            return string.Format(str.GetLocalizedString(), a[1].getRate() * 100, (1 - a[1].getEffects()[0].getValue()) * 100, a[1].getEffects()[0].getTime(), a[1].getCD(), a[1].getEnergy());
+        }
+
+        else if (indx == 2) {
+            str.TableEntryReference = "OptimusPrime2";
+            return string.Format(str.GetLocalizedString(), a[2].getRate() * 100, a[2].getDuration(), a[2].getCD(), a[2].getEnergy());
+        }
+
+        else if (indx == 3) {
+            str.TableEntryReference = "OptimusPrime3";
+            return string.Format(str.GetLocalizedString(), a[3].getRate() * 100);
+        }
+
+        else {
+            str.TableEntryReference = "OptimusPrime4";
+            return str.GetLocalizedString();
+        }
+    }
 }

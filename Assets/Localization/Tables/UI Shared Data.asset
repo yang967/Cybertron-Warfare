@@ -55,6 +55,58 @@ MonoBehaviour:
     m_Key: Exit
     m_Metadata:
       m_Items: []
+  - m_Id: 7541040785321984
+    m_Key: Setting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7542345415192576
+    m_Key: Characters
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7655698867351552
+    m_Key: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7657589051420672
+    m_Key: Autobot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7657638800060416
+    m_Key: Decepticon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7685194559451136
+    m_Key: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9478867391541248
+    m_Key: Skill1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9478921061855232
+    m_Key: Skill2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9478935469289472
+    m_Key: Skill3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9479005581275136
+    m_Key: Passive
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9479050485493760
+    m_Key: Vehicle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10057913036894208
+    m_Key: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10071564988903424
+    m_Key: Enter
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

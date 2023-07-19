@@ -37,6 +37,21 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a331f335c876def42af6877d8fe9ed94
+    m_Address: Assets/Localization/Tables/CharacterName Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: badf5e29a0e0b9a4f94720037a6f870c
+    m_Address: Assets/Localization/Tables/Language Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe03f11a9757fbb4798f5e82bfe1eb66
+    m_Address: Assets/Localization/Tables/CharacterSkill Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 67fb01c3d2212894c88ab25bc34b8e0b, type: 2}
   m_SchemaSet:

@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: CharacterSkill Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: CharacterSkill
+  m_TableCollectionNameGuidString: fe03f11a9757fbb4798f5e82bfe1eb66
+  m_Entries:
+  - m_Id: 12465401856
+    m_Key: OptimusPrime0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1878830018560
+    m_Key: OptimusPrime1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2385162203136
+    m_Key: OptimusPrime2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3850878513152
+    m_Key: OptimusPrime3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15846428569600
+    m_Key: OptimusPrime4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27625829363712
+    m_Key: Megatron0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29302011654144
+    m_Key: Megatron1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30054255882240
+    m_Key: Megatron2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32150749376512
+    m_Key: Megatron3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32965094469632
+    m_Key: Megatron4
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 274525356620513311
+  references:
+    version: 2
+    RefIds:
+    - rid: 274525356620513311
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1689583366828

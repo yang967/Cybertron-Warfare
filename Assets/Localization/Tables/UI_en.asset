@@ -58,6 +58,58 @@ MonoBehaviour:
     m_Localized: Exit
     m_Metadata:
       m_Items: []
+  - m_Id: 7541040785321984
+    m_Localized: Setting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7542345415192576
+    m_Localized: Characters
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7655698867351552
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7657589051420672
+    m_Localized: Autobot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7657638800060416
+    m_Localized: Decepticon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7685194559451136
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9478867391541248
+    m_Localized: Skill 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9478921061855232
+    m_Localized: Skill 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9478935469289472
+    m_Localized: Skill 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9479005581275136
+    m_Localized: Passive
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9479050485493760
+    m_Localized: Vehicle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10057913036894208
+    m_Localized: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10071564988903424
+    m_Localized: Enter
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

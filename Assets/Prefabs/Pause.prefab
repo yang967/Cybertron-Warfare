@@ -880,8 +880,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6739019626280522351}
         m_TargetAssemblyTypeName: UIFunction, Assembly-CSharp
-        m_MethodName: Quit
-        m_Mode: 1
+        m_MethodName: SwitchScene
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1032,7 +1032,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

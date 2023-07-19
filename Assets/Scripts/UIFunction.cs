@@ -26,4 +26,17 @@ public class UIFunction : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void RefreshCharacterBar(int team)
+    {
+        MainMenu.instance.RefreshCharacterBar(team);
+    }
+
+    public void RefreshSkill(int skill)
+    {
+        if (MainMenu.instance == null)
+            return;
+
+        MainMenu.instance.RefreshSkillDescription(skill);
+    }
 }

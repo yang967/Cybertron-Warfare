@@ -83,6 +83,10 @@ MonoBehaviour:
     m_Key: price
     m_Metadata:
       m_Items: []
+  - m_Id: 36404088920797184
+    m_Key: energy
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

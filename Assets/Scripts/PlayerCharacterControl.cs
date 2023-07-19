@@ -29,6 +29,13 @@ public class PlayerCharacterControl : AbstractSkill
     private void Awake()
     {
         triggers = new List<TriggerComponent>();
+
+        if(GameManager.instance != null ) {
+            skill1 = GameManager.instance.getSkillComponent(0);
+            skill2 = GameManager.instance.getSkillComponent(1);
+            skill3 = GameManager.instance.getSkillComponent(2);
+        }
+
     }
 
 
@@ -74,6 +81,10 @@ public class PlayerCharacterControl : AbstractSkill
 
     protected virtual void FixedUpdate()
     {
+        if (MainMenu.instance != null) {
+            return;
+        }
+
         Map.SetPosition(transform.parent.parent.gameObject, icon);
 
         if(RespawnCD.activeSelf) {
@@ -292,5 +303,10 @@ public class PlayerCharacterControl : AbstractSkill
             return false;
         control.SetEnergy(abilities[2].getEnergy() * 10);
         return true;
+    }
+
+    public virtual string getSkillDescription(int indx)
+    {
+        return "";
     }
 }

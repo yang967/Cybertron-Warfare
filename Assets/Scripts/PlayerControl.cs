@@ -44,11 +44,6 @@ public class PlayerControl : Control
         currency = GameManager.INITIAL_CURRENCY;
         backpack_count = 0;
         currency = GameManager.INITIAL_CURRENCY;
-        if (detail != null)
-        {
-            detail.SetLevel(level);
-            detail.SetCurrency(currency);
-        }
         BuffAmount = new Dictionary<string, float>();
         Buffs = new HashSet<string>();
         BuffAmount.Add("Damage", 1);
@@ -68,7 +63,14 @@ public class PlayerControl : Control
     protected override void Start()
     {
         base.Start();
+        detail = GameManager.instance.DetailPanel;
         attack.SetAttackRate(character.getAttackRate() * BuffAmount["AttackRate"]);
+
+
+        if (detail != null) {
+            detail.SetLevel(level);
+            detail.SetCurrency(currency);
+        }
 
         StartCoroutine(HPRegen());
         StartCoroutine(EnergyRegen());
@@ -391,6 +393,7 @@ public class PlayerControl : Control
 
     public void BuyDevice(string name)
     {
+        Debug.Log("buy");
         Device d = GameManager.instance.getDevice(name);
         if (currency < d.getPrice())
         {
@@ -535,6 +538,7 @@ public class PlayerControl : Control
         else
         {
             Device d = GameManager.instance.getDevice(Backpack[i]);
+            Backpack[i] = "";
             currency += d.getPrice();
         }
 
@@ -599,5 +603,10 @@ public class PlayerControl : Control
     public float GetEnergy()
     {
         return character.getEnergy();
+    }
+
+    public void IsPlayer()
+    {
+        isPlayer = true;
     }
 }

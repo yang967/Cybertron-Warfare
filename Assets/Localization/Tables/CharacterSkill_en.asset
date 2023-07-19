@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: CharacterSkill_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: fe03f11a9757fbb4798f5e82bfe1eb66, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 12465401856
+    m_Localized: 'Optimus Prime jump forward and fire 3 times in the air. Each fire
+      deal {0:f2}% damage, and decrease {1:f2}% damage output for each hit enemy
+      hero, last {2:f2} seconds.
+
+      CD: {3:f2}s
+
+      Energy Consumption: {4:f2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1878830018560
+    m_Localized: 'Opmius Prime deal a melee attack with his axe. Deal {0:f2}% damage.
+      Decrease {1:f2}% moving speed for each hit enemy hero, last {2:f2} seconds.
+
+      CD:
+      {3:f2}s
+
+      Energy Consumption: {4:f2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2385162203136
+    m_Localized: 'Opmius Prime inpires friendly heros nearby. Optimus Prime and all
+      nearby friendly hero gain shield with capacity of {0:f2}% Optimus Prime''s
+      max HP, last {1:f2} seconds.
+
+      CD: {2:f2}s
+
+      Energy Consumption:
+      {3:f2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3850878513152
+    m_Localized: 'Passive Skill:
+
+      Optimus Prime and nearby friendly heros gain
+      extra {0:f2}% damage'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15846428569600
+    m_Localized: 'Vehicle:
+
+      Optimus Prime transform into vehicle form. Greatly
+      increase speed, and he can use Highway to do fast travel (Currently using car
+      vehicle ability. Truck vehicle ability is still in developing)'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27625829363712
+    m_Localized: 'Megatron jump forward and use his energy mace to crush the target
+      area. Deal {0:f2}% damage, and disable the hit enemy heros by {1:f2} seconds
+      (Disable effect is still in development).
+
+      CD: {2:f2}s
+
+      Energy
+      Consumption: {3:f2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29302011654144
+    m_Localized: 'Megatron charge his fusion cannon to the target direction for 1.5
+      seconds. Deal {0:f2}% damage after launch.
+
+      CD: {1:f2}s
+
+      Energy
+      Consumption: {2:f2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30054255882240
+    m_Localized: 'Megatron blast the nearby area with his fusion cannon. Last for
+      5 seconds, deal {0:f2}% damage in total. Decrease the affected enemy heros''
+      speed by  {1:f2}%, last for {2:f2} seconds (get hit by this skill will refresh
+      this slow down effect. This effect is still in developing)
+
+      CD: {3:f2}s
+
+      Energy
+      Consumption {4:f2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32150749376512
+    m_Localized: 'Passive skill:
+
+      Megatron''s normal attack can deal more extra
+      damage for longer time from the last normal attack. He can deal at most {1:f2}%
+      damage when wait for {0:f2} seconds'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32965094469632
+    m_Localized: 'Vehicle:
+
+      Megatron transform into tank. Decrease moving speed.
+      Normal attack delay increase {0:f2} times. Normal attack damage increased by
+      {1:f2}% (Passive skill do not work in vehicle form}.'
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

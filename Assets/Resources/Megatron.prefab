@@ -256,10 +256,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health_bar_: {fileID: 8994044228112627690}
-  team: 0
+  team: 1
   lock_control: 0
   detail: {fileID: 0}
-  isPlayer: 1
+  isPlayer: 0
   Highlight: {fileID: 8431242797300708254}
 --- !u!1 &6193953052412867702
 GameObject:

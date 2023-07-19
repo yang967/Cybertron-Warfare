@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Localization;
 using UnityEngine.VFX;
 
 public class MegatronCharacterControl : PlayerCharacterControl
@@ -39,6 +40,9 @@ public class MegatronCharacterControl : PlayerCharacterControl
     // Start is called before the first frame update
     protected override void Start()
     {
+        if(MainMenu.instance != null) {
+            return;
+        }
         base.Start();
         animator_ = GetComponent<Animator>();
         control = transform.parent.parent.GetComponent<PlayerControl>();
@@ -59,7 +63,10 @@ public class MegatronCharacterControl : PlayerCharacterControl
     // Update is called once per frame
     void Update()
     {
-        if(skill_indicating == 1)
+        if (MainMenu.instance != null) {
+            return;
+        }
+        if (skill_indicating == 1)
         {
             Camera camera_ = GameManager.PlayerCamera;
             Ray ray = camera_.ScreenPointToRay(Input.mousePosition);
@@ -386,5 +393,36 @@ public class MegatronCharacterControl : PlayerCharacterControl
     {
         if (other.gameObject.layer == 13)
             in_wall = false;
+    }
+
+    public override string getSkillDescription(int indx)
+    {
+        if (indx < 0 || indx > 4)
+            return "";
+
+        Ability[] a = MainMenu.instance.getTransformer("Megatron").getAbilities();
+        LocalizedString str = new LocalizedString();
+        str.TableReference = "CharacterSkill";
+
+        if(indx == 0) {
+            str.TableEntryReference = "Megatron0";
+            return string.Format(str.GetLocalizedString(), a[0].getRate() * 100, a[0].getEffects()[0].getTime(), a[0].getCD(), a[0].getEnergy());
+        }
+        else if(indx == 1) {
+            str.TableEntryReference = "Megatron1";
+            return string.Format(str.GetLocalizedString(), a[1].getRate() * 100, a[1].getCD(), a[1].getEnergy());
+        }
+        else if(indx == 2) {
+            str.TableEntryReference = "Megatron2";
+            return string.Format(str.GetLocalizedString(), a[2].getRate() * a[2].getDuration() * 100, (1 - a[2].getEffects()[0].getValue()) * 100, a[2].getEffects()[0].getTime(), a[2].getCD(), a[2].getEnergy());
+        }
+        else if(indx == 3) {
+            str.TableEntryReference = "Megatron3";
+            return string.Format(str.GetLocalizedString(), a[3].getDuration(), (a[3].getRate() - 1) * 100);
+        }
+        else {
+            str.TableEntryReference = "Megatron4";
+            return string.Format(str.GetLocalizedString(), TankController.getFireRate(), TankController.getDamage() * 100);
+        }
     }
 }

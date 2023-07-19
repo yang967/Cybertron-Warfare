@@ -60,6 +60,31 @@ public static class SaveSystem
         }
     }
 
+    public static void SaveHeights(Dictionary<string, float> dict)
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = "./Assets/Files/MMHeights.moba";
+        FileStream stream = new FileStream(path, FileMode.Create);
+        formatter.Serialize(stream, dict);
+        stream.Close();
+    }
+
+    public static Dictionary<string, float> LoadHeights()
+    {
+        string path = "./Assets/Files/MMHeights.moba";
+        if (File.Exists(path)) {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+            Dictionary<string, float> result = formatter.Deserialize(stream) as Dictionary<string, float>;
+            stream.Close();
+            return result;
+        }
+        else {
+            Debug.Log("Error! Transformers file NOT FOUND!");
+            return null;
+        }
+    }
+
     public static void EncryptDictionary(Dictionary<string, int> dict, string name)
     {
         BinaryFormatter formatter = new BinaryFormatter();
