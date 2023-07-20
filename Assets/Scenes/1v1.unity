@@ -3113,6 +3113,7 @@ MonoBehaviour:
   height_: 90
   speed_: 70
   FixMode: 0
+  MapCam: {fileID: 0}
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0

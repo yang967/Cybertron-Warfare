@@ -8,6 +8,8 @@ public class CameraControl : MonoBehaviour
     [SerializeField] float speed_ = 70;
     [SerializeField] bool FixMode = false;
 
+    [SerializeField] GameObject MapCam;
+
     void Awake()
     {
         transform.position = new Vector3(transform.position.x, height_, transform.position.z);
@@ -30,6 +32,25 @@ public class CameraControl : MonoBehaviour
             Moveright();
         if (Input.mousePosition.x <= 5)
             Moveleft();
+
+        float x = transform.position.x;
+        float z = transform.position.z;
+
+        Vector3 PlayerMiddle = GameManager.PlayerMiddlePosition;
+        Vector3 Bound = GameManager.instance.getCameraBound();
+        float x_bound = Bound.x / 2;
+        float z_bound = Bound.z / 2;
+        if (x + PlayerMiddle.x < -x_bound)
+            x = -x_bound - PlayerMiddle.x;
+        else if (x + PlayerMiddle.x > x_bound)
+            x = x_bound - PlayerMiddle.x;
+
+        if(z + PlayerMiddle.z < -z_bound) 
+            z = -z_bound - PlayerMiddle.z;
+        else if(z + PlayerMiddle.z > z_bound)
+            z = z_bound - PlayerMiddle.z;
+
+        transform.position = new Vector3(x, height_, z);
     }
 
     void Moveforward()

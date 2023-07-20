@@ -73,12 +73,14 @@ public class SettingPanel : MonoBehaviour, MenuCall
         language.ClearOptions();
         language.AddOptions(options);
         StartCoroutine(setLocales(indx));*/
-        OnValueChange(dropdown.value);
+        int i = languages.IndexOf(options[dropdown.value]);
+        OnValueChange(i);
     }
 
     public void OnValueChange(int i)
     {
-        int indx = languages.IndexOf(options[i]);
+        //int indx = languages.IndexOf(options[i]);
+        int indx = i;
         options = new List<string>(languages);
         string tmp = options[0];
         options[0] = options[indx];
@@ -87,7 +89,7 @@ public class SettingPanel : MonoBehaviour, MenuCall
         language.AddOptions(options);
         StartCoroutine(setLocales(indx));
 
-        Data.Language = i;
+        Data.Language = indx;
     }
 
     public void OnClick()

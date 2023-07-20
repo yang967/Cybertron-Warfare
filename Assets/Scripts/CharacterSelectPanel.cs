@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
 public class CharacterSelectPanel : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI text;
     [SerializeField] RawImage image;
+    [SerializeField] GameObject str;
 
     int team;
     string cname;
@@ -17,11 +19,7 @@ public class CharacterSelectPanel : MonoBehaviour
     {
         this.team = team;
         cname = name;
-        LocalizedString str = new LocalizedString();
-        str.TableReference = "CharacterName";
-        str.TableEntryReference = cname;
-
-        text.text = str.GetLocalizedString();
+        str.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = cname;
 
         Texture tex = Resources.Load(name + "Image") as Texture;
         if(tex != null )

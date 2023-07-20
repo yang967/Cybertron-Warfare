@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Localization.Settings;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -108,6 +109,8 @@ public class GameManager : MonoBehaviour
     public const float ENERGY_REGEN = 10;
     public const float ENERGY_REGEN_DELAY = 3;
 
+    public readonly static Vector3 ONE_VS_ONE_CAMERA_AREA = new Vector3(573.2f, 0, 1731.6f);
+
     Dictionary<string, int> transformers_dict_;
     List<Transformer> transformers_;
     Dictionary<string, Device> devices_;
@@ -194,6 +197,7 @@ public class GameManager : MonoBehaviour
         }
         camera_obj_.transform.position = new Vector3(Player.transform.position.x + PlayerMiddlePosition.x, camera_obj_.transform.position.y, Player.transform.position.z + PlayerMiddlePosition.z);
         StartCoroutine(setLocales(Data.Language));
+        Debug.Log(Data.Language);
     }
 
     // Update is called once per frame
@@ -396,5 +400,13 @@ public class GameManager : MonoBehaviour
         if (skill == 1) return skill2;
         if (skill == 2) return skill3;
         else return vehicleskill;
+    }
+
+    public Vector3 getCameraBound()
+    {
+        int sc = SceneManager.GetActiveScene().buildIndex;
+        if (sc == 1)
+            return ONE_VS_ONE_CAMERA_AREA;
+        return new Vector3();
     }
 }

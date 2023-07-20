@@ -5,11 +5,13 @@ using UnityEngine.UIElements;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
 
 public class CharacterPanel : MonoBehaviour
 {
     [SerializeField] RawImage image;
     [SerializeField] TextMeshProUGUI text;
+    [SerializeField] GameObject str;
 
     string cname = "";
 
@@ -19,10 +21,7 @@ public class CharacterPanel : MonoBehaviour
         Texture tex = Resources.Load("Image/" + name) as Texture;
         image.texture = tex;
 
-        LocalizedString str = new LocalizedString();
-        str.TableReference = "CharacterName";
-        str.TableEntryReference = name;
-        text.text = str.GetLocalizedString();
+        str.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = name;
     }
 
     public void OnClick()

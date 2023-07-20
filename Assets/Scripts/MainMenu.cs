@@ -28,6 +28,7 @@ public class MainMenu : MonoBehaviour
 
         List<Locale> locales = LocalizationSettings.AvailableLocales.Locales;
         if (Data.Language == -1) {
+            Debug.Log("empty");
             int indx = 0;
             for (int i = 0; i < locales.Count; i++) {
                 if (locales[i] == LocalizationSettings.SelectedLocale) {
@@ -37,8 +38,9 @@ public class MainMenu : MonoBehaviour
             }
             Data.Language = indx;
         }
-        else
+        else {
             StartCoroutine(SetLocale(Data.Language));
+        }
 
         transformers = SaveSystem.LoadCh();
         transformersDict = SaveSystem.DecryptDictionary("TransformerDictionary.moba");
@@ -131,6 +133,7 @@ public class MainMenu : MonoBehaviour
     IEnumerator SetLocale(int i)
     {
         yield return LocalizationSettings.InitializationOperation;
+
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[i];
 
         if (SettingPanel.instance != null)

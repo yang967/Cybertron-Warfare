@@ -15,7 +15,8 @@ public class Data
     }
 
     public static int Language {
-        set { PlayerPrefs.SetInt("language", value); }
+        set { PlayerPrefs.SetInt("language", value);
+        }
         get { return PlayerPrefs.GetInt("language", -1); }
     }
 }
